@@ -1,0 +1,45 @@
+[gd_scene format=3 uid="uid://by00covma4ayu"]
+
+[ext_resource type="Script" uid="uid://dy6patp6qbhvh" path="res://Assets/box_dialogue.gd" id="1_khk8v"]
+[ext_resource type="Texture2D" uid="uid://3chy2xbo7iso" path="res://Textures/Mini FX, Items & UI/Mini UI/Dialog_Box(16 x 16).png" id="1_ouonn"]
+[ext_resource type="FontFile" uid="uid://bm87lyt7lospd" path="res://at01.ttf" id="2_gd2g1"]
+
+[node name="BoxDialogue" type="MarginContainer" unique_id=1813870604]
+offset_right = 9.0
+offset_bottom = 15.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+script = ExtResource("1_khk8v")
+
+[node name="Texture" type="NinePatchRect" parent="." unique_id=983757645]
+layout_mode = 2
+texture = ExtResource("1_ouonn")
+region_rect = Rect2(0, 0, 16, 16)
+patch_margin_left = 4
+patch_margin_top = 4
+patch_margin_right = 4
+patch_margin_bottom = 4
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+
+[node name="LabelMargin" type="MarginContainer" parent="." unique_id=1273319188]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 4
+
+[node name="Label" type="Label" parent="LabelMargin" unique_id=1943167813]
+layout_mode = 2
+size_flags_vertical = 1
+theme_override_colors/font_color = Color(0.22352941, 0.22352941, 0.22352941, 1)
+theme_override_fonts/font = ExtResource("2_gd2g1")
+theme_override_font_sizes/font_size = 16
+text = "oi hfgh"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LetterTimerDisplay" type="Timer" parent="." unique_id=703969791]
+one_shot = true
+
+[connection signal="timeout" from="LetterTimerDisplay" to="." method="_on_letter_timer_display_timeout"]

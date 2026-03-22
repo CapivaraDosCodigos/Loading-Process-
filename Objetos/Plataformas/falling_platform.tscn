@@ -1,0 +1,65 @@
+[gd_scene format=3 uid="uid://dwpp3kntohdrw"]
+
+[ext_resource type="Texture2D" uid="uid://00rqu1cs44kl" path="res://Textures/Seasonal Tilesets/5 - Misc. universal tiles/Blocos/falling-platform-brown.png" id="1_gpfpu"]
+[ext_resource type="Script" uid="uid://c2bxv6jhxbmxx" path="res://Objetos/Plataformas/falling_platform.gd" id="1_ssm58"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gpfpu"]
+size = Vector2(32, 16)
+
+[sub_resource type="Animation" id="Animation_ssm58"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Texture:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_gpfpu"]
+resource_name = "shake"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Texture:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(2, 0), Vector2(0, 0), Vector2(-2, 0), Vector2(0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ssm58"]
+_data = {
+&"RESET": SubResource("Animation_ssm58"),
+&"shake": SubResource("Animation_gpfpu")
+}
+
+[node name="FallingPlatform" type="AnimatableBody2D" unique_id=524593706]
+collision_layer = 2
+collision_mask = 13
+script = ExtResource("1_ssm58")
+
+[node name="Texture" type="Sprite2D" parent="." unique_id=1215936485]
+texture = ExtResource("1_gpfpu")
+
+[node name="Collision" type="CollisionShape2D" parent="." unique_id=2146814960]
+visible = false
+shape = SubResource("RectangleShape2D_gpfpu")
+one_way_collision = true
+
+[node name="RespawnTimer" type="Timer" parent="." unique_id=904305156]
+
+[node name="Animation" type="AnimationPlayer" parent="." unique_id=1730943133]
+libraries/ = SubResource("AnimationLibrary_ssm58")
+
+[connection signal="timeout" from="RespawnTimer" to="." method="_on_respawn_timer_timeout"]
+[connection signal="animation_finished" from="Animation" to="." method="_on_animation_animation_finished"]

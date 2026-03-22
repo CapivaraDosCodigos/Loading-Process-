@@ -1,0 +1,213 @@
+[gd_scene format=3 uid="uid://d15ddxvbvouva"]
+
+[ext_resource type="Texture2D" uid="uid://ypj6dukwwnjk" path="res://Textures/Mini Pixel Pack 1/5 - Ant/Hurt (16 x 16).png" id="1_an6q6"]
+[ext_resource type="Script" uid="uid://cplihoc3hmqpv" path="res://Entities/Players/player2D.gd" id="1_t38ms"]
+[ext_resource type="Texture2D" uid="uid://dbvwudfa3ync0" path="res://Textures/Mini Pixel Pack 1/5 - Ant/Idle (16 x 16).png" id="1_ww0jn"]
+[ext_resource type="Shader" uid="uid://bwb275new2mg0" path="res://Shaders/Testes/offlineScreen.gdshader" id="2_hj1c0"]
+[ext_resource type="Texture2D" uid="uid://gsxmffowcss6" path="res://Textures/Mini Pixel Pack 1/5 - Ant/Blink (16 x 16).png" id="2_vweq0"]
+[ext_resource type="Texture2D" uid="uid://ch1ltntpr2w4s" path="res://Textures/Mini Pixel Pack 1/5 - Ant/Run (16 x 16).png" id="3_vweq0"]
+[ext_resource type="Texture2D" uid="uid://la6siys2w8cv" path="res://Textures/Mini Pixel Pack 1/5 - Ant/Jump (16 x 16).png" id="4_t38ms"]
+[ext_resource type="Shader" uid="uid://cfqgfgk64lywe" path="res://Shaders/Shaders_Transition_New.gdshader" id="8_x44r4"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_x44r4"]
+shader = ExtResource("2_hj1c0")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_761t5"]
+shader = ExtResource("8_x44r4")
+shader_parameter/screen_width = 640.0
+shader_parameter/screen_height = 360.0
+shader_parameter/center = Vector2(0.5, 0.5)
+shader_parameter/player = Vector2(0.5, 0.5)
+shader_parameter/progress = 1.0
+shader_parameter/pixel_size = 15.0
+shader_parameter/circle_size = 1.5
+shader_parameter/curtains = 1.0
+shader_parameter/type = 6
+
+[sub_resource type="Animation" id="Animation_761t5"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Efeitos/Invertido:material:shader_parameter/progress")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.0]
+}
+
+[sub_resource type="Animation" id="Animation_x44r4"]
+resource_name = "Time Stop"
+length = 2.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Efeitos/Invertido:material:shader_parameter/progress")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2.5),
+"transitions": PackedFloat32Array(1, 0.01780282),
+"update": 0,
+"values": [1.0, 0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_761t5"]
+_data = {
+&"RESET": SubResource("Animation_761t5"),
+&"Time Stop": SubResource("Animation_x44r4")
+}
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t38ms"]
+atlas = ExtResource("1_an6q6")
+region = Rect2(2, 0, 12, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hj1c0"]
+atlas = ExtResource("1_an6q6")
+region = Rect2(19, 0, 12, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_an6q6"]
+atlas = ExtResource("3_vweq0")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1des2"]
+atlas = ExtResource("3_vweq0")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_u36tg"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t38ms")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hj1c0")
+}],
+"loop": true,
+"name": &"Hurt",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_ww0jn")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_vweq0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("1_ww0jn")
+}, {
+"duration": 1.0,
+"texture": ExtResource("1_ww0jn")
+}, {
+"duration": 1.0,
+"texture": ExtResource("1_ww0jn")
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_t38ms")
+}],
+"loop": true,
+"name": &"Jump",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_an6q6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1des2")
+}],
+"loop": true,
+"name": &"Run",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_t38ms"]
+size = Vector2(11, 13)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hj1c0"]
+size = Vector2(13, 11)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_x44r4"]
+size = Vector2(11, 2)
+
+[node name="Player" type="CharacterBody2D" unique_id=1760291039]
+collision_mask = 86
+script = ExtResource("1_t38ms")
+metadata/_custom_type_script = "uid://cplihoc3hmqpv"
+
+[node name="Efeitos" type="CanvasLayer" parent="." unique_id=31342129]
+layer = 10
+
+[node name="Base" type="ColorRect" parent="Efeitos" unique_id=1363047835]
+visible = false
+material = SubResource("ShaderMaterial_x44r4")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Invertido" type="ColorRect" parent="Efeitos" unique_id=977001203]
+material = SubResource("ShaderMaterial_761t5")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Animator" type="AnimationPlayer" parent="." unique_id=403032220]
+libraries/ = SubResource("AnimationLibrary_761t5")
+
+[node name="RemoteCamera" type="RemoteTransform2D" parent="." unique_id=906894696]
+
+[node name="Animation" type="AnimatedSprite2D" parent="." unique_id=323388771]
+sprite_frames = SubResource("SpriteFrames_u36tg")
+animation = &"Run"
+autoplay = "Idle"
+frame_progress = 0.92939174
+
+[node name="Collision" type="CollisionShape2D" parent="." unique_id=1258751320]
+position = Vector2(0.5, 1.5)
+shape = SubResource("RectangleShape2D_t38ms")
+
+[node name="hurtbox" type="Area2D" parent="." unique_id=1264091571]
+collision_layer = 0
+collision_mask = 4
+
+[node name="Collision2" type="CollisionShape2D" parent="hurtbox" unique_id=1439325108]
+position = Vector2(0.5, -0.5)
+shape = SubResource("RectangleShape2D_hj1c0")
+debug_color = Color(0.93573457, 0.15802479, 0.50309455, 0.41960785)
+
+[node name="RayRight" type="RayCast2D" parent="." unique_id=1648700413]
+modulate = Color(0.713717, 0.86472684, 0.52559406, 0.41960785)
+position = Vector2(6, 4)
+target_position = Vector2(2, 0)
+collision_mask = 4
+
+[node name="RayLeft" type="RayCast2D" parent="." unique_id=1900847485]
+modulate = Color(0.713717, 0.86472684, 0.52559406, 0.41960785)
+position = Vector2(-5, 4)
+target_position = Vector2(-2, 0)
+collision_mask = 4
+
+[node name="HeadArea" type="Area2D" parent="." unique_id=2069516079]
+collision_layer = 0
+collision_mask = 64
+
+[node name="Collision3" type="CollisionShape2D" parent="HeadArea" unique_id=562682951]
+position = Vector2(0.5, -6)
+shape = SubResource("RectangleShape2D_x44r4")
+debug_color = Color(1, 1, 1, 0.41960785)
+
+[connection signal="body_entered" from="hurtbox" to="." method="_on_hurtbox_body_entered"]
+[connection signal="body_entered" from="HeadArea" to="." method="_on_head_area_body_entered"]

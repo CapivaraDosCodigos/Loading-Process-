@@ -1,0 +1,85 @@
+[gd_scene format=3 uid="uid://xskjypcy8mqv"]
+
+[ext_resource type="Script" uid="uid://hyh0dbmb4pg2" path="res://Entities/Inimigos/robo_pumpkin.gd" id="1_wgswt"]
+[ext_resource type="Texture2D" uid="uid://bv5jqwcnjvvft" path="res://Textures/Sprite Pack 2/4 - Robo Pumpkin/Safe/Hurt (16 x 16).png" id="2_wgswt"]
+[ext_resource type="Texture2D" uid="uid://dhtgrbkfjeqog" path="res://Textures/Sprite Pack 2/4 - Robo Pumpkin/Safe/Standing (16 x 16).png" id="3_cnvmn"]
+[ext_resource type="Texture2D" uid="uid://bcxyu6k7frqu" path="res://Textures/Sprite Pack 2/4 - Robo Pumpkin/Safe/Walking (16 x 16).png" id="4_a63bg"]
+[ext_resource type="PackedScene" uid="uid://dfcww07k3b188" path="res://Entities/Assets/hitbox.tscn" id="5_cnvmn"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wgswt"]
+atlas = ExtResource("4_a63bg")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cnvmn"]
+atlas = ExtResource("4_a63bg")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_1kxlt"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_wgswt")
+}],
+"loop": false,
+"name": &"Hurt",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_cnvmn")
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wgswt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cnvmn")
+}],
+"loop": true,
+"name": &"Walking",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_wgswt"]
+radius = 4.0
+height = 12.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cnvmn"]
+size = Vector2(10, 2)
+
+[node name="Robo Pumpkin" type="CharacterBody2D" unique_id=1037510275 groups=["Inimigos"]]
+collision_layer = 4
+collision_mask = 7
+script = ExtResource("1_wgswt")
+
+[node name="Animated" type="AnimatedSprite2D" parent="." unique_id=187277772]
+sprite_frames = SubResource("SpriteFrames_1kxlt")
+animation = &"Walking"
+autoplay = "Walking"
+
+[node name="Collision" type="CollisionShape2D" parent="." unique_id=359271650]
+position = Vector2(0, 3)
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_wgswt")
+
+[node name="VisibleOnScreenEnabler2D" type="VisibleOnScreenEnabler2D" parent="." unique_id=859881714]
+rect = Rect2(-7, -7, 14, 15)
+show_rect = false
+
+[node name="Wall_detector" type="RayCast2D" parent="." unique_id=1247649078]
+position = Vector2(0, 1)
+target_position = Vector2(-7, 0)
+collision_mask = 6
+
+[node name="Hitbox" parent="." unique_id=1128202378 instance=ExtResource("5_cnvmn")]
+
+[node name="Collision2" type="CollisionShape2D" parent="Hitbox" unique_id=1436478941]
+position = Vector2(0, -3)
+shape = SubResource("RectangleShape2D_cnvmn")
+debug_color = Color(0.9740793, 0, 0.43279848, 0.41960785)
+
+[connection signal="animation_finished" from="Animated" to="." method="_on_animated_animation_finished"]

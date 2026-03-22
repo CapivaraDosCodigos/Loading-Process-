@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://dah8su763jcgc"]
+
+[sub_resource type="GDScript" id="GDScript_rieux"]
+resource_name = "box_pieces"
+script/source = "extends RigidBody2D
+
+
+func _on_notifier_screen_exited() -> void:
+	queue_free()
+"
+
+[node name="Box-Pieces" type="RigidBody2D" unique_id=1279708115]
+rotation = 1.5707964
+collision_layer = 0
+collision_mask = 0
+script = SubResource("GDScript_rieux")
+
+[node name="Texture" type="Sprite2D" parent="." unique_id=1598513171]
+
+[node name="Notifier" type="VisibleOnScreenNotifier2D" parent="." unique_id=1108772032]
+
+[connection signal="screen_exited" from="Notifier" to="." method="_on_notifier_screen_exited"]
