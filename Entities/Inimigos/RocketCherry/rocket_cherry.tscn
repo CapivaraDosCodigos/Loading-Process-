@@ -1,0 +1,84 @@
+[gd_scene format=3 uid="uid://cbl8i00ww3pyo"]
+
+[ext_resource type="Script" uid="uid://dmady44ckodec" path="res://Entities/Inimigos/RocketCherry/InimigoFlying.gd" id="1_uo31x"]
+[ext_resource type="Texture2D" uid="uid://couejxk8kby4y" path="res://Textures/Sprite Pack 2/7 - Rocket Cherry/Flying (16 x 32).png" id="2_04our"]
+[ext_resource type="Texture2D" uid="uid://cdt8x4vm62n2n" path="res://Textures/Sprite Pack 2/7 - Rocket Cherry/Hurt_Falling (16 x 32).png" id="2_ki5ow"]
+[ext_resource type="PackedScene" uid="uid://dfcww07k3b188" path="res://Entities/Assets/hitbox.tscn" id="4_uo31x"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ki5ow"]
+atlas = ExtResource("2_04our")
+region = Rect2(0, 0, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uo31x"]
+atlas = ExtResource("2_04our")
+region = Rect2(16, 0, 16, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_cy4pu"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ki5ow")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uo31x")
+}],
+"loop": true,
+"name": &"Flying",
+"speed": 7.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_ki5ow")
+}],
+"loop": false,
+"name": &"Hurt",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ki5ow"]
+size = Vector2(11, 10)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_uo31x"]
+size = Vector2(11, 2)
+
+[node name="Rocket Cherry" type="CharacterBody2D" unique_id=2003651222 node_paths=PackedStringArray("inimigo_marker", "animated") groups=["Inimigos"]]
+collision_layer = 4
+collision_mask = 5
+script = ExtResource("1_uo31x")
+move_speed = 5.0
+distance = 64.0
+inimigo_center = 8
+inimigo_filho_path = "uid://hpm4w0aouya"
+inimigo_marker = NodePath("CherryMarker")
+animated = NodePath("Animated")
+metadata/_custom_type_script = "uid://bfvb23jsccsa1"
+
+[node name="Animated" type="AnimatedSprite2D" parent="." unique_id=184162401]
+sprite_frames = SubResource("SpriteFrames_cy4pu")
+animation = &"Hurt"
+autoplay = "Flying"
+frame_progress = 1.0
+
+[node name="Collision" type="CollisionShape2D" parent="." unique_id=1526186445]
+visible = false
+position = Vector2(0.5, 5)
+shape = SubResource("RectangleShape2D_ki5ow")
+
+[node name="VisibleOnScreenEnabler2D" type="VisibleOnScreenEnabler2D" parent="." unique_id=18487953]
+rect = Rect2(-7, -7, 16, 23)
+show_rect = false
+
+[node name="Hitbox" parent="." unique_id=1128202378 instance=ExtResource("4_uo31x")]
+visible = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox" unique_id=1917815569]
+visible = false
+position = Vector2(0.5, -1)
+shape = SubResource("RectangleShape2D_uo31x")
+debug_color = Color(0.9740793, 0, 0.43279848, 0.41960785)
+
+[node name="CherryMarker" type="Marker2D" parent="." unique_id=960990407]
+visible = false
+position = Vector2(0, 5)
+
+[connection signal="animation_finished" from="Animated" to="." method="_on_animated_animation_finished"]

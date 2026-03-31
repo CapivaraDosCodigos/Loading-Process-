@@ -10,11 +10,22 @@ const WAIT_DURATION: float = 1.0
 
 var follow: Vector2
 var start_pos: Vector2
+var platform_tween: Tween
 
 func _ready() -> void:
 	start_pos = position
 	follow = start_pos
 	_move_platform()
+	EventBus.time_stop.connect(_stop)
+	EventBus.time_play.connect(_play)
+
+func _stop() -> void:
+	set_physics_process(false)
+	platform_tween.pause()
+
+func _play() -> void:
+	set_physics_process(true)
+	platform_tween.play()
 
 func _physics_process(_delta: float) -> void:
 	position = position.lerp(follow, 0.5)
@@ -25,6 +36,6 @@ func _move_platform() -> void:
 
 	var target_pos: Vector2 = start_pos + move_direction
 
-	var platform_tween: Tween = create_tween().set_loops()
+	platform_tween = create_tween().set_loops()
 	platform_tween.tween_property(self, "follow", target_pos, duration).set_trans(Tween.TRANS_LINEAR).set_ease(Tween.EASE_IN_OUT).set_delay(WAIT_DURATION)
 	platform_tween.tween_property(self, "follow", start_pos, duration).set_trans(Tween.TRANS_LINEAR).set_ease(Tween.EASE_IN_OUT).set_delay(WAIT_DURATION)

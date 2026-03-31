@@ -17,9 +17,3 @@ func _unhandled_input(event: InputEvent) -> void:
 		if DialogueManager.dialogue_box != null:
 			DialogueManager.dialogue_box.queue_free()
 			DialogueManager.is_messagem_active = false
-			
-			
-		
-			
-			
-			
