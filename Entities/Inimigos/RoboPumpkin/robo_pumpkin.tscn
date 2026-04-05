@@ -64,7 +64,6 @@ animation = &"Walking"
 autoplay = "Walking"
 
 [node name="Collision" type="CollisionShape2D" parent="." unique_id=359271650]
-visible = false
 position = Vector2(0, 3)
 rotation = 1.5707964
 shape = SubResource("CapsuleShape2D_wgswt")
@@ -74,13 +73,12 @@ rect = Rect2(-7, -7, 14, 15)
 show_rect = false
 
 [node name="Wall_detector" type="RayCast2D" parent="." unique_id=1247649078]
-visible = false
+modulate = Color(1, 0, 1, 1)
 position = Vector2(0, 1)
 target_position = Vector2(-7, 0)
 collision_mask = 6
 
 [node name="Hitbox" parent="." unique_id=1128202378 instance=ExtResource("5_cnvmn")]
-visible = false
 
 [node name="Collision2" type="CollisionShape2D" parent="Hitbox" unique_id=1436478941]
 position = Vector2(0, -3)

@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://c6v0j6km0b3gp"
+path="res://.godot/imported/tap-on-shoulder.wav-0037897fc8e990c83e2fb19d1e15c8a5.sample"
+
+[deps]
+
+source_file="res://Assets/Efeitos Sonoros/tap-on-shoulder.wav"
+dest_files=["res://.godot/imported/tap-on-shoulder.wav-0037897fc8e990c83e2fb19d1e15c8a5.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

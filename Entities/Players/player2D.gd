@@ -1,8 +1,9 @@
 extends CharacterBody2D
 class_name Player2D
 
+const AIR_FRICTION: float = 0.5
+
 @export var SPEED: float = 200.0
-@export var JUMP_FORCE: float = -300.0
 
 @onready var animation: AnimatedSprite2D = $Animation
 @onready var animator: AnimationPlayer = $Animator
@@ -12,30 +13,51 @@ class_name Player2D
 
 signal player_has_died()
 
+static var audio_jump: AudioStream:
+	get():
+		if not audio_jump:
+			audio_jump = preload("uid://oirh41homqht")
+		return audio_jump
+
 var direction: float = 1.0
 #var is_jumping: bool = false
 var is_off_screen: bool = false
 var is_hurtet: bool = false
 var knockback_vector: Vector2 = Vector2.ZERO
 
-func _ready() -> void:
-	EventBus.is_paused = false
+@export var jump_height: float = 64.0
+@export var max_time_to_peak: float = 0.5
 
+var jump_velocity: float
+var gravity: float
+var fall_gravity: float
+
+func _ready() -> void:
+	jump_velocity = (jump_height * 2.0) / max_time_to_peak
+	gravity = (jump_height * 2.0) / pow(max_time_to_peak, 2)
+	fall_gravity = gravity * 2.0
+	
 func _physics_process(delta: float) -> void:
-	if not is_on_floor():
-		velocity += get_gravity() * delta
+	if Global.paused_transition:
+		_set_state()
+		return
 	
 	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
-		velocity.y = JUMP_FORCE
+		velocity.y = -jump_velocity
+		AudioManager.play(3 as AudioManager.AudioType, audio_jump, 60.0)
 		#is_jumping = true
 		#
 	#elif is_on_floor():
 		#is_jumping = false
+	if velocity.y > 0.0 or not Input.is_action_pressed("ui_accept"):
+		velocity.y += fall_gravity * delta
+	else:
+		velocity.y += gravity * delta
 	
 	direction = Input.get_axis("ui_left", "ui_right")
 	
 	if direction:
-		velocity.x = direction * SPEED
+		velocity.x = lerp(velocity.x, direction * SPEED, AIR_FRICTION)
 		animation.flip_h = direction == -1
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
@@ -58,21 +80,24 @@ func _unhandled_input(event: InputEvent) -> void:
 		_use_ability()
 	
 	elif event.is_action_pressed("TimeStop"):
-		if not EventBus.is_paused:
-			EventBus.time_Stop()
+		if not Global.is_paused:
+			Global.time_stop_event()
 
-func _on_hurtbox_body_entered(_body: Node2D) -> void:
-	if ray_right.is_colliding():
-		take_damage(Vector2(-200, -200))
+func _on_hurtbox_body_entered(body: Node2D) -> void:
+	if is_hurtet:
+		return
+	
+	if body.is_in_group("Projectiles"):
+		take_damage(Vector2(0.0, -50.0))
+		
+	elif ray_right.is_colliding():
+		take_damage(Vector2(-200.0, -200.0))
 		
 	elif ray_left.is_colliding():
-		take_damage(Vector2(200, -200))
+		take_damage(Vector2(200.0, -200.0))
+		
 	else:
-		take_damage(velocity)
-
-func _on_head_area_body_entered(body: Node2D) -> void:
-	if body is BreakBox2D:
-		body.break_sprites()
+		take_damage(Vector2.ZERO)
 
 func _on_notifier_screen_exited() -> void:
 	is_off_screen = true
@@ -106,8 +131,8 @@ func follow_camera(camera: Camera2D) -> void:
 	remote_camera.remote_path = camera_path
 
 func take_damage(knockback_force: Vector2, duration: float = 0.25) -> void:
-	if EventBus.player_life:
-		EventBus.player_life -= 1
+	if Global.player_life:
+		Global.player_life -= 1
 	else:
 		queue_free()
 		player_has_died.emit()

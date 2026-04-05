@@ -18,8 +18,10 @@ config/icon="res://icon.svg"
 
 [autoload]
 
+Global="*uid://nvsr5ed7xtuc"
+SceneManager="*uid://i15wa57mxkf2"
 DialogueManager="*uid://ilwe2k2eypqf"
-EventBus="*uid://nvsr5ed7xtuc"
+AudioManager="*uid://cochi04cli4u1"
 
 [debug]
 
@@ -31,11 +33,11 @@ window/size/viewport_width=640
 window/size/viewport_height=360
 window/size/mode=3
 window/stretch/mode="canvas_items"
-window/stretch/scale=2.0
 
 [file_customization]
 
 folder_colors={
+"res://Autoloads/": "yellow",
 "res://Shaders/": "pink",
 "res://Textures/": "green"
 }
@@ -43,6 +45,7 @@ folder_colors={
 [global_group]
 
 Inimigos=""
+Projectiles=""
 
 [input]
 
@@ -115,7 +118,8 @@ pointing/emulate_touch_from_mouse=true
 2d_physics/layer_4="Objetos"
 2d_physics/layer_5="HitBox"
 2d_physics/layer_6="HurtBox"
-2d_physics/layer_7="ObjetosCenarios"
+2d_physics/layer_7="SubInimigos"
+2d_physics/layer_8="Projeteis"
 
 [navigation]
 

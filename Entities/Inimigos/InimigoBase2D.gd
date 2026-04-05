@@ -1,20 +1,21 @@
 extends CharacterBody2D
 class_name InimigoBase2D
 
-var direction: int = -1
+var direction: Vector2 = Vector2(-1.0, 0)
 var is_hurtet: bool = false
 
-@export var SPEED: float = 900.0
+@export var speed: float = 20.0
 @export var score: int = 10
+
 @export_group("Nodes")
 @export var wall_detector: RayCast2D
 @export var animated: AnimatedSprite2D
 
 func _ready() -> void:
-	EventBus.time_stop.connect(_stop)
-	EventBus.time_play.connect(_play)
+	Global.time_stop.connect(_stop)
+	Global.time_play.connect(_play)
 	_internal_ready()
-	if EventBus.is_paused:
+	if Global.is_paused:
 		_stop()
 
 func _internal_ready() -> void:
@@ -35,25 +36,30 @@ func _gravity(delta: float) -> void:
 	if not is_on_floor():
 		velocity += get_gravity() * delta
 
-func _movement(delta: float) -> void:
+func _movement() -> void:
 	if is_on_floor():
-		velocity.x = direction * SPEED * delta
+		velocity.x = direction.x * speed
 	
 	move_and_slide()
 
 func _flip_direction() -> void:
-	if wall_detector.is_colliding():
-		direction *= -1
-		wall_detector.scale *= -1
+	if wall_detector:
+		if wall_detector.is_colliding():
+			direction *= -1.0
+			wall_detector.scale.x = direction.x * -1.0
 	
-	animated.flip_h = direction == 1
+	if animated:
+		animated.flip_h = direction.x == 1.0
 
 func _on_animated_animation_finished() -> void:
 	if animated.animation == "Hurt":
-		EventBus.score += score
+		Global.score += score
 		queue_free()
 
-func take_damage() -> void:
+func take_damage(player: Player2D = null) -> void:
+	if player:
+		player.velocity.y = -player.jump_velocity
+	
 	velocity = Vector2.ZERO
 	is_hurtet = true
 	var knockback_tween: Tween = create_tween()

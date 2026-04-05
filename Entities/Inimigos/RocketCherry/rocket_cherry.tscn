@@ -45,40 +45,38 @@ size = Vector2(11, 2)
 collision_layer = 4
 collision_mask = 5
 script = ExtResource("1_uo31x")
-move_speed = 5.0
 distance = 64.0
 inimigo_center = 8
 inimigo_filho_path = "uid://hpm4w0aouya"
 inimigo_marker = NodePath("CherryMarker")
+speed = 5.0
 animated = NodePath("Animated")
 metadata/_custom_type_script = "uid://bfvb23jsccsa1"
 
 [node name="Animated" type="AnimatedSprite2D" parent="." unique_id=184162401]
+position = Vector2(0, -5)
 sprite_frames = SubResource("SpriteFrames_cy4pu")
-animation = &"Hurt"
+animation = &"Flying"
 autoplay = "Flying"
-frame_progress = 1.0
 
 [node name="Collision" type="CollisionShape2D" parent="." unique_id=1526186445]
 visible = false
-position = Vector2(0.5, 5)
+position = Vector2(0.5, 0)
 shape = SubResource("RectangleShape2D_ki5ow")
 
 [node name="VisibleOnScreenEnabler2D" type="VisibleOnScreenEnabler2D" parent="." unique_id=18487953]
-rect = Rect2(-7, -7, 16, 23)
+rect = Rect2(-7, -16, 16, 32)
 show_rect = false
 
 [node name="Hitbox" parent="." unique_id=1128202378 instance=ExtResource("4_uo31x")]
 visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox" unique_id=1917815569]
-visible = false
-position = Vector2(0.5, -1)
+position = Vector2(0.5, -6)
 shape = SubResource("RectangleShape2D_uo31x")
 debug_color = Color(0.9740793, 0, 0.43279848, 0.41960785)
 
 [node name="CherryMarker" type="Marker2D" parent="." unique_id=960990407]
 visible = false
-position = Vector2(0, 5)
 
 [connection signal="animation_finished" from="Animated" to="." method="_on_animated_animation_finished"]

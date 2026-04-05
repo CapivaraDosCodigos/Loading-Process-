@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dy6patp6qbhvh" path="res://Assets/box_dialogue.gd" id="1_khk8v"]
 [ext_resource type="Texture2D" uid="uid://3chy2xbo7iso" path="res://Textures/Mini FX, Items & UI/Mini UI/Dialog_Box(16 x 16).png" id="1_ouonn"]
-[ext_resource type="FontFile" uid="uid://ci5egqcj678qh" path="res://RevMiniPixel.ttf" id="3_khk8v"]
+[ext_resource type="FontFile" uid="uid://ci5egqcj678qh" path="res://Assets/Fontes/RevMiniPixel.ttf" id="3_khk8v"]
 
 [node name="BoxDialogue" type="MarginContainer" unique_id=1813870604]
 offset_right = 9.0

@@ -1,0 +1,51 @@
+[gd_scene format=3 uid="uid://b6hxf2xj8los8"]
+
+[ext_resource type="Theme" uid="uid://rgc24ucsh4oi" path="res://Assets/Themes/theme_game1.tres" id="1_txvqh"]
+[ext_resource type="Script" uid="uid://uggenfogn2u0" path="res://Assets/Huds/pause_menu.gd" id="1_v5qfg"]
+
+[sub_resource type="InputEventAction" id="InputEventAction_v5qfg"]
+action = &"ui_cancel"
+pressed = true
+
+[sub_resource type="Shortcut" id="Shortcut_aei47"]
+events = [SubResource("InputEventAction_v5qfg")]
+
+[node name="PauseMenu" type="CanvasLayer" unique_id=988520468]
+process_mode = 3
+layer = 40
+visible = false
+script = ExtResource("1_v5qfg")
+
+[node name="Overlay" type="ColorRect" parent="." unique_id=92572003]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0.007843138, 0.25490198)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1537142458]
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -33.0
+offset_bottom = 33.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_txvqh")
+
+[node name="ResumeButton" type="Button" parent="VBoxContainer" unique_id=25622012]
+layout_mode = 2
+focus_neighbor_bottom = NodePath("../QuitButton")
+shortcut = SubResource("Shortcut_aei47")
+text = "Resume
+"
+
+[node name="QuitButton" type="Button" parent="VBoxContainer" unique_id=794503568]
+layout_mode = 2
+focus_neighbor_top = NodePath("../ResumeButton")
+text = "Quit Game"
+
+[connection signal="pressed" from="VBoxContainer/ResumeButton" to="." method="_on_resume_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]

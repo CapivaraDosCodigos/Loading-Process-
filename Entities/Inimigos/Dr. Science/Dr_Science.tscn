@@ -1,0 +1,172 @@
+[gd_scene format=3 uid="uid://tqjllgvpn1ve"]
+
+[ext_resource type="Script" uid="uid://cln0gjxltrid3" path="res://Entities/Inimigos/Dr. Science/Dr_Science.gd" id="1_ahb7l"]
+[ext_resource type="Texture2D" uid="uid://ctbhg06m2bnuk" path="res://Textures/Mini Pixel Pack 1/1 - Dr. Science/Hurt (16 x 16).png" id="2_2j0g5"]
+[ext_resource type="PackedScene" uid="uid://grnobivep4sm" path="res://Entities/Inimigos/Dr. Science/Lazer_shot.tscn" id="2_ks424"]
+[ext_resource type="Texture2D" uid="uid://ck5ho3nafde7t" path="res://Textures/Mini Pixel Pack 1/1 - Dr. Science/Idle (16 x 16).png" id="3_w5mum"]
+[ext_resource type="Texture2D" uid="uid://d4cyb68s5qw2g" path="res://Textures/Mini Pixel Pack 1/1 - Dr. Science/Blink (16 x 16).png" id="4_tw75c"]
+[ext_resource type="Texture2D" uid="uid://v64e4dylr63s" path="res://Textures/Mini Pixel Pack 1/1 - Dr. Science/Idle_shooting  (16 x 16).png" id="5_ks424"]
+[ext_resource type="Texture2D" uid="uid://c1ax3irh6gfyi" path="res://Textures/Mini Pixel Pack 1/1 - Dr. Science/Jump (16 x 16).png" id="5_uhpqu"]
+[ext_resource type="Texture2D" uid="uid://g7yn5g7belbj" path="res://Textures/Mini Pixel Pack 1/1 - Dr. Science/Run (16 x 16).png" id="6_ks424"]
+[ext_resource type="Texture2D" uid="uid://sfnkpbxv6wkq" path="res://Textures/Mini Pixel Pack 1/1 - Dr. Science/Jump_shot (16 x 16).png" id="7_xwyij"]
+[ext_resource type="Texture2D" uid="uid://ctjk53mm5qloc" path="res://Textures/Mini Pixel Pack 1/1 - Dr. Science/Run_shooting  (16 x 16).png" id="9_4rgmt"]
+[ext_resource type="PackedScene" uid="uid://dfcww07k3b188" path="res://Entities/Assets/hitbox.tscn" id="11_xwyij"]
+[ext_resource type="Script" uid="uid://yow552i063f1" path="res://Entities/Players/head_area.gd" id="12_4rgmt"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xwyij"]
+atlas = ExtResource("6_ks424")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4rgmt"]
+atlas = ExtResource("6_ks424")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_usvx4"]
+atlas = ExtResource("9_4rgmt")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l6bnh"]
+atlas = ExtResource("9_4rgmt")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_rwre6"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_2j0g5")
+}],
+"loop": false,
+"name": &"Hurt",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_w5mum")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_tw75c")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_w5mum")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_w5mum")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_w5mum")
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_ks424")
+}],
+"loop": true,
+"name": &"Idle_Gun",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_uhpqu")
+}],
+"loop": true,
+"name": &"Jump",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("7_xwyij")
+}],
+"loop": true,
+"name": &"Jump_Gun",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xwyij")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4rgmt")
+}],
+"loop": true,
+"name": &"Run",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_usvx4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l6bnh")
+}],
+"loop": true,
+"name": &"Run_Gun",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_la838"]
+size = Vector2(12, 13)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4rgmt"]
+size = Vector2(12, 1)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_usvx4"]
+size = Vector2(12, 2)
+
+[node name="DrScience" type="CharacterBody2D" unique_id=1153250036 node_paths=PackedStringArray("wall_detector", "animated")]
+collision_layer = 64
+collision_mask = 3
+script = ExtResource("1_ahb7l")
+bullet_scene = ExtResource("2_ks424")
+speed = 200.0
+wall_detector = NodePath("Wall_detector")
+animated = NodePath("Animation")
+metadata/_custom_type_script = "uid://hyh0dbmb4pg2"
+
+[node name="Animation" type="AnimatedSprite2D" parent="." unique_id=528446102]
+sprite_frames = SubResource("SpriteFrames_rwre6")
+animation = &"Hurt"
+autoplay = "Run_Gun"
+
+[node name="Collision" type="CollisionShape2D" parent="." unique_id=1045506406]
+visible = false
+position = Vector2(0, 1.5)
+shape = SubResource("RectangleShape2D_la838")
+
+[node name="Marker2D" type="Marker2D" parent="." unique_id=1076807537]
+position = Vector2(8, 3)
+
+[node name="Wall_detector" type="RayCast2D" parent="." unique_id=1042673637]
+visible = false
+position = Vector2(0, 1)
+target_position = Vector2(9, 0)
+collision_mask = 2
+
+[node name="GroundDetector" type="RayCast2D" parent="." unique_id=535192988]
+visible = false
+target_position = Vector2(3, 9)
+collision_mask = 3
+
+[node name="Hitbox" parent="." unique_id=1128202378 instance=ExtResource("11_xwyij")]
+visible = false
+
+[node name="Collision2" type="CollisionShape2D" parent="Hitbox" unique_id=1004856386]
+position = Vector2(0, -5.5)
+shape = SubResource("RectangleShape2D_4rgmt")
+debug_color = Color(0.9740793, 0, 0.43279848, 0.41960785)
+
+[node name="HeadArea" type="Area2D" parent="." unique_id=740155606]
+visible = false
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("12_4rgmt")
+
+[node name="Collision3" type="CollisionShape2D" parent="HeadArea" unique_id=1007543925]
+position = Vector2(0, -6)
+shape = SubResource("RectangleShape2D_usvx4")
+debug_color = Color(1, 1, 1, 0.41960785)
+
+[connection signal="animation_finished" from="Animation" to="." method="_on_animated_animation_finished"]
+[connection signal="body_entered" from="HeadArea" to="HeadArea" method="_on_head_area_body_entered"]

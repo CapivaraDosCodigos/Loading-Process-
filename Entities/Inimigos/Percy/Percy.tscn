@@ -1,0 +1,257 @@
+[gd_scene format=3 uid="uid://cstrrhxbunosm"]
+
+[ext_resource type="Script" uid="uid://c5anj1p86dw7" path="res://Entities/Inimigos/Percy/Percy.gd" id="1_fmw27"]
+[ext_resource type="Texture2D" uid="uid://dol3eh83uid24" path="res://Textures/Sprite Pack 8/4 - Percy/Running (32 x 32).png" id="1_uxfl3"]
+[ext_resource type="Texture2D" uid="uid://cg866u8sq0510" path="res://Textures/Sprite Pack 8/4 - Percy/Shooting_Fireball (32 x 32).png" id="5_jg3ds"]
+[ext_resource type="Texture2D" uid="uid://cibuirtdonbeu" path="res://Textures/Sprite Pack 8/4 - Percy/Hurt (32 x 32).png" id="5_ukkfv"]
+[ext_resource type="PackedScene" uid="uid://dfcww07k3b188" path="res://Entities/Assets/hitbox.tscn" id="6_ukkfv"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wdwp1"]
+size = Vector2(12, 9)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_jg3ds"]
+radius = 3.0
+height = 14.000001
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_44hnc"]
+size = Vector2(15, 3)
+
+[sub_resource type="Animation" id="Animation_r2gs0"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("1_uxfl3")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite:hframes")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [6]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_44hnc"]
+resource_name = "hurt"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("5_ukkfv")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite:hframes")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.8),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_lpuhu"]
+resource_name = "running"
+length = 0.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("1_uxfl3")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite:hframes")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [6]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5]
+}
+
+[sub_resource type="Animation" id="Animation_fmw27"]
+resource_name = "shooting"
+length = 0.8
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("5_jg3ds")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite:hframes")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [8]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 7]
+}
+tracks/3/type = "method"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.4),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"spawn_fireball"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ukkfv"]
+_data = {
+&"RESET": SubResource("Animation_r2gs0"),
+&"hurt": SubResource("Animation_44hnc"),
+&"running": SubResource("Animation_lpuhu"),
+&"shooting": SubResource("Animation_fmw27")
+}
+
+[node name="Dino" type="CharacterBody2D" unique_id=607873258 node_paths=PackedStringArray("wall_detector") groups=["Inimigos", "inimigos"]]
+collision_layer = 4
+collision_mask = 3
+script = ExtResource("1_fmw27")
+speed = 100.0
+wall_detector = NodePath("Wall_detector")
+metadata/_custom_type_script = "uid://bfvb23jsccsa1"
+
+[node name="Sprite" type="Sprite2D" parent="." unique_id=1883401692]
+position = Vector2(0, -16)
+texture = ExtResource("1_uxfl3")
+hframes = 6
+
+[node name="Collision" type="CollisionShape2D" parent="." unique_id=1416656763]
+position = Vector2(0, -5.5)
+shape = SubResource("RectangleShape2D_wdwp1")
+
+[node name="CollisionHead" type="CollisionShape2D" parent="." unique_id=1904945724]
+position = Vector2(6, -13)
+rotation = -1.5707964
+shape = SubResource("CapsuleShape2D_jg3ds")
+
+[node name="hitbox" parent="." unique_id=7139890 instance=ExtResource("6_ukkfv")]
+
+[node name="CollisionHitbox" type="CollisionShape2D" parent="hitbox" unique_id=1782530454]
+position = Vector2(5.5, -17.5)
+shape = SubResource("RectangleShape2D_44hnc")
+debug_color = Color(0.694716, 0.492254, 0.151222, 0.42)
+
+[node name="FireballMarker" type="Marker2D" parent="." unique_id=1404744561]
+position = Vector2(8, -8)
+
+[node name="GroundDetector" type="RayCast2D" parent="." unique_id=1019110603]
+position = Vector2(0, -8)
+target_position = Vector2(3, 10)
+collision_mask = 2
+
+[node name="PlayerDetectorFront" type="RayCast2D" parent="." unique_id=2129503126]
+position = Vector2(0, -8)
+target_position = Vector2(50, 0)
+
+[node name="PlayerDetectorBack" type="RayCast2D" parent="." unique_id=1265156670]
+modulate = Color(0, 0.816667, 1, 1)
+position = Vector2(0, -8)
+target_position = Vector2(-50, 0)
+
+[node name="Wall_detector" type="RayCast2D" parent="." unique_id=665675731]
+position = Vector2(0, -7)
+target_position = Vector2(15, 0)
+collision_mask = 6
+
+[node name="anim" type="AnimationPlayer" parent="." unique_id=2141323249]
+libraries/ = SubResource("AnimationLibrary_ukkfv")
+autoplay = &"running"
+
+[connection signal="body_entered" from="hitbox" to="." method="_on_hitbox_body_entered"]
+[connection signal="animation_finished" from="anim" to="." method="_on_anim_animation_finished"]

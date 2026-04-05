@@ -16,8 +16,8 @@ func _ready() -> void:
 	start_pos = position
 	follow = start_pos
 	_move_platform()
-	EventBus.time_stop.connect(_stop)
-	EventBus.time_play.connect(_play)
+	Global.time_stop.connect(_stop)
+	Global.time_play.connect(_play)
 
 func _stop() -> void:
 	set_physics_process(false)

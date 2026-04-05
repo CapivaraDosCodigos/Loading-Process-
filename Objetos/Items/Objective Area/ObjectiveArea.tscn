@@ -1,0 +1,86 @@
+[gd_scene format=3 uid="uid://bc8mfem4r17vq"]
+
+[ext_resource type="Texture2D" uid="uid://df2e2hklgumd4" path="res://Textures/Mini Pixel Pack 1/1 - Dr. Science/Computer (32 x 16).png" id="1_h5nut"]
+[ext_resource type="Script" uid="uid://844kq6ifnmxp" path="res://Objetos/Items/Objective Area/objective_area.gd" id="1_n2e01"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n2e01"]
+atlas = ExtResource("1_h5nut")
+region = Rect2(0, 0, 32, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sbk4v"]
+atlas = ExtResource("1_h5nut")
+region = Rect2(32, 0, 32, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_7yr84"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n2e01")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sbk4v")
+}],
+"loop": true,
+"name": &"default",
+"speed": 1.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_h5nut"]
+radius = 16.0
+
+[sub_resource type="Animation" id="Animation_h5nut"]
+resource_name = "Float"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Animated:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, -4), Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_n2e01"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Animated:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_n2e01"]
+_data = {
+&"Float": SubResource("Animation_h5nut"),
+&"RESET": SubResource("Animation_n2e01")
+}
+
+[node name="Objective" type="Area2D" unique_id=775702887]
+collision_layer = 2
+script = ExtResource("1_n2e01")
+scene_path = "uid://dulvyijonmsnp"
+
+[node name="Animated" type="AnimatedSprite2D" parent="." unique_id=1584680614]
+sprite_frames = SubResource("SpriteFrames_7yr84")
+autoplay = "default"
+frame_progress = 0.35152072
+
+[node name="Collision" type="CollisionShape2D" parent="." unique_id=213479772]
+visible = false
+shape = SubResource("CircleShape2D_h5nut")
+
+[node name="Animation" type="AnimationPlayer" parent="." unique_id=2043893441]
+libraries/ = SubResource("AnimationLibrary_n2e01")
+autoplay = &"Float"
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

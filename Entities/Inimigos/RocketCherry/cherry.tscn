@@ -58,7 +58,7 @@ size = Vector2(12, 2)
 collision_layer = 4
 collision_mask = 7
 script = ExtResource("1_usqfw")
-SPEED = 1100.0
+speed = 25.0
 wall_detector = NodePath("Wall_detector")
 animated = NodePath("Animated")
 
@@ -80,7 +80,6 @@ rect = Rect2(-7, -7, 14, 15)
 show_rect = false
 
 [node name="Wall_detector" type="RayCast2D" parent="." unique_id=1247649078]
-visible = false
 position = Vector2(0, 1)
 target_position = Vector2(-7, 0)
 collision_mask = 6

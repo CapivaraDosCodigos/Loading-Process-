@@ -1,18 +1,26 @@
 extends Node
 
-signal time_stop
-signal time_play
+var inGame: bool = true
 
-signal update_coins()
-signal update_player_life()
-signal update_score()
+@onready var controls: CanvasLayer = $Controls
+@onready var game_hud: CanvasLayer = $GameHUD
 
-@onready var efeitoTimeStop: ShaderMaterial = $Efeitos/Invertido.material
+#region InGame
+
+@onready var efeitoTimeStop: ShaderMaterial = %Invertido.material
 @onready var colorInvertido: ColorRect = %Invertido
 @onready var colorBase: ColorRect = %Base
 @onready var animator: AnimationPlayer = $Animator
 
+signal time_stop
+signal time_play
+signal update_coins
+signal update_player_life
+signal update_score
+
 var is_paused: bool = false
+var paused_transition: bool = false
+
 var coins: int = 0:
 	set(value):
 		coins = value
@@ -25,6 +33,7 @@ var player_life: int = 3:
 	set(value):
 		player_life = value
 		update_player_life.emit()
+
 var player: Player2D
 var check_point: Node2D
 
@@ -32,7 +41,7 @@ func respawn_player() -> void:
 	if check_point:
 		player.global_position = check_point.global_position
 
-func time_Stop() -> void:
+func time_stop_event() -> void:
 	is_paused = true
 	time_stop.emit()
 
@@ -55,8 +64,10 @@ func _apply_time_effect(start: bool) -> void:
 	else:
 		colorBase.visible = true
 		animator.play_backwards("Time Stop")
-
+	
+	paused_transition = true
 	await animator.animation_finished
+	paused_transition = false
 	
 	if start:
 		colorBase.visible = false
@@ -83,3 +94,5 @@ func _get_screen_uv_from_node(node: Node2D) -> Vector2:
 	var uv: Vector2 = screen_pos / size
 	
 	return uv
+
+#endregion
