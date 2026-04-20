@@ -1,13 +1,11 @@
-extends Node2D
+extends Area2D
 class_name DialogueArea
 
 @onready var texture: Sprite2D = $Texture
-@onready var area: Area2D = $Area
-
 @export_multiline() var lines: Array[String] = []
 
 func _unhandled_input(event: InputEvent) -> void:
-	if area.get_overlapping_bodies().size() > 0:
+	if get_overlapping_bodies().size() > 0:
 		texture.show()
 		if event.is_action_pressed("Interect") and not DialogueManager.is_messagem_active:
 			texture.hide()

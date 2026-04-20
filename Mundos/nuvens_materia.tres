@@ -1,8 +1,0 @@
-[gd_resource type="ShaderMaterial" format=3 uid="uid://banypnmasb1k6"]
-
-[ext_resource type="Shader" uid="uid://d20ijhvqrxtmy" path="res://Shaders/nuvem.gdshader" id="1_qqweq"]
-
-[resource]
-shader = ExtResource("1_qqweq")
-shader_parameter/speed = 0.050000002375
-shader_parameter/diretion_inversa = true

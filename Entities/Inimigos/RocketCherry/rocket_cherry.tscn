@@ -45,11 +45,9 @@ size = Vector2(11, 2)
 collision_layer = 4
 collision_mask = 5
 script = ExtResource("1_uo31x")
-distance = 64.0
-inimigo_center = 8
 inimigo_filho_path = "uid://hpm4w0aouya"
 inimigo_marker = NodePath("CherryMarker")
-speed = 5.0
+speed = 2.5
 animated = NodePath("Animated")
 metadata/_custom_type_script = "uid://bfvb23jsccsa1"
 
@@ -77,6 +75,3 @@ shape = SubResource("RectangleShape2D_uo31x")
 debug_color = Color(0.9740793, 0, 0.43279848, 0.41960785)
 
 [node name="CherryMarker" type="Marker2D" parent="." unique_id=960990407]
-visible = false
-
-[connection signal="animation_finished" from="Animated" to="." method="_on_animated_animation_finished"]

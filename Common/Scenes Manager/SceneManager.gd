@@ -1,18 +1,33 @@
 extends Node
+class_name SceneManagerNode
 
+## Gerenciador de troca de cenas com tela de loading e transições visuais, ideal para uso como AutoLoad global
+
+## Cena da tela de loading utilizada durante a troca de cenas
 const loading_screen: PackedScene = preload("uid://dp3hjnmnfokbw")
 
+## Emitido quando o progresso de carregamento é atualizado
 signal progress_changed(progress_array: Array)
+
+## Emitido quando o carregamento da cena termina
 signal load_finished
 
+## Cena carregada em memória após o término do carregamento
 var loaded_resource: PackedScene
+
+## Caminho da cena que será carregada
 var scene_path: String
+
+## Array que armazena o progresso do carregamento (usado pela API threaded)
 var progress: Array = []
+
+## Define se o carregamento utilizará sub-threads internas
 var use_sub_threads: bool = true
 
 func _ready() -> void:
 	set_process(false)
 
+## Inicia o carregamento de uma nova cena com tela de transição
 func load_scene(_scene_path: String, _use_sub_threads: bool = true, transition: String = "transition_1") -> void:
 	if not FileAccess.file_exists(_scene_path):
 		push_warning("Nao existe arquivo na path: ", _scene_path)
@@ -30,6 +45,7 @@ func load_scene(_scene_path: String, _use_sub_threads: bool = true, transition: 
 	await new_load_screen.loading_screen_ready
 	_start_load()
 
+## Processa o carregamento assíncrono da cena e atualiza o progresso
 func _process(_delta: float) -> void:
 	var load_status := ResourceLoader.load_threaded_get_status(scene_path, progress)
 	progress_changed.emit(progress[0])
@@ -50,7 +66,8 @@ func _process(_delta: float) -> void:
 			load_finished.emit()
 			set_process(false)
 
+## Inicia o pedido de carregamento assíncrono da cena
 func _start_load() -> void:
-	var state := ResourceLoader.load_threaded_request(scene_path, "", use_sub_threads)
+	var state: Error = ResourceLoader.load_threaded_request(scene_path, "", use_sub_threads)
 	if state == OK:
 		set_process(true)

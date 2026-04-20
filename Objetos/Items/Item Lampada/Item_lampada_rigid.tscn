@@ -1,0 +1,40 @@
+[gd_scene format=3 uid="uid://yxdk6ehtmywe"]
+
+[ext_resource type="Texture2D" uid="uid://bxt1q55lnr60l" path="res://Textures/Mini FX, Items & UI/Common Pick-ups/lâmpada 16x32.png" id="1_cos4m"]
+[ext_resource type="Script" uid="uid://diqv10co00jhb" path="res://Objetos/Items/Item Lampada/item_lampada_rigid.gd" id="1_yal4t"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_yal4t"]
+radius = 3.6055512
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_lk84b"]
+radius = 1.5
+height = 4.0
+
+[node name="ItemLampadaRigid" type="RigidBody2D" unique_id=1753992065]
+collision_layer = 8
+collision_mask = 258
+can_sleep = false
+script = ExtResource("1_yal4t")
+
+[node name="Sprite" type="Sprite2D" parent="." unique_id=833415437]
+rotation = -1.5707964
+texture = ExtResource("1_cos4m")
+region_enabled = true
+region_rect = Rect2(0, 0, 16, 16)
+
+[node name="Collision" type="CollisionShape2D" parent="." unique_id=783548786]
+visible = false
+position = Vector2(0.5, -1.5)
+shape = SubResource("CircleShape2D_yal4t")
+
+[node name="Collision2" type="CollisionShape2D" parent="." unique_id=653294318]
+visible = false
+position = Vector2(0.5, 3)
+shape = SubResource("CapsuleShape2D_lk84b")
+
+[node name="Notifier2D" type="VisibleOnScreenNotifier2D" parent="." unique_id=253664480]
+position = Vector2(1, 3)
+rect = Rect2(-3, -5, 7, 10)
+show_rect = false
+
+[connection signal="screen_exited" from="Notifier2D" to="." method="_on_notifier_2d_screen_exited"]

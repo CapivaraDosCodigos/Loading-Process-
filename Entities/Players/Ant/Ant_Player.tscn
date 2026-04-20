@@ -1,12 +1,16 @@
 [gd_scene format=3 uid="uid://d15ddxvbvouva"]
 
-[ext_resource type="Texture2D" uid="uid://ypj6dukwwnjk" path="res://Textures/Mini Pixel Pack 1/5 - Ant/Hurt (16 x 16).png" id="1_an6q6"]
+[ext_resource type="Texture2D" uid="uid://ypj6dukwwnjk" path="res://Entities/Players/Ant/Ant Texture/Hurt (16 x 16).png" id="1_an6q6"]
 [ext_resource type="Script" uid="uid://cplihoc3hmqpv" path="res://Entities/Players/player2D.gd" id="1_t38ms"]
-[ext_resource type="Texture2D" uid="uid://dbvwudfa3ync0" path="res://Textures/Mini Pixel Pack 1/5 - Ant/Idle (16 x 16).png" id="1_ww0jn"]
-[ext_resource type="Texture2D" uid="uid://gsxmffowcss6" path="res://Textures/Mini Pixel Pack 1/5 - Ant/Blink (16 x 16).png" id="2_vweq0"]
-[ext_resource type="Texture2D" uid="uid://ch1ltntpr2w4s" path="res://Textures/Mini Pixel Pack 1/5 - Ant/Run (16 x 16).png" id="3_vweq0"]
-[ext_resource type="Texture2D" uid="uid://la6siys2w8cv" path="res://Textures/Mini Pixel Pack 1/5 - Ant/Jump (16 x 16).png" id="4_t38ms"]
+[ext_resource type="Texture2D" uid="uid://dbvwudfa3ync0" path="res://Entities/Players/Ant/Ant Texture/Idle (16 x 16).png" id="1_ww0jn"]
+[ext_resource type="Script" uid="uid://dvb3i5n2d1pv6" path="res://Common/Audio Manager/AudioPlayer2D.gd" id="2_naec4"]
+[ext_resource type="Texture2D" uid="uid://gsxmffowcss6" path="res://Entities/Players/Ant/Ant Texture/Blink (16 x 16).png" id="2_vweq0"]
+[ext_resource type="Texture2D" uid="uid://ch1ltntpr2w4s" path="res://Entities/Players/Ant/Ant Texture/Run (16 x 16).png" id="3_vweq0"]
+[ext_resource type="Material" uid="uid://cnrivju85edsn" path="res://Entities/Players/ShaderMaterial/Blink_Shader_Material.tres" id="4_cp1n4"]
+[ext_resource type="Texture2D" uid="uid://la6siys2w8cv" path="res://Entities/Players/Ant/Ant Texture/Jump (16 x 16).png" id="4_t38ms"]
 [ext_resource type="Script" uid="uid://yow552i063f1" path="res://Entities/Players/head_area.gd" id="7_xpxb3"]
+[ext_resource type="AudioStream" uid="uid://oirh41homqht" path="res://Assets/Efeitos Sonoros/retro-jump-02.wav" id="8_naec4"]
+[ext_resource type="Theme" uid="uid://rgc24ucsh4oi" path="res://Assets/Themes/theme_game1.tres" id="10_lpg7p"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_t38ms"]
 atlas = ExtResource("1_an6q6")
@@ -77,21 +81,61 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="Gradient" id="Gradient_cp1n4"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_x1c3o"]
+gradient = SubResource("Gradient_cp1n4")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_cp1n4"]
+lifetime_randomness = 1.0
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 6.0
+direction = Vector3(0.5, -0.5, 0)
+initial_velocity_min = 200.0
+initial_velocity_max = 400.0
+gravity = Vector3(0, 490, 0)
+damping_min = 100.00001
+damping_max = 800.00006
+scale_max = 2.0
+color_ramp = SubResource("GradientTexture1D_x1c3o")
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_t38ms"]
 size = Vector2(11, 13)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hj1c0"]
 size = Vector2(13, 11)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xpxb3"]
+size = Vector2(13, 4)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_x44r4"]
 size = Vector2(11, 2)
 
 [node name="Player" type="CharacterBody2D" unique_id=1760291039]
-collision_mask = 86
+collision_mask = 342
 script = ExtResource("1_t38ms")
 metadata/_custom_type_script = "uid://cplihoc3hmqpv"
 
-[node name="Animator" type="AnimationPlayer" parent="." unique_id=201178306]
+[node name="AudioMovements" type="AudioStreamPlayer2D" parent="." unique_id=2089227595]
+stream = ExtResource("8_naec4")
+script = ExtResource("2_naec4")
+volume_0_100 = 50.0
+pitch_random = true
+metadata/_custom_type_script = "uid://dvb3i5n2d1pv6"
+
+[node name="AudioItems" type="AudioStreamPlayer2D" parent="." unique_id=1214604214]
+script = ExtResource("2_naec4")
+pitch_random = true
+min_pitch = 1.0
+max_pitch = 1.0
+metadata/_custom_type_script = "uid://dvb3i5n2d1pv6"
+
+[node name="AudioSoundEffect" type="AudioStreamPlayer2D" parent="." unique_id=1742632795]
+script = ExtResource("2_naec4")
+pitch_random = true
+metadata/_custom_type_script = "uid://dvb3i5n2d1pv6"
 
 [node name="Notifier" type="VisibleOnScreenNotifier2D" parent="." unique_id=1780280279]
 rect = Rect2(-8, -8, 16, 16)
@@ -100,15 +144,38 @@ show_rect = false
 [node name="RemoteCamera" type="RemoteTransform2D" parent="." unique_id=906894696]
 
 [node name="Animation" type="AnimatedSprite2D" parent="." unique_id=323388771]
+material = ExtResource("4_cp1n4")
 sprite_frames = SubResource("SpriteFrames_u36tg")
-animation = &"Idle"
+animation = &"Run"
 autoplay = "Idle"
 
+[node name="Particles" type="GPUParticles2D" parent="." unique_id=2112902689]
+emitting = false
+amount = 20
+lifetime = 0.8
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_cp1n4")
+
 [node name="Collision" type="CollisionShape2D" parent="." unique_id=1258751320]
+visible = false
 position = Vector2(0.5, 1.5)
 shape = SubResource("RectangleShape2D_t38ms")
 
+[node name="RayRight" type="RayCast2D" parent="." unique_id=947032490]
+visible = false
+position = Vector2(0, 1)
+target_position = Vector2(7, 0)
+collision_mask = 258
+
+[node name="RayLeft" type="RayCast2D" parent="." unique_id=109176381]
+visible = false
+position = Vector2(0, 1)
+target_position = Vector2(-6, 0)
+collision_mask = 258
+
 [node name="hurtbox" type="Area2D" parent="." unique_id=1264091571]
+visible = false
 collision_layer = 0
 collision_mask = 196
 
@@ -117,23 +184,20 @@ position = Vector2(0.5, -0.5)
 shape = SubResource("RectangleShape2D_hj1c0")
 debug_color = Color(0.93573457, 0.15802479, 0.50309455, 0.41960785)
 
-[node name="RayRight" type="RayCast2D" parent="." unique_id=1648700413]
-modulate = Color(0.713717, 0.86472684, 0.52559406, 0.41960785)
-position = Vector2(6, 3)
-target_position = Vector2(2, 0)
-collision_mask = 68
-hit_from_inside = true
+[node name="HurtBoxDown" type="Area2D" parent="." unique_id=1234404864]
+visible = false
+collision_layer = 0
+collision_mask = 196
 
-[node name="RayLeft" type="RayCast2D" parent="." unique_id=1900847485]
-modulate = Color(0.713717, 0.86472684, 0.52559406, 0.41960785)
-position = Vector2(-5, 3)
-target_position = Vector2(-2, 0)
-collision_mask = 68
-hit_from_inside = true
+[node name="Collision2" type="CollisionShape2D" parent="HurtBoxDown" unique_id=1480025747]
+position = Vector2(0.5, 7)
+shape = SubResource("RectangleShape2D_xpxb3")
+debug_color = Color(0.59378225, 0.42053345, 0.89536697, 0.41960785)
 
 [node name="HeadArea" type="Area2D" parent="." unique_id=2069516079]
+visible = false
 collision_layer = 0
-collision_mask = 2
+collision_mask = 256
 script = ExtResource("7_xpxb3")
 
 [node name="Collision3" type="CollisionShape2D" parent="HeadArea" unique_id=562682951]
@@ -141,7 +205,21 @@ position = Vector2(0.5, -6)
 shape = SubResource("RectangleShape2D_x44r4")
 debug_color = Color(1, 1, 1, 0.41960785)
 
-[connection signal="screen_entered" from="Notifier" to="." method="_on_notifier_screen_entered"]
+[node name="Label" type="Label" parent="." unique_id=682712245]
+visible = false
+offset_left = -48.0
+offset_top = -24.0
+offset_right = 336.0
+offset_bottom = 40.0
+scale = Vector2(0.25, 0.25)
+theme = ExtResource("10_lpg7p")
+theme_override_constants/outline_size = 8
+theme_override_font_sizes/font_size = 32
+text = "test"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [connection signal="screen_exited" from="Notifier" to="." method="_on_notifier_screen_exited"]
 [connection signal="body_entered" from="hurtbox" to="." method="_on_hurtbox_body_entered"]
+[connection signal="body_entered" from="HurtBoxDown" to="." method="_on_hurt_box_down_body_entered"]
 [connection signal="body_entered" from="HeadArea" to="HeadArea" method="_on_head_area_body_entered"]

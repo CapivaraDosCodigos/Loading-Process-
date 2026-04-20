@@ -12,7 +12,7 @@ config_version=5
 
 config/name="Loading Process"
 config/tags=PackedStringArray("game")
-run/main_scene="uid://dulvyijonmsnp"
+run/main_scene="uid://cd87u5qbitxv1"
 config/features=PackedStringArray("4.6", "GL Compatibility")
 config/icon="res://icon.svg"
 
@@ -20,7 +20,7 @@ config/icon="res://icon.svg"
 
 Global="*uid://nvsr5ed7xtuc"
 SceneManager="*uid://i15wa57mxkf2"
-DialogueManager="*uid://ilwe2k2eypqf"
+DialogueManager="uid://ilwe2k2eypqf"
 AudioManager="*uid://cochi04cli4u1"
 
 [debug]
@@ -37,7 +37,11 @@ window/stretch/mode="canvas_items"
 [file_customization]
 
 folder_colors={
+"res://Assets/Credits/": "gray",
 "res://Autoloads/": "yellow",
+"res://Entities/Players/Ant/Ant Texture/": "teal",
+"res://Entities/Players/ShaderMaterial/": "pink",
+"res://Objetos/": "gray",
 "res://Shaders/": "pink",
 "res://Textures/": "green"
 }
@@ -120,6 +124,7 @@ pointing/emulate_touch_from_mouse=true
 2d_physics/layer_6="HurtBox"
 2d_physics/layer_7="SubInimigos"
 2d_physics/layer_8="Projeteis"
+2d_physics/layer_9="SubCenario"
 
 [navigation]
 
@@ -135,3 +140,10 @@ textures/canvas_textures/default_texture_filter=0
 rendering_device/driver.windows="d3d12"
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
+
+[shader_globals]
+
+rapaz={
+"type": "int",
+"value": 0
+}

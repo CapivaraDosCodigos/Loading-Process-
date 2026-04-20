@@ -2,7 +2,6 @@
 
 [ext_resource type="Script" uid="uid://hyh0dbmb4pg2" path="res://Entities/Inimigos/RoboPumpkin/InimigoGround.gd" id="1_wgswt"]
 [ext_resource type="Texture2D" uid="uid://bv5jqwcnjvvft" path="res://Textures/Sprite Pack 2/4 - Robo Pumpkin/Safe/Hurt (16 x 16).png" id="2_wgswt"]
-[ext_resource type="Texture2D" uid="uid://dhtgrbkfjeqog" path="res://Textures/Sprite Pack 2/4 - Robo Pumpkin/Safe/Standing (16 x 16).png" id="3_cnvmn"]
 [ext_resource type="Texture2D" uid="uid://bcxyu6k7frqu" path="res://Textures/Sprite Pack 2/4 - Robo Pumpkin/Safe/Walking (16 x 16).png" id="4_a63bg"]
 [ext_resource type="PackedScene" uid="uid://dfcww07k3b188" path="res://Entities/Assets/hitbox.tscn" id="5_cnvmn"]
 
@@ -26,14 +25,6 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("3_cnvmn")
-}],
-"loop": true,
-"name": &"Idle",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
 "texture": SubResource("AtlasTexture_wgswt")
 }, {
 "duration": 1.0,
@@ -53,17 +44,18 @@ size = Vector2(12, 2)
 
 [node name="Robo Pumpkin" type="CharacterBody2D" unique_id=1037510275 node_paths=PackedStringArray("wall_detector", "animated") groups=["Inimigos"]]
 collision_layer = 4
-collision_mask = 7
+collision_mask = 263
 script = ExtResource("1_wgswt")
 wall_detector = NodePath("Wall_detector")
 animated = NodePath("Animated")
 
 [node name="Animated" type="AnimatedSprite2D" parent="." unique_id=187277772]
 sprite_frames = SubResource("SpriteFrames_1kxlt")
-animation = &"Walking"
+animation = &"Hurt"
 autoplay = "Walking"
 
 [node name="Collision" type="CollisionShape2D" parent="." unique_id=359271650]
+visible = false
 position = Vector2(0, 3)
 rotation = 1.5707964
 shape = SubResource("CapsuleShape2D_wgswt")
@@ -73,16 +65,16 @@ rect = Rect2(-7, -7, 14, 15)
 show_rect = false
 
 [node name="Wall_detector" type="RayCast2D" parent="." unique_id=1247649078]
+visible = false
 modulate = Color(1, 0, 1, 1)
 position = Vector2(0, 1)
 target_position = Vector2(-7, 0)
 collision_mask = 6
 
 [node name="Hitbox" parent="." unique_id=1128202378 instance=ExtResource("5_cnvmn")]
+visible = false
 
 [node name="Collision2" type="CollisionShape2D" parent="Hitbox" unique_id=1436478941]
 position = Vector2(0, -3)
 shape = SubResource("RectangleShape2D_cnvmn")
 debug_color = Color(0.9740793, 0, 0.43279848, 0.41960785)
-
-[connection signal="animation_finished" from="Animated" to="." method="_on_animated_animation_finished"]

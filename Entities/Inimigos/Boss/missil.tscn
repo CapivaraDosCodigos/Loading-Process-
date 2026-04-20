@@ -1,0 +1,70 @@
+[gd_scene format=3 uid="uid://bdlsx1t3dfvhy"]
+
+[ext_resource type="Texture2D" uid="uid://bbdiug5x8anpk" path="res://Textures/Sprite Pack 2/8 - Comrade Cheese Puff/Missile (16 x 8).png" id="1_onihc"]
+
+[sub_resource type="GDScript" id="GDScript_onihc"]
+resource_name = "Estados Unidos"
+script/source = "extends Bullet2D
+
+const EXPLOSION: PackedScene = preload(\"uid://b0uva68sp3g41\")
+@onready var collision: CollisionShape2D = $Collision
+@onready var collision_detector: CollisionShape2D = $CollisionDetector/Collision
+
+func _on_collision_detector_body_entered(body: Node2D) -> void:
+	visible = false
+	var explosion_instance: AnimatedSprite2D = EXPLOSION.instantiate()
+	explosion_instance.global_position = global_position
+	add_sibling(explosion_instance)
+	if not body is Player2D:
+		collision.set_deferred(\"disabled\", true)
+		collision.set_deferred(\"disabled\", true)
+	await explosion_instance.animation_finished
+	queue_free()
+"
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_fkw8a"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_onihc")
+}],
+"loop": false,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xmbo0"]
+size = Vector2(12, 4)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_efnuj"]
+size = Vector2(14, 6)
+
+[node name="missil" type="CharacterBody2D" unique_id=1386091203 groups=["Projectiles"]]
+collision_layer = 128
+collision_mask = 3
+script = SubResource("GDScript_onihc")
+metadata/_custom_type_script = "uid://cghk02awn35t2"
+
+[node name="anim" type="AnimatedSprite2D" parent="." unique_id=1729489116]
+rotation = -3.1415927
+sprite_frames = SubResource("SpriteFrames_fkw8a")
+autoplay = "default"
+
+[node name="Collision" type="CollisionShape2D" parent="." unique_id=630037344]
+shape = SubResource("RectangleShape2D_xmbo0")
+
+[node name="CollisionDetector" type="Area2D" parent="." unique_id=1000873728]
+collision_layer = 64
+collision_mask = 3
+
+[node name="Collision" type="CollisionShape2D" parent="CollisionDetector" unique_id=331424763]
+shape = SubResource("RectangleShape2D_efnuj")
+debug_color = Color(0.652513, 0.512162, 0.230639, 0.42)
+
+[node name="Notifier2D" type="VisibleOnScreenNotifier2D" parent="." unique_id=168422267]
+position = Vector2(-1.19209e-07, 2.38419e-07)
+scale = Vector2(0.7, 0.4)
+show_rect = false
+
+[connection signal="body_entered" from="CollisionDetector" to="." method="_on_collision_detector_body_entered"]
+[connection signal="screen_exited" from="Notifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

@@ -1,0 +1,29 @@
+[gd_scene format=3 uid="uid://ddgnb5fyikj6"]
+
+[ext_resource type="Script" uid="uid://ccjqfdwimdrdq" path="res://Objetos/Areas/Spike2D.gd" id="1_xiym2"]
+[ext_resource type="Texture2D" uid="uid://w3mhh1ylruvp" path="res://Textures/Seasonal Tilesets/5 - Misc. universal tiles/Spike.png" id="2_ppdcm"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_m1eld"]
+size = Vector2(32, 8)
+
+[node name="Spike2D" type="Area2D" unique_id=389268826]
+collision_layer = 0
+collision_mask = 13
+script = ExtResource("1_xiym2")
+metadata/_custom_type_script = "uid://ccjqfdwimdrdq"
+
+[node name="Collision" type="CollisionShape2D" parent="." unique_id=671043287]
+visible = false
+position = Vector2(-8, 4)
+shape = SubResource("RectangleShape2D_m1eld")
+debug_color = Color(0.9740793, 0, 0.43279848, 0.41960785)
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=653631619]
+texture_repeat = 3
+position = Vector2(-8, 4)
+texture = ExtResource("2_ppdcm")
+region_enabled = true
+region_rect = Rect2(0, 8, 32, 8)
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

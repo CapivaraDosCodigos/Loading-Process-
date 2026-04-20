@@ -3,7 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://dnhw8a254jpum" path="res://Objetos/Items/Moeda/moeda.tscn" id="1_go313"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_go313"]
-radius = 9.0
+radius = 7.0
 
 [node name="RigidMoeda" type="RigidBody2D" unique_id=1989034512]
 collision_layer = 8
@@ -15,5 +15,3 @@ lock_rotation = true
 
 [node name="Collision" type="CollisionShape2D" parent="." unique_id=481435641]
 shape = SubResource("CircleShape2D_go313")
-
-[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="." unique_id=1760450319]

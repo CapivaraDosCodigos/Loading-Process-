@@ -1,8 +1,9 @@
 extends CharacterBody2D
 class_name Bullet2D
 
-@export var move_speed: float = 200.0
+@export var move_speed: float = 120.0
 @onready var anim: AnimatedSprite2D = $anim
+var take_damage_force: bool = true
 
 var direction: int = 1
 
@@ -20,8 +21,9 @@ func _play() -> void:
 	set_physics_process(true)
 	anim.play()
 
-func _physics_process(delta: float) -> void:
-	position.x += move_speed * direction * delta
+func _physics_process(_delta: float) -> void:
+	velocity.x = move_speed * direction
+	move_and_slide()
 
 func set_direction(dir: int) -> void:
 	direction = dir

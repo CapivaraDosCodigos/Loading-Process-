@@ -117,7 +117,7 @@ size = Vector2(12, 2)
 
 [node name="DrScience" type="CharacterBody2D" unique_id=1153250036 node_paths=PackedStringArray("wall_detector", "animated")]
 collision_layer = 64
-collision_mask = 3
+collision_mask = 259
 script = ExtResource("1_ahb7l")
 bullet_scene = ExtResource("2_ks424")
 speed = 200.0

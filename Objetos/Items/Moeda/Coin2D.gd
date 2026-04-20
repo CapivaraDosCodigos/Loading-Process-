@@ -4,11 +4,9 @@ class_name Coin2D
 @onready var animated: AnimatedSprite2D = $Animated
 @onready var collision: CollisionShape2D = $Collision
 
-static var audio: AudioStream:
-	get():
-		if not audio:
-			audio = preload("uid://d32eu2b040w82")
-		return audio
+@export var score_mode: bool = false
+
+static var audio: AudioStream = preload("uid://d32eu2b040w82")
 
 func _ready() -> void:
 	Global.time_stop.connect(_stop)
@@ -28,17 +26,20 @@ func _play() -> void:
 		parent.freeze = false
 	animated.play()
 
-func _on_body_entered(_body: Node2D) -> void:
-	add_moeda.call_deferred()
+func _on_body_entered(body: Node2D) -> void:
+	if body is Player2D:
+		add_moeda.call_deferred(body)
 
-func add_moeda() -> void:
+func add_moeda(body: Player2D) -> void:
 	animated.play("End")
 	
 	collision.queue_free.call_deferred()
 	
-	Global.coins += 1
-	AudioManager.play(AudioManager.AudioType.SFX_1,
-	audio, 50, false)
+	if score_mode:
+		Global.score += 1
+	else:
+		Global.coins += 1
+		body.play_audio("Items", audio, 90.0, false, false)
 	
 	var parent: Node = get_parent()
 	if parent is RigidBody2D:

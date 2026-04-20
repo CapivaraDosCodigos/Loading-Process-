@@ -10,18 +10,22 @@ func _play() -> void:
 	animated.play()
 
 func _internal_ready() -> void:
+	_internal_flip()
+
+func _internal_flip() -> void:
 	direction.x = scale.y * -1.0
 	scale.y = 1.0
 	rotation = 0.0
 	if wall_detector:
 		wall_detector.scale.x = direction.x * -1.0
 	if animated:
-		animated.flip_h = direction.x == 1.0
+		animated.scale.x = direction.x * -1.0
 
 func _physics_process(delta: float) -> void:
-	if _is_hurt_velocity():
+	_gravity(delta)
+	
+	if is_hurtet:
 		return
 	
-	_gravity(delta)
 	_movement()
 	_flip_direction()

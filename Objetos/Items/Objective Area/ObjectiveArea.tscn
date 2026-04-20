@@ -26,7 +26,7 @@ animations = [{
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_h5nut"]
-radius = 16.0
+radius = 8.0
 
 [sub_resource type="Animation" id="Animation_h5nut"]
 resource_name = "Float"
@@ -76,7 +76,6 @@ autoplay = "default"
 frame_progress = 0.35152072
 
 [node name="Collision" type="CollisionShape2D" parent="." unique_id=213479772]
-visible = false
 shape = SubResource("CircleShape2D_h5nut")
 
 [node name="Animation" type="AnimationPlayer" parent="." unique_id=2043893441]

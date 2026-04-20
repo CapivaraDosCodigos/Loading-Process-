@@ -9,7 +9,7 @@ uniform vec2 player = vec2(0.5);
 
 uniform float progress : hint_range(0,1);
 uniform float pixel_size = 15.0;
-uniform float circle_size : hint_range(0,2) = 1.5;
+uniform float circle_size : hint_range(0,3) = 1.5;
 uniform float curtains : hint_range(0,1) = 1.0;
 
 // 0–4 normal | 5–9 invertido

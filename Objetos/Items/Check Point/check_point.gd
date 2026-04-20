@@ -16,5 +16,3 @@ func activate_checkpoint() -> void:
 func _on_animated_animation_finished() -> void:
 	if animated.animation == "raising":
 		animated.play("checked")
-		
-		

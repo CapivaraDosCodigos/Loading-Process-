@@ -68,8 +68,8 @@ _data = {
 }
 
 [node name="Break-Box" type="StaticBody2D" unique_id=169810392]
-collision_layer = 2
-collision_mask = 13
+collision_layer = 256
+collision_mask = 5
 script = ExtResource("1_wltyt")
 pieces = ["uid://bk1wrag75mo8u", "uid://dhe0sbek22a1e", "uid://2j3djvinst8o", "uid://duptx5pap02l1"]
 

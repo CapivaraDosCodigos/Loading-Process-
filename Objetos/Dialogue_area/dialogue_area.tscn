@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://br2vd2p2e0nhw"]
+
+[ext_resource type="Script" uid="uid://cfpcyni2nw5ek" path="res://Objetos/Areas/dialogue_area.gd" id="1_e2m55"]
+[ext_resource type="Texture2D" uid="uid://boosc4swr6130" path="res://Textures/Mini FX, Items & UI/Mini UI/Speech_Emotes (16 x 16).png" id="2_jow6u"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_if02l"]
+size = Vector2(32, 18)
+
+[node name="Area" type="Area2D" unique_id=1546245857]
+collision_layer = 0
+script = ExtResource("1_e2m55")
+
+[node name="Collision" type="CollisionShape2D" parent="." unique_id=45882014]
+position = Vector2(0, -1)
+shape = SubResource("RectangleShape2D_if02l")
+
+[node name="Texture" type="Sprite2D" parent="." unique_id=739905073]
+visible = false
+position = Vector2(0, -18)
+texture = ExtResource("2_jow6u")
+region_enabled = true
+region_rect = Rect2(0, 0, 16, 16)

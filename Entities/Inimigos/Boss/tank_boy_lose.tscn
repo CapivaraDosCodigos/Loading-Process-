@@ -1,0 +1,81 @@
+[gd_scene format=3 uid="uid://clduqr40pgdxk"]
+
+[ext_resource type="Texture2D" uid="uid://bqdb5a6yeremr" path="res://Textures/Sprite Pack 2/8 - Comrade Cheese Puff/Running_Away (16 x 16).png" id="1_8oc4u"]
+[ext_resource type="Script" uid="uid://hyh0dbmb4pg2" path="res://Entities/Inimigos/RoboPumpkin/InimigoGround.gd" id="1_hwble"]
+[ext_resource type="Texture2D" uid="uid://dvpfoxka0t53l" path="res://Textures/Sprite Pack 2/8 - Comrade Cheese Puff/Hurt (16 x 16).png" id="2_2d7mh"]
+[ext_resource type="PackedScene" uid="uid://dfcww07k3b188" path="res://Entities/Assets/hitbox.tscn" id="4_wnb0f"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ofa87"]
+atlas = ExtResource("1_8oc4u")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ryw4w"]
+atlas = ExtResource("1_8oc4u")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_cc43w"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_2d7mh")
+}],
+"loop": false,
+"name": &"Hurt",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ofa87")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ryw4w")
+}],
+"loop": true,
+"name": &"Walking",
+"speed": 7.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_wgswt"]
+radius = 4.0
+height = 10.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cnvmn"]
+size = Vector2(10, 2)
+
+[node name="tank boy lose" type="CharacterBody2D" unique_id=1037510275 node_paths=PackedStringArray("wall_detector", "animated") groups=["Inimigos"]]
+collision_layer = 4
+collision_mask = 7
+script = ExtResource("1_hwble")
+speed = 40.0
+wall_detector = NodePath("Wall_detector")
+animated = NodePath("Animated")
+
+[node name="Animated" type="AnimatedSprite2D" parent="." unique_id=187277772]
+sprite_frames = SubResource("SpriteFrames_cc43w")
+animation = &"Walking"
+autoplay = "Walking"
+frame_progress = 0.4636369
+flip_h = true
+
+[node name="Collision" type="CollisionShape2D" parent="." unique_id=359271650]
+position = Vector2(0, 3)
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_wgswt")
+
+[node name="VisibleOnScreenEnabler2D" type="VisibleOnScreenEnabler2D" parent="." unique_id=859881714]
+rect = Rect2(-7, -7, 14, 15)
+show_rect = false
+
+[node name="Wall_detector" type="RayCast2D" parent="." unique_id=1247649078]
+modulate = Color(1, 0, 1, 1)
+position = Vector2(0, 1)
+target_position = Vector2(-7, 0)
+collision_mask = 6
+
+[node name="Hitbox" parent="." unique_id=1128202378 instance=ExtResource("4_wnb0f")]
+position = Vector2(0, -1)
+
+[node name="Collision2" type="CollisionShape2D" parent="Hitbox" unique_id=1436478941]
+position = Vector2(0, -2)
+shape = SubResource("RectangleShape2D_cnvmn")
+debug_color = Color(0.9740793, 0, 0.43279848, 0.41960785)
