@@ -53,13 +53,3 @@ func _spawn_new_inimigo() -> void:
 	inimigo_filho.global_position = inimigo_marker.global_position
 	inimigo_filho.scale = scale
 	add_sibling(inimigo_filho)
-
-func take_damage(player: Player2D = null) -> void:
-	if player:
-		player.velocity.y = -player.jump_velocity
-	
-	velocity = Vector2.ZERO
-	var knockback_tween: Tween = create_tween()
-	animated.modulate = Color.RED
-	knockback_tween.tween_property(animated, "modulate", Color.WHITE, 0.25)
-	animated.play("Hurt")

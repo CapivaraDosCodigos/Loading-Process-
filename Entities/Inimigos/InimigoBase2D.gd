@@ -12,6 +12,8 @@ var is_hurtet: bool = false
 var take_damage_force: bool = false
 var HP: int = 1
 
+@export var distortion: Vector2 = Vector2(1.2, 0.8)
+@export var distortion_position: float = 1.6
 @export var speed: float = 20.0
 @export var score: int = 10
 @export var HP_base: int = 1
@@ -23,9 +25,9 @@ var HP: int = 1
 @export var animation_player: AnimationPlayer
 
 func _ready() -> void:
-	Global.time_stop.connect(_stop)
-	Global.time_play.connect(_play)
-	Global.dead_player.connect(_reset_inimgo)
+	ManagerGame.time_stop.connect(_stop)
+	ManagerGame.time_play.connect(_play)
+	ManagerGame.dead_player.connect(_reset_inimgo)
 	
 	if animated:
 		animated.animation_finished.connect(_on_animated_finished)
@@ -37,7 +39,7 @@ func _ready() -> void:
 	
 	HP = HP_base
 	
-	if Global.is_paused:
+	if ManagerGame.is_paused:
 		_stop()
 
 func _internal_ready() -> void:
@@ -63,7 +65,7 @@ func _flip_direction() -> void:
 	if wall_detector.is_colliding() and is_on_floor():
 		direction *= -1.0
 		wall_detector.scale.x = direction.x * -1.0
-		animated.scale.x *= -1.0
+		animated.scale.x = direction.x * -1.0
 
 func _on_animated_finished() -> void:
 	if animated.animation == "Hurt":
@@ -94,6 +96,15 @@ func take_damage(player: Player2D = null) -> void:
 	is_hurtet = true
 	
 	var knockback_tween: Tween = create_tween()
+	
 	animated.modulate = Color.RED
-	knockback_tween.tween_property(animated, "modulate", Color.WHITE, 0.25)
+	animated.scale = Vector2(-direction.x * distortion.x, distortion.y)
+	var save_position: Vector2 = animated.position
+	animated.position.y += distortion_position
+	
+	knockback_tween.parallel().tween_property(animated, "modulate", Color.WHITE, 0.25)
+	knockback_tween.parallel().tween_property(animated, "scale", Vector2(direction.x * -1.0, 1.0), 0.25)
+	knockback_tween.parallel().tween_property(animated, "position", save_position, 0.25)
+	
 	animated.play("Hurt")
+	

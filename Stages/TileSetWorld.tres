@@ -1,7 +1,7 @@
 [gd_resource type="TileSet" format=3 uid="uid://be6kkylvjwpqx"]
 
-[ext_resource type="Texture2D" uid="uid://bgf4ldwki0edx" path="res://Textures/Seasonal Tilesets/1 - Grassland/Extra_plants (16 x 16).png" id="1_8bk21"]
-[ext_resource type="Texture2D" uid="uid://dgi7gr2mcn6pa" path="res://Textures/Seasonal Tilesets/1 - Grassland/Grassland_entities (16 x 16).png" id="2_mcc8d"]
+[ext_resource type="Texture2D" uid="uid://bgf4ldwki0edx" path="res://Stages/Mundo 1 - Grassland/1 - Grassland/Extra_plants (16 x 16).png" id="1_5k7d4"]
+[ext_resource type="Texture2D" uid="uid://dgi7gr2mcn6pa" path="res://Stages/Mundo 1 - Grassland/1 - Grassland/Grassland_entities (16 x 16).png" id="2_k4vcs"]
 [ext_resource type="Texture2D" uid="uid://cfqmojfwm0w0o" path="res://Textures/Seasonal Tilesets/3 - Tropics/Terrain (16 x 16).png" id="3_emeng"]
 [ext_resource type="Texture2D" uid="uid://lyd3w8uydf3o" path="res://Textures/Seasonal Tilesets/3 - Tropics/Tropics_entities (16 x 16).png" id="4_61evn"]
 [ext_resource type="Texture2D" uid="uid://bluet235xt2p6" path="res://Textures/Seasonal Tilesets/4 - Winter World/Terrain (16 x 16).png" id="5_6rvna"]
@@ -12,7 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://8rxoqq3ipd0g" path="res://Textures/Seasonal Tilesets/5 - Misc. universal tiles/Lava_frames (16 x 32).png" id="10_d3owh"]
 [ext_resource type="Texture2D" uid="uid://puf81xc7ufrl" path="res://Textures/Seasonal Tilesets/5 - Misc. universal tiles/Metal_Wire_fence (16 x 16).png" id="11_pm4yp"]
 [ext_resource type="Texture2D" uid="uid://x745p57r247q" path="res://Textures/Seasonal Tilesets/5 - Misc. universal tiles/Snack_machine_Bench_Trash_bin (16 x 16).png" id="12_uwee7"]
-[ext_resource type="Texture2D" uid="uid://bngrh74vyc7ht" path="res://Textures/Seasonal Tilesets/1 - Grassland/Terrain (16 x 16).png" id="13_iykn1"]
+[ext_resource type="Texture2D" uid="uid://bngrh74vyc7ht" path="res://Stages/Mundo 1 - Grassland/1 - Grassland/Terrain (16 x 16).png" id="13_rpwjl"]
 [ext_resource type="Texture2D" uid="uid://bsdpnwjlkqaj" path="res://Textures/Seasonal Tilesets/5 - Misc. universal tiles/Water_frames (16 x 32).png" id="14_l2ink"]
 [ext_resource type="PackedScene" uid="uid://dnhw8a254jpum" path="res://Objetos/Items/Moeda/moeda.tscn" id="15_n4tcc"]
 [ext_resource type="PackedScene" uid="uid://bwhup03mb7o5l" path="res://Objetos/Blocos/break_box.tscn" id="16_7gfbd"]
@@ -30,14 +30,14 @@
 [ext_resource type="Texture2D" uid="uid://bdq3xqdhatktd" path="res://Textures/Seasonal Tilesets/2 - Autumn Forest/Terrain (16 x 16).png" id="26_i0eq0"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_7j045"]
-texture = ExtResource("1_8bk21")
+texture = ExtResource("1_5k7d4")
 1:1/size_in_atlas = Vector2i(3, 3)
 1:1/0 = 0
 5:2/size_in_atlas = Vector2i(4, 2)
 5:2/0 = 0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_pph53"]
-texture = ExtResource("2_mcc8d")
+texture = ExtResource("2_k4vcs")
 15:2/0 = 0
 16:2/0 = 0
 17:2/0 = 0
@@ -299,7 +299,7 @@ texture = ExtResource("12_uwee7")
 3:1/0 = 0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_3cvkm"]
-texture = ExtResource("13_iykn1")
+texture = ExtResource("13_rpwjl")
 3:1/0 = 0
 3:1/0/terrain_set = 0
 3:1/0/terrain = 0

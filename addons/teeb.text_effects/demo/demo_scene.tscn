@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://j6vooln18vsm"]
+
+[ext_resource type="PackedScene" uid="uid://ce6n8nimp0na7" path="res://addons/teeb.text_effects/demo/RichTextLabel.tscn" id="2"]
+[ext_resource type="FontFile" uid="uid://ci5egqcj678qh" path="res://Assets/Fontes/RevMiniPixel.ttf" id="2_qycjh"]
+
+[node name="Node2D" type="Control" unique_id=969035963]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="RichTextLabel" parent="." unique_id=306311790 instance=ExtResource("2")]
+layout_mode = 1
+theme_override_fonts/normal_font = ExtResource("2_qycjh")
+theme_override_font_sizes/normal_font_size = 32
+text = "[number]What the heck are you fuckers talking 10 about? [/number]"

@@ -1,0 +1,4 @@
+[CONFIG]
+
+int=767
+array=Array[int]([20, 20, 30, 57])

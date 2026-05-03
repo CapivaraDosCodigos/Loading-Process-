@@ -58,6 +58,7 @@ size = Vector2(12, 2)
 collision_layer = 4
 collision_mask = 263
 script = ExtResource("1_usqfw")
+distortion = Vector2(1.1, 0.9)
 speed = 25.0
 wall_detector = NodePath("Wall_detector")
 animated = NodePath("Animated")
@@ -65,9 +66,8 @@ animated = NodePath("Animated")
 [node name="Animated" type="AnimatedSprite2D" parent="." unique_id=187277772]
 position = Vector2(0, -8)
 sprite_frames = SubResource("SpriteFrames_1kxlt")
-animation = &"Walking"
+animation = &"Hurt"
 autoplay = "Walking"
-frame_progress = 0.77877754
 
 [node name="VisibleOnScreenEnabler2D" type="VisibleOnScreenEnabler2D" parent="." unique_id=859881714]
 rect = Rect2(-7, -7, 14, 15)

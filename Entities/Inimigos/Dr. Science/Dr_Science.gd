@@ -30,14 +30,14 @@ func _physics_process(delta: float) -> void:
 	_gravity(delta)
 	_set_state()
 	
-	if not Global.player:
+	if not ManagerGame.player:
 		return
 	
 	#if is_hurtet:
 		#move_and_slide()
 		#return
 	
-	direction = (Global.player.global_position - global_position).normalized()
+	direction = (ManagerGame.player.global_position - global_position).normalized()
 	
 	_movement()
 	_flip_direction()
@@ -61,7 +61,7 @@ func _movement() -> void:
 		elif not ground_detector.is_colliding():
 			velocity.y = JUMP_FORCE
 	
-	var distance: float = abs(global_position.x - Global.player.global_position.x)
+	var distance: float = abs(global_position.x - ManagerGame.player.global_position.x)
 	if distance > 48.0:
 		velocity.x = direction.x * speed
 		
@@ -112,7 +112,7 @@ func _set_state() -> void:
 func _on_animated_animation_finished() -> void:
 	if animated.animation == "Hurt":
 		if life <= 0:
-			Global.score += score
+			ManagerGame.score += score
 			queue_free()
 		is_hurtet = false
 

@@ -9,7 +9,7 @@ func _on_body_entered(body: Node2D) -> void:
 	activate_checkpoint()
 
 func activate_checkpoint() -> void:
-	Global.check_point = self
+	ManagerGame.check_point = self
 	animated.play("raising")
 	is_active = true
 

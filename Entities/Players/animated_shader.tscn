@@ -10,5 +10,6 @@ shader_parameter/blink_color = Color(1, 0.76862746, 0.12156863, 1)
 shader_parameter/blink_intensity = 1.0
 
 [node name="AnimatedShader" type="AnimatedSprite2D" unique_id=1230534468]
+z_index = -1
 material = SubResource("ShaderMaterial_s4dnk")
 script = ExtResource("1_1d2p3")

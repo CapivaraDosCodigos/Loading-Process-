@@ -298,7 +298,7 @@ colors = PackedColorArray(0, 0, 0, 1, 0.369761, 0.369761, 0.369761, 1, 0.593305,
 offsets = PackedFloat32Array(0, 0.573581, 1)
 colors = PackedColorArray(0, 0, 0, 1, 0.573581, 0.573581, 0.573581, 1, 1, 1, 1, 1)
 
-[node name="TankBoy" type="CharacterBody2D" unique_id=99110960 node_paths=PackedStringArray("wall_detector", "sprite") groups=["inimigos"]]
+[node name="TankBoy" type="CharacterBody2D" unique_id=99110960 node_paths=PackedStringArray("wall_detector", "sprite", "animation_player") groups=["inimigos"]]
 collision_layer = 4
 collision_mask = 3
 script = ExtResource("1_sid7x")
@@ -306,6 +306,7 @@ speed = 208.0
 HP_base = 2
 wall_detector = NodePath("WallDetector")
 sprite = NodePath("Sprite")
+animation_player = NodePath("AnimPlayer")
 metadata/_custom_type_script = "uid://bfvb23jsccsa1"
 
 [node name="AnimPlayer" type="AnimationPlayer" parent="." unique_id=559780664]

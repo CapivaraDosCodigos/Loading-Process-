@@ -32,7 +32,7 @@ func _internal_ready() -> void:
 	take_damage_force = true
 
 func _physics_process(delta: float) -> void:
-	if Global.is_paused or is_boss_lose:
+	if ManagerGame.is_paused or is_boss_lose:
 		return
 
 	_gravity(delta)
@@ -162,8 +162,8 @@ func _on_player_detector_body_entered(_body: Node2D) -> void:
 	is_fight = true
 	set_physics_process(true)
 	anim_tree.set("parameters/conditions/can_move", true)
-	Global.camera_in_player = false
-	Global.camera.move_position(maker2d.global_position, 0.5)
+	ManagerGame.camera_in_player = false
+	ManagerGame.camera.move_position(maker2d.global_position, 0.5)
 
 func _on_hurt_box_body_entered(body: Node2D) -> void:
 	if is_boss_lose or not is_fight or not anim_tree.get("parameters/conditions/is_vulnerable"):
@@ -189,7 +189,7 @@ func _on_hurt_box_body_entered(body: Node2D) -> void:
 func _reset_inimgo() -> void:
 	if is_boss_lose:
 		return
-
+	
 	set_physics_process(false)
 	hurt_box_collision.set_deferred("disabled", true)
 	take_damage_force = true
@@ -223,5 +223,5 @@ func lose() -> void:
 
 	explosion.emitting = true
 
-	Global.dead_boss.emit()
-	Global.camera_in_player = true
+	ManagerGame.dead_boss.emit()
+	ManagerGame.camera_in_player = true

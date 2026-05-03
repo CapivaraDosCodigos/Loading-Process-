@@ -136,8 +136,8 @@ func _on_missil_cooldown_timeout() -> void:
 
 func _on_player_detector_body_entered(_body: Node2D) -> void:
 	set_physics_process(not player_enter)
-	Global.camera_in_player = is_boss_lose
-	Global.camera.move_position(maker2d.global_position, 0.5)
+	ManagerGame.camera_in_player = is_boss_lose
+	ManagerGame.camera.move_position(maker2d.global_position, 0.5)
 
 func _on_hurt_box_body_entered(body: Node2D) -> void:
 	if body is Player2D:
@@ -179,5 +179,5 @@ func lose() -> void:
 	explosion.emitting = true
 	is_boss_lose = true
 	player_enter = true
-	Global.dead_boss.emit()
-	Global.camera_in_player = true
+	ManagerGame.dead_boss.emit()
+	ManagerGame.camera_in_player = true

@@ -9,9 +9,9 @@ class_name Coin2D
 static var audio: AudioStream = preload("uid://d32eu2b040w82")
 
 func _ready() -> void:
-	Global.time_stop.connect(_stop)
-	Global.time_play.connect(_play)
-	if Global.is_paused:
+	ManagerGame.time_stop.connect(_stop)
+	ManagerGame.time_play.connect(_play)
+	if ManagerGame.is_paused:
 		_stop()
 
 func _stop() -> void:
@@ -36,9 +36,9 @@ func add_moeda(body: Player2D) -> void:
 	collision.queue_free.call_deferred()
 	
 	if score_mode:
-		Global.score += 1
+		ManagerGame.score += 1
 	else:
-		Global.coins += 1
+		ManagerGame.coins += 1
 		body.play_audio("Items", audio, 90.0, false, false)
 	
 	var parent: Node = get_parent()

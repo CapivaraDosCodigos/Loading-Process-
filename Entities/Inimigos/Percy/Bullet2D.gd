@@ -8,9 +8,9 @@ var take_damage_force: bool = true
 var direction: int = 1
 
 func _ready() -> void:
-	Global.time_stop.connect(_stop)
-	Global.time_play.connect(_play)
-	if Global.is_paused:
+	ManagerGame.time_stop.connect(_stop)
+	ManagerGame.time_play.connect(_play)
+	if ManagerGame.is_paused:
 		_stop()
 
 func _stop() -> void:

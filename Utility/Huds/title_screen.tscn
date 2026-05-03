@@ -1,0 +1,345 @@
+[gd_scene format=3 uid="uid://cd87u5qbitxv1"]
+
+[ext_resource type="Theme" uid="uid://rgc24ucsh4oi" path="res://Assets/Themes/theme_game1.tres" id="1_6lcom"]
+[ext_resource type="Script" uid="uid://cpvw4t2iilqj8" path="res://Utility/Huds/title_screen.gd" id="2_hsvnf"]
+[ext_resource type="PackedScene" uid="uid://c6byo3vb1hglx" path="res://Stages/BackGrounds/bg_title_grassland.tscn" id="3_hsvnf"]
+[ext_resource type="RichTextEffect" uid="uid://c114h6gmqqops" path="res://addons/teeb.text_effects/resources/ColorMod.tres" id="4_wahmp"]
+[ext_resource type="RichTextEffect" path="res://addons/teeb.text_effects/resources/Cuss.tres" id="5_kveg7"]
+[ext_resource type="RichTextEffect" path="res://addons/teeb.text_effects/resources/Heart.tres" id="6_vmafp"]
+[ext_resource type="RichTextEffect" path="res://addons/teeb.text_effects/resources/Jump.tres" id="7_jxybv"]
+[ext_resource type="RichTextEffect" path="res://addons/teeb.text_effects/resources/L33T.tres" id="8_27exe"]
+[ext_resource type="RichTextEffect" path="res://addons/teeb.text_effects/resources/Nervous.tres" id="9_jxkfl"]
+[ext_resource type="RichTextEffect" path="res://addons/teeb.text_effects/resources/Number.tres" id="10_yd2aw"]
+[ext_resource type="RichTextEffect" path="res://addons/teeb.text_effects/resources/Rain.tres" id="11_0401t"]
+[ext_resource type="RichTextEffect" path="res://addons/teeb.text_effects/resources/Sparkle.tres" id="12_seaoi"]
+[ext_resource type="RichTextEffect" path="res://addons/teeb.text_effects/resources/UwU.tres" id="13_c5hqu"]
+[ext_resource type="RichTextEffect" path="res://addons/teeb.text_effects/resources/Woo.tres" id="14_cw443"]
+[ext_resource type="Script" uid="uid://qasm6afliri1" path="res://Utility/Huds/UiAnimationComponent.gd" id="15_ix7xy"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_6lcom"]
+
+[sub_resource type="InputEventAction" id="InputEventAction_hsvnf"]
+action = &"ui_cancel"
+pressed = true
+
+[sub_resource type="Shortcut" id="Shortcut_osm2j"]
+events = [SubResource("InputEventAction_hsvnf")]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_d50d3"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_yqtog"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ix7xy"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_w6s05"]
+
+[node name="TitleScreen" type="Node" unique_id=272917755]
+script = ExtResource("2_hsvnf")
+
+[node name="BG_Title_Grassland" parent="." unique_id=905884135 instance=ExtResource("3_hsvnf")]
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1998173107]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_6lcom")
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 24
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 24
+
+[node name="ContainerButtons" type="VBoxContainer" parent="MarginContainer" unique_id=663627333]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+theme_override_constants/separation = 16
+alignment = 1
+
+[node name="Title" type="RichTextLabel" parent="MarginContainer/ContainerButtons" unique_id=425823898]
+custom_minimum_size = Vector2(272, 32)
+layout_mode = 2
+mouse_default_cursor_shape = 4
+bbcode_enabled = true
+text = "[rain]Loading Process[/rain]"
+scroll_active = false
+horizontal_alignment = 1
+vertical_alignment = 1
+custom_effects = [ExtResource("4_wahmp"), ExtResource("5_kveg7"), ExtResource("6_vmafp"), ExtResource("7_jxybv"), ExtResource("8_27exe"), ExtResource("9_jxkfl"), ExtResource("10_yd2aw"), ExtResource("11_0401t"), ExtResource("12_seaoi"), ExtResource("13_c5hqu"), ExtResource("14_cw443")]
+
+[node name="HSeparator" type="HSeparator" parent="MarginContainer/ContainerButtons" unique_id=2033274744]
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxEmpty_6lcom")
+
+[node name="Start_Button" type="Button" parent="MarginContainer/ContainerButtons" unique_id=1506486395]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(272, 24)
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Jogar"
+
+[node name="UiAnimationComponent" type="Node" parent="MarginContainer/ContainerButtons/Start_Button" unique_id=1505939191]
+script = ExtResource("15_ix7xy")
+transition_type = 8
+metadata/_custom_type_script = "uid://qasm6afliri1"
+
+[node name="Credits_Button" type="Button" parent="MarginContainer/ContainerButtons" unique_id=251930538]
+layout_mode = 2
+theme_override_constants/outline_size = 8
+theme_override_font_sizes/font_size = 24
+text = "Créditos"
+
+[node name="UiAnimationComponent" type="Node" parent="MarginContainer/ContainerButtons/Credits_Button" unique_id=1706997529]
+script = ExtResource("15_ix7xy")
+transition_type = 8
+metadata/_custom_type_script = "uid://qasm6afliri1"
+
+[node name="Quit_Button" type="Button" parent="MarginContainer/ContainerButtons" unique_id=124192206]
+layout_mode = 2
+theme_override_constants/outline_size = 8
+theme_override_font_sizes/font_size = 24
+text = "Sair do jogo"
+
+[node name="UiAnimationComponent" type="Node" parent="MarginContainer/ContainerButtons/Quit_Button" unique_id=626650598]
+script = ExtResource("15_ix7xy")
+transition_type = 8
+metadata/_custom_type_script = "uid://qasm6afliri1"
+
+[node name="ContainerCredits" type="VBoxContainer" parent="MarginContainer" unique_id=1500453846]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+theme_override_constants/separation = 16
+alignment = 1
+
+[node name="Title" type="RichTextLabel" parent="MarginContainer/ContainerCredits" unique_id=746314856]
+custom_minimum_size = Vector2(272, 32)
+layout_mode = 2
+mouse_default_cursor_shape = 4
+bbcode_enabled = true
+text = "[rain]Loading Process[/rain]"
+scroll_active = false
+horizontal_alignment = 1
+vertical_alignment = 1
+custom_effects = [ExtResource("4_wahmp"), ExtResource("5_kveg7"), ExtResource("6_vmafp"), ExtResource("7_jxybv"), ExtResource("8_27exe"), ExtResource("9_jxkfl"), ExtResource("10_yd2aw"), ExtResource("11_0401t"), ExtResource("12_seaoi"), ExtResource("13_c5hqu"), ExtResource("14_cw443")]
+
+[node name="HSeparator" type="HSeparator" parent="MarginContainer/ContainerCredits" unique_id=2049312157]
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxEmpty_6lcom")
+
+[node name="CreditsAssets" type="LinkButton" parent="MarginContainer/ContainerCredits" unique_id=890698541]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+focus_neighbor_bottom = NodePath("../TVPixel")
+focus_next = NodePath("../TVPixel")
+text = "Credits Assets"
+uri = "https://grafxkid.itch.io/"
+
+[node name="UiAnimationComponent" type="Node" parent="MarginContainer/ContainerCredits/CreditsAssets" unique_id=787091644]
+script = ExtResource("15_ix7xy")
+transition_type = 8
+metadata/_custom_type_script = "uid://qasm6afliri1"
+
+[node name="TVPixel" type="LinkButton" parent="MarginContainer/ContainerCredits" unique_id=642697973]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+focus_neighbor_top = NodePath("../CreditsAssets")
+focus_neighbor_bottom = NodePath("../Return_Button")
+focus_next = NodePath("../Return_Button")
+focus_previous = NodePath("../CreditsAssets")
+text = "TVPixel Channel"
+uri = "https://youtube.com/@tvpixeldevs"
+
+[node name="UiAnimationComponent" type="Node" parent="MarginContainer/ContainerCredits/TVPixel" unique_id=740691535]
+script = ExtResource("15_ix7xy")
+transition_type = 8
+metadata/_custom_type_script = "uid://qasm6afliri1"
+
+[node name="LanHouseDoCabaAriel" type="LinkButton" parent="MarginContainer/ContainerCredits" unique_id=192350522]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "Lan-House Do Caba Ariel"
+uri = "https://grafxkid.itch.io/"
+
+[node name="Return_Button" type="Button" parent="MarginContainer/ContainerCredits" unique_id=749353783]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+focus_neighbor_top = NodePath("../TVPixel")
+focus_previous = NodePath("../TVPixel")
+theme_override_font_sizes/font_size = 24
+shortcut = SubResource("Shortcut_osm2j")
+text = "Voltar"
+
+[node name="UiAnimationComponent" type="Node" parent="MarginContainer/ContainerCredits/Return_Button" unique_id=970885217]
+script = ExtResource("15_ix7xy")
+transition_type = 8
+metadata/_custom_type_script = "uid://qasm6afliri1"
+
+[node name="ContainerSaves" type="VBoxContainer" parent="MarginContainer" unique_id=1547069572]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+theme_override_constants/separation = 16
+alignment = 1
+
+[node name="Title" type="RichTextLabel" parent="MarginContainer/ContainerSaves" unique_id=1959147269]
+custom_minimum_size = Vector2(272, 32)
+layout_mode = 2
+mouse_default_cursor_shape = 4
+bbcode_enabled = true
+text = "[rain]Loading Process[/rain]"
+scroll_active = false
+horizontal_alignment = 1
+vertical_alignment = 1
+custom_effects = [ExtResource("4_wahmp"), ExtResource("5_kveg7"), ExtResource("6_vmafp"), ExtResource("7_jxybv"), ExtResource("8_27exe"), ExtResource("9_jxkfl"), ExtResource("10_yd2aw"), ExtResource("11_0401t"), ExtResource("12_seaoi"), ExtResource("13_c5hqu"), ExtResource("14_cw443")]
+
+[node name="HSeparator" type="HSeparator" parent="MarginContainer/ContainerSaves" unique_id=1570816974]
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxEmpty_6lcom")
+
+[node name="Slot_1" type="Button" parent="MarginContainer/ContainerSaves" unique_id=280715097]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(272, 24)
+layout_mode = 2
+focus_neighbor_bottom = NodePath("../Slot_2")
+focus_next = NodePath("../Slot_2")
+theme_override_font_sizes/font_size = 24
+theme_override_styles/normal = SubResource("StyleBoxEmpty_d50d3")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_yqtog")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_ix7xy")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_w6s05")
+text = "Slot 1"
+
+[node name="UiAnimationComponent" type="Node" parent="MarginContainer/ContainerSaves/Slot_1" unique_id=1849945795]
+script = ExtResource("15_ix7xy")
+transition_type = 8
+metadata/_custom_type_script = "uid://qasm6afliri1"
+
+[node name="Slot_2" type="Button" parent="MarginContainer/ContainerSaves" unique_id=180078067]
+custom_minimum_size = Vector2(272, 24)
+layout_mode = 2
+focus_neighbor_top = NodePath("../Slot_1")
+focus_neighbor_bottom = NodePath("../Slot_3")
+focus_next = NodePath("../Slot_3")
+focus_previous = NodePath("../Slot_1")
+theme_override_font_sizes/font_size = 24
+theme_override_styles/normal = SubResource("StyleBoxEmpty_d50d3")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_yqtog")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_ix7xy")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_w6s05")
+text = "Slot 2"
+
+[node name="UiAnimationComponent" type="Node" parent="MarginContainer/ContainerSaves/Slot_2" unique_id=1657649140]
+script = ExtResource("15_ix7xy")
+transition_type = 8
+metadata/_custom_type_script = "uid://qasm6afliri1"
+
+[node name="Slot_3" type="Button" parent="MarginContainer/ContainerSaves" unique_id=1818004883]
+custom_minimum_size = Vector2(272, 24)
+layout_mode = 2
+focus_neighbor_top = NodePath("../Slot_2")
+focus_neighbor_bottom = NodePath("../../ContainerCredits/Return_Button")
+focus_next = NodePath("../../ContainerCredits/Return_Button")
+focus_previous = NodePath("../Slot_2")
+theme_override_font_sizes/font_size = 24
+theme_override_styles/normal = SubResource("StyleBoxEmpty_d50d3")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_yqtog")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_ix7xy")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_w6s05")
+text = "Slot 3"
+
+[node name="UiAnimationComponent" type="Node" parent="MarginContainer/ContainerSaves/Slot_3" unique_id=1282158335]
+script = ExtResource("15_ix7xy")
+transition_type = 8
+metadata/_custom_type_script = "uid://qasm6afliri1"
+
+[node name="Return_Button" type="Button" parent="MarginContainer/ContainerSaves" unique_id=1151193918]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_colors/font_outline_color = Color(0.04917199, 0.04917199, 0.04917196, 1)
+theme_override_font_sizes/font_size = 24
+shortcut = SubResource("Shortcut_osm2j")
+text = "Voltar"
+
+[node name="UiAnimationComponent" type="Node" parent="MarginContainer/ContainerSaves/Return_Button" unique_id=1543412245]
+script = ExtResource("15_ix7xy")
+transition_type = 8
+metadata/_custom_type_script = "uid://qasm6afliri1"
+
+[node name="PopupError" type="VBoxContainer" parent="MarginContainer" unique_id=1500714378]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+theme_override_constants/separation = 16
+alignment = 1
+
+[node name="Title" type="Label" parent="MarginContainer/PopupError" unique_id=790345350]
+custom_minimum_size = Vector2(272, 32)
+layout_mode = 2
+size_flags_vertical = 3
+mouse_default_cursor_shape = 4
+theme_override_colors/font_outline_color = Color(0.1254902, 0.1254902, 0.1254902, 1)
+theme_override_constants/outline_size = 8
+text = "Arquivo de Save não encontrado, deseja criar um novo?"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/PopupError" unique_id=1133370258]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 3
+
+[node name="Return_Error_Button" type="Button" parent="MarginContainer/PopupError/HBoxContainer" unique_id=1859771239]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+theme_override_constants/outline_size = 8
+shortcut = SubResource("Shortcut_osm2j")
+text = "Voltar"
+
+[node name="UiAnimationComponent" type="Node" parent="MarginContainer/PopupError/HBoxContainer/Return_Error_Button" unique_id=211460213]
+script = ExtResource("15_ix7xy")
+transition_type = 8
+metadata/_custom_type_script = "uid://qasm6afliri1"
+
+[node name="VSeparator" type="VSeparator" parent="MarginContainer/PopupError/HBoxContainer" unique_id=1862775064]
+layout_mode = 2
+theme_override_constants/separation = 24
+theme_override_styles/separator = SubResource("StyleBoxEmpty_6lcom")
+
+[node name="Criar_Novo_Button" type="Button" parent="MarginContainer/PopupError/HBoxContainer" unique_id=1882546107]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+theme_override_constants/outline_size = 8
+shortcut = SubResource("Shortcut_osm2j")
+text = "Criar novo"
+
+[node name="UiAnimationComponent" type="Node" parent="MarginContainer/PopupError/HBoxContainer/Criar_Novo_Button" unique_id=20983396]
+script = ExtResource("15_ix7xy")
+transition_type = 8
+metadata/_custom_type_script = "uid://qasm6afliri1"
+
+[connection signal="pressed" from="MarginContainer/ContainerButtons/Start_Button" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="MarginContainer/ContainerButtons/Credits_Button" to="." method="_on_credits_button_pressed"]
+[connection signal="pressed" from="MarginContainer/ContainerButtons/Quit_Button" to="." method="_on_quit_button_pressed"]
+[connection signal="pressed" from="MarginContainer/ContainerCredits/Return_Button" to="." method="_on_return_button_pressed"]
+[connection signal="pressed" from="MarginContainer/ContainerSaves/Slot_1" to="." method="_on_slot_1_pressed"]
+[connection signal="pressed" from="MarginContainer/ContainerSaves/Slot_2" to="." method="_on_slot_2_pressed"]
+[connection signal="pressed" from="MarginContainer/ContainerSaves/Slot_3" to="." method="_on_slot_3_pressed"]
+[connection signal="pressed" from="MarginContainer/ContainerSaves/Return_Button" to="." method="_on_return_button_pressed"]
+[connection signal="pressed" from="MarginContainer/PopupError/HBoxContainer/Return_Error_Button" to="." method="_on_return_button_pressed"]
+[connection signal="pressed" from="MarginContainer/PopupError/HBoxContainer/Criar_Novo_Button" to="." method="_on_criar_novo_button_pressed"]

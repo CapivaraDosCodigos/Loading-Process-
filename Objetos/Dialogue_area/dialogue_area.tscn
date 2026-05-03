@@ -6,9 +6,10 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_if02l"]
 size = Vector2(32, 18)
 
-[node name="Area" type="Area2D" unique_id=1546245857]
+[node name="DialogueArea" type="Area2D" unique_id=697885118]
 collision_layer = 0
 script = ExtResource("1_e2m55")
+metadata/_custom_type_script = "uid://cfpcyni2nw5ek"
 
 [node name="Collision" type="CollisionShape2D" parent="." unique_id=45882014]
 position = Vector2(0, -1)

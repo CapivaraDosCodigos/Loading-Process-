@@ -18,10 +18,11 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-Global="*uid://nvsr5ed7xtuc"
+Global="*uid://dwc670uxsidax"
+ManagerGame="*uid://bbnjf8q31uebh"
 SceneManager="*uid://i15wa57mxkf2"
-DialogueManager="uid://ilwe2k2eypqf"
 AudioManager="*uid://cochi04cli4u1"
+DialogueManager="*uid://ilwe2k2eypqf"
 
 [debug]
 
@@ -34,6 +35,10 @@ window/size/viewport_height=360
 window/size/mode=3
 window/stretch/mode="canvas_items"
 
+[editor_plugins]
+
+enabled=PackedStringArray()
+
 [file_customization]
 
 folder_colors={
@@ -43,7 +48,9 @@ folder_colors={
 "res://Entities/Players/ShaderMaterial/": "pink",
 "res://Objetos/": "gray",
 "res://Shaders/": "pink",
-"res://Textures/": "green"
+"res://Stages/Mundo 1 - Grassland/1 - Grassland/": "green",
+"res://Textures/": "green",
+"res://addons/": "pink"
 }
 
 [global_group]
@@ -53,6 +60,14 @@ Projectiles=""
 
 [input]
 
+ui_accept={
+"deadzone": 0.5,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":4194309,"physical_keycode":0,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
+, Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":4194310,"physical_keycode":0,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
+, Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":32,"physical_keycode":0,"key_label":0,"unicode":32,"location":0,"echo":false,"script":null)
+, Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"button_index":1,"pressure":0.0,"pressed":false,"script":null)
+]
+}
 ui_left={
 "deadzone": 0.5,
 "events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":4194319,"physical_keycode":0,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
@@ -105,9 +120,11 @@ TimeStop={
 "deadzone": 0.2,
 "events": []
 }
-Ability={
+Dash={
 "deadzone": 0.2,
-"events": []
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":90,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
+, Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"button_index":10,"pressure":0.0,"pressed":false,"script":null)
+]
 }
 
 [input_devices]

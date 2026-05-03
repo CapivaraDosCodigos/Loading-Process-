@@ -53,9 +53,17 @@ func take_damage(player: Player2D = null) -> void:
 	if player: player.velocity.y = -player.jump_velocity
 	
 	velocity = Vector2.ZERO
+	
 	var knockback_tween: Tween = create_tween()
 	sprite.modulate = Color.RED
-	knockback_tween.tween_property(sprite, "modulate", Color.WHITE, 0.3)
+	sprite.scale = Vector2(1.2 * direction.x, 0.8)
+	var save_position: Vector2 = sprite.position
+	sprite.position.y += distortion_position
+	
+	knockback_tween.parallel().tween_property(sprite, "modulate", Color.WHITE, 0.3)
+	knockback_tween.parallel().tween_property(sprite, "scale", Vector2(direction.x, 1.0), 0.3)
+	knockback_tween.parallel().tween_property(sprite, "position", save_position, 0.3)
+	
 	animation_player.play("Hurt")
 	
 	if HP > 0:
@@ -81,11 +89,11 @@ func _flip_direction() -> void:
 	wall_detector.scale.x *= -1.0
 	fireball_spawn_point.position.x *= -1.0
 	collision_hitbox.position.x *= -1.0
-	sprite.flip_h = direction.x == -1.0
+	sprite.scale.x = direction.x
 
 func _on_animation_player_finished(animated_name: StringName) -> void:
 	if animated_name == "Hurt":
 		if HP <= 0:
-			Global.score += score
+			ManagerGame.score += score
 			create_coins()
 			queue_free()

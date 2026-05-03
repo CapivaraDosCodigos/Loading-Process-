@@ -1,0 +1,7 @@
+[gd_resource type="RichTextEffect" format=3 uid="uid://c114h6gmqqops"]
+
+[ext_resource type="Script" uid="uid://ciisylpnlh05y" path="res://addons/teeb.text_effects/effects/ColorMod.gd" id="1"]
+
+[resource]
+resource_name = "ColorMod"
+script = ExtResource("1")

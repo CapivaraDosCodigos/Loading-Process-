@@ -44,6 +44,7 @@ func load_scene(_scene_path: String, _use_sub_threads: bool = true, transition: 
 	
 	await new_load_screen.loading_screen_ready
 	_start_load()
+	#await load_finished
 
 ## Processa o carregamento assíncrono da cena e atualiza o progresso
 func _process(_delta: float) -> void:

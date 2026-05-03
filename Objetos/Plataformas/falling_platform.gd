@@ -16,8 +16,8 @@ var is_falling: bool = false
 
 func _ready() -> void:
 	set_physics_process(false)
-	Global.time_stop.connect(_stop)
-	Global.time_play.connect(_play)
+	ManagerGame.time_stop.connect(_stop)
+	ManagerGame.time_play.connect(_play)
 
 func _stop() -> void:
 	set_physics_process(false)
@@ -31,14 +31,14 @@ func _play() -> void:
 	respawn_timer.paused = false
 
 func _physics_process(delta: float) -> void:
-	if Global.is_paused:
+	if ManagerGame.is_paused:
 		return
 	
 	velocity.y += gravity * delta
 	position += velocity * delta
 
 func has_collided_with() -> void:
-	if Global.is_paused:
+	if ManagerGame.is_paused:
 		return
 	
 	if not is_triggered:
@@ -47,7 +47,7 @@ func has_collided_with() -> void:
 		velocity = Vector2.ZERO
 
 func _on_animation_animation_finished(_anim_name: StringName) -> void:
-	if Global.is_paused:
+	if ManagerGame.is_paused:
 		return
 	
 	is_falling = true

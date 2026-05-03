@@ -47,6 +47,7 @@ collision_mask = 5
 script = ExtResource("1_uo31x")
 inimigo_filho_path = "uid://hpm4w0aouya"
 inimigo_marker = NodePath("CherryMarker")
+distortion = Vector2(1.1, 0.9)
 speed = 2.5
 animated = NodePath("Animated")
 metadata/_custom_type_script = "uid://bfvb23jsccsa1"
@@ -62,10 +63,6 @@ visible = false
 position = Vector2(0.5, 0)
 shape = SubResource("RectangleShape2D_ki5ow")
 
-[node name="VisibleOnScreenEnabler2D" type="VisibleOnScreenEnabler2D" parent="." unique_id=18487953]
-rect = Rect2(-7, -16, 16, 32)
-show_rect = false
-
 [node name="Hitbox" parent="." unique_id=1128202378 instance=ExtResource("4_uo31x")]
 visible = false
 
@@ -75,3 +72,4 @@ shape = SubResource("RectangleShape2D_uo31x")
 debug_color = Color(0.9740793, 0, 0.43279848, 0.41960785)
 
 [node name="CherryMarker" type="Marker2D" parent="." unique_id=960990407]
+visible = false
