@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="PackedEnemy" format=3 uid="uid://b3b1sb0cw0c5h"]
+
+[ext_resource type="PackedScene" uid="uid://cstrrhxbunosm" path="res://Entities/Inimigos/Percy/Percy.tscn" id="1_qbm6o"]
+[ext_resource type="Texture2D" uid="uid://y7tran20gv23" path="res://Textures/Sprite Pack 8/4 - Percy/Idle (32 x 32).png" id="2_u3r5w"]
+[ext_resource type="Script" uid="uid://dt2yq4d45uckq" path="res://Entities/Inimigos/Spawner/PackedInimigo.gd" id="3_sax5n"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2oll7"]
+atlas = ExtResource("2_u3r5w")
+region = Rect2(0, 0, 32, 32)
+
+[resource]
+script = ExtResource("3_sax5n")
+packed_scene = ExtResource("1_qbm6o")
+offset = Vector2(0, -7)
+flip_h = true
+preview_texture = SubResource("AtlasTexture_2oll7")
+metadata/_custom_type_script = "uid://dt2yq4d45uckq"

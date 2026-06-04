@@ -19,23 +19,48 @@ process_mode = 3
 layer = 50
 script = ExtResource("1_1g7qf")
 
-[node name="ButtonLeft" type="TouchScreenButton" parent="." unique_id=1313928293]
-position = Vector2(16, 280)
-scale = Vector2(2, 2)
+[node name="base2D" type="Node2D" parent="." unique_id=410990943]
+
+[node name="ButtonLeft" type="TouchScreenButton" parent="base2D" unique_id=1313928293]
+unique_name_in_owner = true
+position = Vector2(24, 248)
+scale = Vector2(1.5, 1.5)
 texture_normal = ExtResource("1_3c10e")
 texture_pressed = ExtResource("2_r7hee")
 action = "ui_left"
 visibility_mode = 1
 
-[node name="ButtonRight" type="TouchScreenButton" parent="." unique_id=2032161006]
-position = Vector2(96, 280)
-scale = Vector2(2, 2)
+[node name="ButtonRight" type="TouchScreenButton" parent="base2D" unique_id=2032161006]
+unique_name_in_owner = true
+position = Vector2(120, 248.00002)
+scale = Vector2(1.5, 1.5)
 texture_normal = ExtResource("3_wi0ar")
 texture_pressed = ExtResource("4_e0y5j")
 action = "ui_right"
 visibility_mode = 1
 
-[node name="ButtonJump" type="TouchScreenButton" parent="." unique_id=1402659697]
+[node name="ButtonLeft2" type="TouchScreenButton" parent="base2D" unique_id=171300799]
+unique_name_in_owner = true
+position = Vector2(120.00001, 200)
+rotation = 1.5707964
+scale = Vector2(1.5, 1.5)
+texture_normal = ExtResource("1_3c10e")
+texture_pressed = ExtResource("2_r7hee")
+action = "ui_up"
+visibility_mode = 1
+
+[node name="ButtonRight2" type="TouchScreenButton" parent="base2D" unique_id=353358251]
+unique_name_in_owner = true
+position = Vector2(120, 296)
+rotation = 1.5707964
+scale = Vector2(1.5, 1.5)
+texture_normal = ExtResource("3_wi0ar")
+texture_pressed = ExtResource("4_e0y5j")
+action = "ui_down"
+visibility_mode = 1
+
+[node name="ButtonJump" type="TouchScreenButton" parent="base2D" unique_id=1402659697]
+unique_name_in_owner = true
 position = Vector2(560, 280)
 scale = Vector2(2, 2)
 texture_normal = ExtResource("5_mi2rd")
@@ -43,7 +68,8 @@ texture_pressed = ExtResource("6_bdase")
 action = "ui_accept"
 visibility_mode = 1
 
-[node name="ButtonDash" type="TouchScreenButton" parent="." unique_id=668502696]
+[node name="ButtonDash" type="TouchScreenButton" parent="base2D" unique_id=668502696]
+unique_name_in_owner = true
 position = Vector2(560, 200)
 scale = Vector2(2, 2)
 texture_normal = ExtResource("7_e0y5j")
@@ -51,7 +77,8 @@ texture_pressed = ExtResource("8_mi2rd")
 action = "Dash"
 visibility_mode = 1
 
-[node name="ButtonPause" type="TouchScreenButton" parent="." unique_id=1553560717]
+[node name="ButtonPause" type="TouchScreenButton" parent="base2D" unique_id=1553560717]
+unique_name_in_owner = true
 position = Vector2(574, 24)
 scale = Vector2(2, 2)
 texture_normal = ExtResource("10_gmpxm")
@@ -59,7 +86,8 @@ texture_pressed = ExtResource("11_l32vt")
 action = "ui_cancel"
 visibility_mode = 1
 
-[node name="ButtonInterect" type="TouchScreenButton" parent="." unique_id=1507980654]
+[node name="ButtonInterect" type="TouchScreenButton" parent="base2D" unique_id=1507980654]
+unique_name_in_owner = true
 position = Vector2(574, 136)
 scale = Vector2(2, 2)
 texture_normal = ExtResource("12_gmpxm")

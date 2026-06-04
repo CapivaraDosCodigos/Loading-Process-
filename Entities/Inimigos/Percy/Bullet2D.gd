@@ -10,6 +10,9 @@ var direction: int = 1
 func _ready() -> void:
 	ManagerGame.time_stop.connect(_stop)
 	ManagerGame.time_play.connect(_play)
+	
+	SpawnManager.add_objeto_in_cache(self)
+	
 	if ManagerGame.is_paused:
 		_stop()
 

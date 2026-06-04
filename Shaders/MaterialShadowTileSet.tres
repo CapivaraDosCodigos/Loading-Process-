@@ -1,0 +1,9 @@
+[gd_resource type="ShaderMaterial" format=3 uid="uid://jcjtuqeqjgij"]
+
+[ext_resource type="Shader" uid="uid://bsjy2gbselec" path="res://Shaders/Shadow.gdshader" id="1_wgb20"]
+
+[resource]
+shader = ExtResource("1_wgb20")
+shader_parameter/shadow_color = Color(0.30353206, 0.30353206, 0.30353206, 1)
+shader_parameter/shadow_offset = 1.0
+shader_parameter/alpha_threshold = 0.1

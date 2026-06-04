@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://pyk0btgvbdtf"]
+
+[ext_resource type="Script" uid="uid://jxdqv1krc5dr" path="res://Entities/Players/testplayer.gd" id="1_duwmy"]
+[ext_resource type="Texture2D" uid="uid://dbvwudfa3ync0" path="res://Entities/Players/Ant/Ant Texture/Idle (16 x 16).png" id="1_r13lk"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_duwmy"]
+size = Vector2(10, 12)
+
+[node name="Test" type="CharacterBody2D" unique_id=465775360]
+collision_mask = 2
+script = ExtResource("1_duwmy")
+
+[node name="Sprite" type="Sprite2D" parent="." unique_id=928761378]
+texture = ExtResource("1_r13lk")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=581212903]
+visible = false
+position = Vector2(0, 2)
+shape = SubResource("RectangleShape2D_duwmy")

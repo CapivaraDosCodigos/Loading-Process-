@@ -1,64 +1,73 @@
 extends Node
 
-enum AudioType {
-	MUSIC = 0,
-	SFX_1 = 1,
-	SFX_2 = 2,
-	SFX_3 = 3,
-	Coin = 4,
-	MENU = 5 }
-
-var players: Dictionary[AudioType, AudioPlayer] = {}
+var players: Dictionary[AudioGame.Type, AudioPlayer] = {}
 
 func _ready() -> void:
-	for type: AudioType in AudioType.values():
+	for type: AudioGame.Type in AudioGame.Type.values():
 		if not players.has(type):
 			var player: AudioPlayer = AudioPlayer.new()
 			add_child(player)
 			players[type] = player
 
-func play(type: int, stream: AudioStream, volume: float = 100.0, loop: bool = false, pitch: bool = false) -> void:
-	var player: AudioPlayer = players.get(type as AudioType)
+func play(type: AudioGame.Type, stream: AudioStream, volume: float, from_position: float = 0.0) -> AudioPlayer:
+	var player: AudioPlayer = players[type]
 	if not player:
 		push_warning("Player não encontrado: %s" % type)
-		return
+		return null
 	
-	player.volume_0_100 = volume
-	player.loop = loop
-	player.pitch_random = pitch
-	player.play_audio(stream)
+	player.play_audio(stream, volume, from_position)
+	
+	return player
 
-func play_insurance(type: int, stream: AudioStream, volume: float = 100.0, loop: bool = false) -> void:
-	var player: AudioPlayer = players.get(type as AudioType)
+func play_insurance(type: int, stream: AudioStream, volume: float, from_position: float = 0.0) -> AudioPlayer:
+	var player: AudioPlayer = players[type]
 	if not player:
 		push_warning("Player não encontrado: %s" % type)
-		return
-		
-	if player.is_playing_audio() and player.stream == stream:
-		return
+		return null
 	
-	player.volume_0_100 = volume
-	player.loop = loop
-	player.play_audio(stream)
+	if not player.is_playing_audio():
+		player.play_audio(stream, volume, from_position)
+	
+	return player
 
-func stop(type: AudioType) -> void:
-	var player: AudioPlayer = players.get(type)
+func stop(type: AudioGame.Type) -> AudioPlayer:
+	var player: AudioPlayer = players[type]
 	if player:
 		player.stop_audio()
+		
+	return player
+
+func set_volume(type: AudioGame.Type, value: float) -> AudioPlayer:
+	var player: AudioPlayer = players[type]
+	if player:
+		player.volume_0_100 = value
+		
+	return player
+
+func set_loop(type: AudioGame.Type, value: bool) -> AudioPlayer:
+	var player: AudioPlayer = players[type]
+	if player:
+		player.loop = value
+		
+	return player
+
+func set_pitch_random(type: AudioGame.Type, value: bool, min_pitch: float = 0.8, max_pitch: float = 1.2) -> AudioPlayer:
+	var player: AudioPlayer = players[type]
+	if player:
+		player.pitch_random = value
+		player.pitch_random_min = min_pitch
+		player.pitch_random_max = max_pitch
+	
+	return player
 
 func stop_all() -> void:
 	for player: AudioPlayer in players.values():
 		player.stop_audio()
 
-func set_volume(type: AudioType, value: float) -> void:
-	var player: AudioPlayer = players.get(type)
-	if player:
-		player.volume_0_100 = value
-
 func set_volume_all(value: float) -> void:
 	for player: AudioPlayer in players.values():
 		player.volume_0_100 = value
 
-func is_playing(type: AudioType) -> bool:
-	var player: AudioPlayer = players.get(type)
+func is_playing(type: AudioGame.Type) -> bool:
+	var player: AudioPlayer = players[type]
 	return player and player.is_playing_audio()

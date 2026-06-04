@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://reyrx8kj2wwy"]
+
+[ext_resource type="Texture2D" uid="uid://c3a2dbqm763ia" path="res://Textures/Mini FX, Items & UI/Mini UI/tilemap_packed.png" id="1_my0ti"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_my0ti"]
+atlas = ExtResource("1_my0ti")
+region = Rect2(96, 160, 16, 16)
+
+[node name="AreaSeletion" type="Sprite2D" unique_id=1835430488]
+texture = SubResource("AtlasTexture_my0ti")

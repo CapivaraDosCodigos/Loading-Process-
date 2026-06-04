@@ -58,7 +58,7 @@ func _on_slot_1_pressed() -> void:
 
 func _on_slot_2_pressed() -> void:
 	Global.start_game(2)
-
+ 
 func _on_slot_3_pressed() -> void:
 	Global.start_game(3)
 

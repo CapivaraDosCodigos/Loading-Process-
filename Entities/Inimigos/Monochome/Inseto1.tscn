@@ -1,0 +1,97 @@
+[gd_scene format=3 uid="uid://cyakeccoybbeu"]
+
+[ext_resource type="Script" uid="uid://hyh0dbmb4pg2" path="res://Entities/Inimigos/InimigoGround.gd" id="1_8wyte"]
+[ext_resource type="Material" uid="uid://bmr35ylhb60gy" path="res://Shaders/OutlineMaterial.tres" id="2_my3na"]
+[ext_resource type="Texture2D" uid="uid://dwtxvfvtfa648" path="res://Textures/Seasonal Tilesets/Monochome/textura_exportada.png" id="3_my3na"]
+[ext_resource type="PackedScene" uid="uid://dfcww07k3b188" path="res://Objetos/Assets/hitbox.tscn" id="5_rtd67"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_my3na"]
+atlas = ExtResource("3_my3na")
+region = Rect2(96, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p877j"]
+atlas = ExtResource("3_my3na")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3wofl"]
+atlas = ExtResource("3_my3na")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nj6x0"]
+atlas = ExtResource("3_my3na")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_1kxlt"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_my3na")
+}],
+"loop": false,
+"name": &"Hurt",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p877j")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3wofl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nj6x0")
+}],
+"loop": true,
+"name": &"Walking",
+"speed": 10.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7m6ug"]
+size = Vector2(8, 12)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cnvmn"]
+size = Vector2(12, 2)
+
+[node name="Robo Pumpkin" type="CharacterBody2D" unique_id=1037510275 node_paths=PackedStringArray("collision", "hitbox", "wall_detector", "animated") groups=["Inimigos"]]
+collision_layer = 4
+collision_mask = 263
+script = ExtResource("1_8wyte")
+distortion_position = 0.0
+distortion = Vector2(1, 1)
+collision = NodePath("Collision")
+hitbox = NodePath("Hitbox")
+wall_detector = NodePath("Wall_detector")
+animated = NodePath("Animated")
+
+[node name="Animated" type="AnimatedSprite2D" parent="." unique_id=187277772]
+material = ExtResource("2_my3na")
+sprite_frames = SubResource("SpriteFrames_1kxlt")
+animation = &"Walking"
+autoplay = "Walking"
+frame_progress = 0.86650443
+flip_h = true
+
+[node name="Collision" type="CollisionShape2D" parent="." unique_id=359271650]
+visible = false
+position = Vector2(-4.371139e-08, 4)
+rotation = 1.5707964
+shape = SubResource("RectangleShape2D_7m6ug")
+
+[node name="VisibleOnScreenEnabler2D" type="VisibleOnScreenEnabler2D" parent="." unique_id=859881714]
+rect = Rect2(-8, -8, 16, 16)
+show_rect = false
+
+[node name="Wall_detector" type="RayCast2D" parent="." unique_id=1247649078]
+visible = false
+modulate = Color(1, 0, 1, 1)
+position = Vector2(0, 1)
+target_position = Vector2(-7, 0)
+collision_mask = 7
+
+[node name="Hitbox" parent="." unique_id=1128202378 instance=ExtResource("5_rtd67")]
+visible = false
+
+[node name="Collision2" type="CollisionShape2D" parent="Hitbox" unique_id=1436478941]
+position = Vector2(0, -2)
+shape = SubResource("RectangleShape2D_cnvmn")
+debug_color = Color(0.9740793, 0, 0.43279848, 0.41960785)

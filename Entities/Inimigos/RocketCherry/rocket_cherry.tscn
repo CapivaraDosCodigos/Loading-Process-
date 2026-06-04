@@ -1,9 +1,10 @@
 [gd_scene format=3 uid="uid://cbl8i00ww3pyo"]
 
+[ext_resource type="Material" uid="uid://cnrivju85edsn" path="res://Entities/Players/ShaderMaterial/Blink_Shader_Material.tres" id="1_cy4pu"]
 [ext_resource type="Script" uid="uid://dmady44ckodec" path="res://Entities/Inimigos/RocketCherry/InimigoFlying.gd" id="1_uo31x"]
 [ext_resource type="Texture2D" uid="uid://couejxk8kby4y" path="res://Textures/Sprite Pack 2/7 - Rocket Cherry/Flying (16 x 32).png" id="2_04our"]
 [ext_resource type="Texture2D" uid="uid://cdt8x4vm62n2n" path="res://Textures/Sprite Pack 2/7 - Rocket Cherry/Hurt_Falling (16 x 32).png" id="2_ki5ow"]
-[ext_resource type="PackedScene" uid="uid://dfcww07k3b188" path="res://Entities/Assets/hitbox.tscn" id="4_uo31x"]
+[ext_resource type="PackedScene" uid="uid://dfcww07k3b188" path="res://Objetos/Assets/hitbox.tscn" id="4_uo31x"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ki5ow"]
 atlas = ExtResource("2_04our")
@@ -41,30 +42,31 @@ size = Vector2(11, 10)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_uo31x"]
 size = Vector2(11, 2)
 
-[node name="Rocket Cherry" type="CharacterBody2D" unique_id=2003651222 node_paths=PackedStringArray("inimigo_marker", "animated") groups=["Inimigos"]]
+[node name="Rocket Cherry" type="CharacterBody2D" unique_id=2003651222 node_paths=PackedStringArray("inimigo_marker", "collision", "hitbox", "animated") groups=["Inimigos"]]
 collision_layer = 4
 collision_mask = 5
 script = ExtResource("1_uo31x")
 inimigo_filho_path = "uid://hpm4w0aouya"
 inimigo_marker = NodePath("CherryMarker")
-distortion = Vector2(1.1, 0.9)
 speed = 2.5
+distortion = Vector2(1.1, 0.9)
+collision = NodePath("Collision")
+hitbox = NodePath("Hitbox")
 animated = NodePath("Animated")
 metadata/_custom_type_script = "uid://bfvb23jsccsa1"
 
 [node name="Animated" type="AnimatedSprite2D" parent="." unique_id=184162401]
+material = ExtResource("1_cy4pu")
 position = Vector2(0, -5)
 sprite_frames = SubResource("SpriteFrames_cy4pu")
 animation = &"Flying"
 autoplay = "Flying"
 
 [node name="Collision" type="CollisionShape2D" parent="." unique_id=1526186445]
-visible = false
 position = Vector2(0.5, 0)
 shape = SubResource("RectangleShape2D_ki5ow")
 
 [node name="Hitbox" parent="." unique_id=1128202378 instance=ExtResource("4_uo31x")]
-visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox" unique_id=1917815569]
 position = Vector2(0.5, -6)

@@ -2,10 +2,11 @@
 
 [ext_resource type="Script" uid="uid://cw345jqavx0nv" path="res://Utility/Huds/HudManager.gd" id="1_y6owf"]
 [ext_resource type="Texture2D" uid="uid://iqwngyh3es41" path="res://Textures/Mini FX, Items & UI/Common Pick-ups/Coins anim/00_Coin-Sprites.png" id="2_dtqfx"]
+[ext_resource type="Material" uid="uid://bgjoe0s6fkjmh" path="res://Shaders/GameBlueMaterial.tres" id="3_dcvdd"]
 [ext_resource type="Texture2D" uid="uid://bfjfe75lmbyib" path="res://Textures/Mini FX, Items & UI/Common Pick-ups/Coins anim/01_Coin-Sprites.png" id="3_twp0f"]
 [ext_resource type="Texture2D" uid="uid://daifthw4yb5oy" path="res://Textures/Mini FX, Items & UI/Common Pick-ups/Coins anim/02_Coin-Sprites.png" id="4_8imsa"]
-[ext_resource type="Shader" uid="uid://bgb3sgwkl8sd3" path="res://Shaders/Glitch.tres" id="4_o3sn5"]
 [ext_resource type="Texture2D" uid="uid://dcl5n6kmc53aa" path="res://Entities/Players/Ant/Ant Texture/Player Life (16 x 32).png" id="5_8imsa"]
+[ext_resource type="Material" uid="uid://hae2npfc4q87" path="res://Shaders/Psicodélico.tres" id="5_dcvdd"]
 [ext_resource type="Texture2D" uid="uid://c3smhobsbb7mn" path="res://Textures/Mini FX, Items & UI/Common Pick-ups/Coins anim/03_Coin-Sprites.png" id="5_o3sn5"]
 [ext_resource type="Script" uid="uid://uggenfogn2u0" path="res://Utility/Huds/pause_menu.gd" id="8_twp0f"]
 [ext_resource type="Theme" uid="uid://rgc24ucsh4oi" path="res://Assets/Themes/theme_game1.tres" id="9_8imsa"]
@@ -420,10 +421,6 @@ cache/0/8/6/glyphs/8/texture_idx = 0
 atlas = ExtResource("5_8imsa")
 region = Rect2(16, 0, 16, 16)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_x1c3o"]
-shader = ExtResource("4_o3sn5")
-shader_parameter/FloatParameter = 5.00000019
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_8imsa"]
 atlas = ExtResource("5_8imsa")
 region = Rect2(6, 6, 6, 5)
@@ -446,14 +443,14 @@ pressed = true
 [sub_resource type="Shortcut" id="Shortcut_o3sn5"]
 events = [SubResource("InputEventAction_v5qfg")]
 
-[node name="Hud" type="Control" unique_id=1559610119]
+[node name="HUD" type="Control" unique_id=181584768]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = ExtResource("9_8imsa")
+metadata/_edit_lock_ = true
 
 [node name="MarginContainer" type="MarginContainer" parent="." unique_id=1551681090]
 layout_mode = 1
@@ -503,12 +500,14 @@ size_flags_horizontal = 0
 size_flags_vertical = 0
 theme_override_constants/separation = 6
 
-[node name="Container" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=1591328207]
+[node name="Container2" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=476663542]
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
+theme_override_constants/separation = 8
 
-[node name="LifeTexture" type="TextureRect" parent="MarginContainer/VBoxContainer/Container" unique_id=315633720]
+[node name="LifeTexture" type="TextureRect" parent="MarginContainer/VBoxContainer/Container2" unique_id=315633720]
+material = ExtResource("3_dcvdd")
 custom_minimum_size = Vector2(48, 48)
 layout_mode = 2
 size_flags_horizontal = 0
@@ -516,9 +515,8 @@ size_flags_vertical = 0
 texture = SubResource("AtlasTexture_dtqfx")
 expand_mode = 2
 
-[node name="CounterLifeLabel" type="TextureProgressBar" parent="MarginContainer/VBoxContainer/Container/LifeTexture" unique_id=1928393618]
+[node name="CounterLifeLabel" type="TextureProgressBar" parent="MarginContainer/VBoxContainer/Container2/LifeTexture" unique_id=1928393618]
 unique_name_in_owner = true
-material = SubResource("ShaderMaterial_x1c3o")
 use_parent_material = true
 layout_mode = 1
 anchors_preset = 8
@@ -534,8 +532,8 @@ grow_vertical = 2
 scale = Vector2(3, 3)
 size_flags_horizontal = 4
 size_flags_vertical = 4
-max_value = 9.0
-value = 9.0
+max_value = 3.0
+value = 3.0
 fill_mode = 3
 stretch_margin_left = 6
 stretch_margin_top = 6
@@ -543,7 +541,23 @@ stretch_margin_right = 4
 stretch_margin_bottom = 5
 texture_progress = SubResource("AtlasTexture_8imsa")
 
+[node name="ScoreBar" type="ProgressBar" parent="MarginContainer/VBoxContainer/Container2" unique_id=1880853402]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(160, 10)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+step = 1.0
+show_percentage = false
+
+[node name="Container" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=1591328207]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+
 [node name="CoinTexture" type="TextureRect" parent="MarginContainer/VBoxContainer/Container" unique_id=52702362]
+material = ExtResource("5_dcvdd")
 custom_minimum_size = Vector2(16, 16)
 layout_mode = 2
 size_flags_vertical = 4
@@ -554,7 +568,6 @@ expand_mode = 4
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 6
 theme_override_fonts/font = SubResource("FontFile_8vi0y")
 theme_override_font_sizes/font_size = 16
@@ -602,16 +615,18 @@ theme_override_constants/separation = 8
 [node name="ResumeButton" type="Button" parent="PauseMenu/VBoxContainer" unique_id=147023512]
 layout_mode = 2
 focus_neighbor_bottom = NodePath("../QuitButton")
+theme_override_constants/outline_size = 12
 theme_override_font_sizes/font_size = 32
 shortcut = SubResource("Shortcut_o3sn5")
-text = "Resume
+text = "Voltar
 "
 
 [node name="QuitButton" type="Button" parent="PauseMenu/VBoxContainer" unique_id=978170609]
 layout_mode = 2
 focus_neighbor_top = NodePath("../ResumeButton")
+theme_override_constants/outline_size = 12
 theme_override_font_sizes/font_size = 32
-text = "Quit Game"
+text = "Sair do jogo"
 
 [connection signal="pressed" from="PauseMenu/VBoxContainer/ResumeButton" to="PauseMenu" method="_on_resume_button_pressed"]
 [connection signal="pressed" from="PauseMenu/VBoxContainer/QuitButton" to="PauseMenu" method="_on_quit_button_pressed"]

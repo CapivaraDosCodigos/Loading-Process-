@@ -2,9 +2,10 @@
 
 [ext_resource type="Script" uid="uid://c5anj1p86dw7" path="res://Entities/Inimigos/Percy/Percy.gd" id="1_fmw27"]
 [ext_resource type="Texture2D" uid="uid://dol3eh83uid24" path="res://Textures/Sprite Pack 8/4 - Percy/Running (32 x 32).png" id="1_uxfl3"]
+[ext_resource type="Material" uid="uid://cnrivju85edsn" path="res://Entities/Players/ShaderMaterial/Blink_Shader_Material.tres" id="2_wxi2e"]
 [ext_resource type="Texture2D" uid="uid://cg866u8sq0510" path="res://Textures/Sprite Pack 8/4 - Percy/Shooting_Fireball (32 x 32).png" id="5_jg3ds"]
 [ext_resource type="Texture2D" uid="uid://cibuirtdonbeu" path="res://Textures/Sprite Pack 8/4 - Percy/Hurt (32 x 32).png" id="5_ukkfv"]
-[ext_resource type="PackedScene" uid="uid://dfcww07k3b188" path="res://Entities/Assets/hitbox.tscn" id="6_ukkfv"]
+[ext_resource type="PackedScene" uid="uid://dfcww07k3b188" path="res://Objetos/Assets/hitbox.tscn" id="6_ukkfv"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wdwp1"]
 size = Vector2(12, 16)
@@ -134,7 +135,6 @@ tracks/2/keys = {
 
 [sub_resource type="Animation" id="Animation_fmw27"]
 resource_name = "shooting"
-length = 0.8
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -166,7 +166,7 @@ tracks/2/path = NodePath("Sprite:frame")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7),
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.5, 0.6, 0.8, 0.9),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
 "update": 1,
 "values": [0, 1, 2, 3, 4, 5, 6, 7]
@@ -178,7 +178,7 @@ tracks/3/path = NodePath(".")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(0.4),
+"times": PackedFloat32Array(0.5),
 "transitions": PackedFloat32Array(1),
 "values": [{
 "args": [],
@@ -194,30 +194,32 @@ _data = {
 &"shooting": SubResource("Animation_fmw27")
 }
 
-[node name="Percy" type="CharacterBody2D" unique_id=607873258 node_paths=PackedStringArray("wall_detector", "sprite", "animation_player") groups=["Inimigos", "inimigos"]]
+[node name="Percy" type="CharacterBody2D" unique_id=607873258 node_paths=PackedStringArray("collision", "hitbox", "wall_detector", "sprite", "animation_player") groups=["Inimigos", "inimigos"]]
 collision_layer = 4
 collision_mask = 259
 script = ExtResource("1_fmw27")
-distortion = Vector2(1.1, 0.9)
-distortion_position = 2.6
-speed = 100.0
 HP_base = 6
+speed = 100.0
+distortion_position = 2.6
+distortion = Vector2(1.1, 0.9)
+collision = NodePath("Collision")
+hitbox = NodePath("hitbox")
 wall_detector = NodePath("Wall_detector")
 sprite = NodePath("Sprite")
 animation_player = NodePath("anim")
 metadata/_custom_type_script = "uid://bfvb23jsccsa1"
 
 [node name="Sprite" type="Sprite2D" parent="." unique_id=1883401692]
+material = ExtResource("2_wxi2e")
 position = Vector2(0, -7)
 texture = ExtResource("1_uxfl3")
+flip_h = true
 hframes = 6
 
 [node name="Collision" type="CollisionShape2D" parent="." unique_id=1416656763]
-visible = false
 shape = SubResource("RectangleShape2D_wdwp1")
 
 [node name="hitbox" parent="." unique_id=7139890 instance=ExtResource("6_ukkfv")]
-visible = false
 position = Vector2(0, 9)
 
 [node name="CollisionHitbox" type="CollisionShape2D" parent="hitbox" unique_id=1782530454]
@@ -227,24 +229,24 @@ debug_color = Color(0.694716, 0.492254, 0.151222, 0.42)
 
 [node name="FireballMarker" type="Marker2D" parent="." unique_id=1404744561]
 visible = false
-position = Vector2(8, 1)
+position = Vector2(-8, 1)
 
 [node name="GroundDetector" type="RayCast2D" parent="." unique_id=1019110603]
 visible = false
 position = Vector2(0, 1)
-target_position = Vector2(3, 10)
+target_position = Vector2(-3, 10)
 collision_mask = 2
 
 [node name="PlayerDetector" type="RayCast2D" parent="." unique_id=2129503126]
 visible = false
 position = Vector2(0, 1)
-target_position = Vector2(64, 0)
+target_position = Vector2(-60, 0)
 
 [node name="Wall_detector" type="RayCast2D" parent="." unique_id=665675731]
 visible = false
 position = Vector2(0, 2)
-target_position = Vector2(15, 0)
-collision_mask = 6
+target_position = Vector2(-15, 0)
+collision_mask = 7
 
 [node name="anim" type="AnimationPlayer" parent="." unique_id=2141323249]
 libraries/ = SubResource("AnimationLibrary_ukkfv")

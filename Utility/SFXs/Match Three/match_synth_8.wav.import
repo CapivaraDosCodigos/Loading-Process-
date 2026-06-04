@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://dkn756s5ktuml"
+path="res://.godot/imported/match_synth_8.wav-1a38174a61a95b9352dedc16717cedc5.sample"
+
+[deps]
+
+source_file="res://Utility/SFXs/Match Three/match_synth_8.wav"
+dest_files=["res://.godot/imported/match_synth_8.wav-1a38174a61a95b9352dedc16717cedc5.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

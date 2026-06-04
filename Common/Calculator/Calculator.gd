@@ -1,0 +1,45 @@
+extends RefCounted
+class_name MathGame
+
+static func get_screen_uv_from_node(node: Node2D) -> Vector2:
+	if not node:
+		return Vector2.ZERO
+	
+	var viewport: Viewport = node.get_viewport()
+	var camera2d: Camera2D = viewport.get_camera_2d()
+	
+	if not camera2d:
+		return Vector2.ZERO
+	
+	var global_pos: Vector2 = node.global_position
+	
+	var screen_pos: Vector2 = node.get_viewport().get_canvas_transform() * global_pos
+	
+	var size: Vector2 = viewport.get_visible_rect().size
+
+	var uv: Vector2 = screen_pos / size
+	
+	return uv
+
+static func get_screen_position_from_node(node: Node2D) -> Vector2:
+	if not node:
+		return Vector2.ZERO
+	
+	var viewport: Viewport = node.get_viewport()
+	var camera2d: Camera2D = viewport.get_camera_2d()
+	
+	if not camera2d:
+		return Vector2.ZERO
+	
+	var global_pos: Vector2 = node.global_position
+	
+	var screen_pos: Vector2 = node.get_viewport().get_canvas_transform() * global_pos
+	
+	return screen_pos
+
+static func calculate_knockback(body_pos: Vector2, target_pos: Vector2, knockback_height: float, knockback_power: float) -> Vector2:
+	var y_force: float = -knockback_height if target_pos.y >= body_pos.y else 0.0
+	
+	var knockback: Vector2 = Vector2((body_pos.x - target_pos.x) * knockback_power, y_force)
+	
+	return knockback

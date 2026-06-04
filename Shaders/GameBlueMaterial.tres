@@ -1,0 +1,14 @@
+[gd_resource type="ShaderMaterial" format=3 uid="uid://bgjoe0s6fkjmh"]
+
+[ext_resource type="Shader" uid="uid://bjf4hi11uvatt" path="res://Shaders/Testes/time.gdshader" id="1_yihii"]
+
+[resource]
+shader = ExtResource("1_yihii")
+shader_parameter/darkest = Color(0.1875, 0.19270833, 0.25, 1)
+shader_parameter/dark = Color(0.3764706, 0.38431373, 0.5019608, 1)
+shader_parameter/light = Color(0.5625, 0.578125, 0.75, 1)
+shader_parameter/lightest = Color(0.75, 0.7708333, 1, 1)
+shader_parameter/use_global_colors = true
+shader_parameter/step_1 = 0.25
+shader_parameter/step_2 = 0.5
+shader_parameter/step_3 = 0.75

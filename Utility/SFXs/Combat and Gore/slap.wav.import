@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://b24aoxkgochou"
+path="res://.godot/imported/slap.wav-34ad58f7b6ba4815df62051f0e7ae467.sample"
+
+[deps]
+
+source_file="res://Utility/SFXs/Combat and Gore/slap.wav"
+dest_files=["res://.godot/imported/slap.wav-34ad58f7b6ba4815df62051f0e7ae467.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

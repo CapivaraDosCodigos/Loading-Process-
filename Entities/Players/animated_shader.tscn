@@ -6,8 +6,11 @@
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_s4dnk"]
 resource_local_to_scene = true
 shader = ExtResource("1_maki7")
-shader_parameter/blink_color = Color(1, 0.76862746, 0.12156863, 1)
+shader_parameter/blink_color = Color(0.7490196, 0.77254903, 1, 1)
 shader_parameter/blink_intensity = 1.0
+shader_parameter/alternate_hue = false
+shader_parameter/hue_shift_speed = 0.5
+shader_parameter/hue_strength = 1.0
 
 [node name="AnimatedShader" type="AnimatedSprite2D" unique_id=1230534468]
 z_index = -1

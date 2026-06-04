@@ -1,0 +1,42 @@
+extends InimigoBase2D
+class_name InimigoGround2D
+
+func _stop() -> void:
+	set_physics_process(false)
+	animated.pause()
+
+func _play() -> void:
+	set_physics_process(true)
+	animated.play()
+
+func _physics_process(delta: float) -> void:
+	_gravity(delta)
+	
+	if is_hurtet:
+		return
+	
+	_movement()
+	if _should_flip():
+		_flip_direction()
+
+func _movement() -> void:
+	if is_on_floor():
+		velocity.x = direction.x * speed
+	
+	move_and_slide()
+
+func _should_flip() -> bool:
+	if not wall_detector:
+		return false
+	
+	return wall_detector.is_colliding() and is_on_floor()
+
+func _flip_direction() -> void:
+	direction *= -1.0
+	wall_detector.scale.x = direction.x * -1.0
+	
+	if animated:
+		animated.scale.x = direction.x * -1.0
+	
+	elif sprite:
+		sprite.scale.x = direction.x * -1.0

@@ -12,7 +12,7 @@ config_version=5
 
 config/name="Loading Process"
 config/tags=PackedStringArray("game")
-run/main_scene="uid://cd87u5qbitxv1"
+run/main_scene="uid://dbllcv4feqwny"
 config/features=PackedStringArray("4.6", "GL Compatibility")
 config/icon="res://icon.svg"
 
@@ -21,6 +21,7 @@ config/icon="res://icon.svg"
 Global="*uid://dwc670uxsidax"
 ManagerGame="*uid://bbnjf8q31uebh"
 SceneManager="*uid://i15wa57mxkf2"
+SpawnManager="*uid://ydp0bqxkx17r"
 AudioManager="*uid://cochi04cli4u1"
 DialogueManager="*uid://ilwe2k2eypqf"
 
@@ -44,8 +45,18 @@ enabled=PackedStringArray()
 folder_colors={
 "res://Assets/Credits/": "gray",
 "res://Autoloads/": "yellow",
+"res://Common/": "green",
+"res://Common/Audio Manager/": "blue",
+"res://Common/Calculator/": "gray",
+"res://Common/CameraCustom2D/": "blue",
+"res://Common/Config/": "gray",
+"res://Common/InputBuffer/": "teal",
+"res://Common/Scenes Manager/": "yellow",
+"res://Common/TextureSave/": "orange",
 "res://Entities/Players/Ant/Ant Texture/": "teal",
 "res://Entities/Players/ShaderMaterial/": "pink",
+"res://Game/": "purple",
+"res://Location/": "blue",
 "res://Objetos/": "gray",
 "res://Shaders/": "pink",
 "res://Stages/Mundo 1 - Grassland/1 - Grassland/": "green",
@@ -57,6 +68,8 @@ folder_colors={
 
 Inimigos=""
 Projectiles=""
+Spawner=""
+camera_area=""
 
 [input]
 
@@ -131,6 +144,10 @@ Dash={
 
 pointing/emulate_touch_from_mouse=true
 
+[internationalization]
+
+locale/translations=PackedStringArray("res://Location/Traduções2.english.translation", "res://Location/Traduções2.portuguese.translation")
+
 [layer_names]
 
 2d_physics/layer_1="Player"
@@ -154,13 +171,24 @@ pointing/emulate_touch_from_mouse=true
 [rendering]
 
 textures/canvas_textures/default_texture_filter=0
-rendering_device/driver.windows="d3d12"
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
 
 [shader_globals]
 
-rapaz={
-"type": "int",
-"value": 0
+darkest_color={
+"type": "vec4",
+"value": Vector4(0.188, 0.193, 0.25, 1)
+}
+dark_color={
+"type": "vec4",
+"value": Vector4(0.376, 0.384, 0.502, 1)
+}
+light_color={
+"type": "vec4",
+"value": Vector4(0.562, 0.578, 0.75, 1)
+}
+lightest_color={
+"type": "vec4",
+"value": Vector4(0.75, 0.771, 1, 1)
 }

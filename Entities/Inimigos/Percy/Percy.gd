@@ -17,19 +17,23 @@ func _stop() -> void:
 func _play() -> void:
 	set_physics_process(true)
 
-func _internal_ready() -> void:
-	direction.x = 1.0
-
 func _physics_process(delta: float) -> void:
 	_gravity(delta)
 	
 	match(current_state):
 		EnemyState.PATROL : _patrol_state()
 		EnemyState.ATTACK : _attack_state()
+		EnemyState.HURT : velocity = Vector2.ZERO
+	
+	move_and_slide()
 
 func _attack_state() -> void:
+	velocity.x = 0
+	
 	animation_player.play("shooting")
 	if not player_detector.is_colliding():
+		#await animation_player.animation_finished
+		#await get_tree().create_timer(0.75, false).timeout
 		current_state = EnemyState.PATROL
 
 func _patrol_state() -> void:
@@ -47,22 +51,16 @@ func _patrol_state() -> void:
 			
 	_movement()
 
+func _movement() -> void:
+	if is_on_floor():
+		velocity.x = direction.x * speed
+
 func take_damage(player: Player2D = null) -> void:
 	current_state = EnemyState.HURT
 	
 	if player: player.velocity.y = -player.jump_velocity
 	
-	velocity = Vector2.ZERO
-	
-	var knockback_tween: Tween = create_tween()
-	sprite.modulate = Color.RED
-	sprite.scale = Vector2(1.2 * direction.x, 0.8)
-	var save_position: Vector2 = sprite.position
-	sprite.position.y += distortion_position
-	
-	knockback_tween.parallel().tween_property(sprite, "modulate", Color.WHITE, 0.3)
-	knockback_tween.parallel().tween_property(sprite, "scale", Vector2(direction.x, 1.0), 0.3)
-	knockback_tween.parallel().tween_property(sprite, "position", save_position, 0.3)
+	_apply_effects()
 	
 	animation_player.play("Hurt")
 	
@@ -84,16 +82,21 @@ func spawn_fireball() -> void:
 
 func _flip_direction() -> void:
 	direction.x *= -1
-	player_detector.scale.x *= -1.0
-	ground_detector.scale.x *= -1.0
-	wall_detector.scale.x *= -1.0
+	
+	player_detector.scale.x = direction.x * -1.0
+	
+	ground_detector.scale.x = direction.x * -1.0
+	
+	wall_detector.scale.x = direction.x * -1.0
+	
 	fireball_spawn_point.position.x *= -1.0
-	collision_hitbox.position.x *= -1.0
-	sprite.scale.x = direction.x
+	
+	collision_hitbox.position.x = direction.x * -1.0
+	
+	sprite.scale.x = direction.x * -1.0
 
 func _on_animation_player_finished(animated_name: StringName) -> void:
 	if animated_name == "Hurt":
 		if HP <= 0:
 			ManagerGame.score += score
-			create_coins()
 			queue_free()

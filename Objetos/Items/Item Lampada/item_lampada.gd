@@ -1,5 +1,6 @@
 extends Area2D
 
 func _on_body_entered(_body: Node2D) -> void:
-	ManagerGame.items.append(Game.Item.Lampada)
+	if not Game.Item.Lampada in ManagerGame.items:
+		ManagerGame.items.append(Game.Item.Lampada)
 	queue_free()

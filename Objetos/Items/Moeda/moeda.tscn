@@ -84,6 +84,7 @@ animations = [{
 }]
 
 [node name="Moeda" type="Area2D" unique_id=1749009152]
+use_parent_material = true
 collision_layer = 8
 script = ExtResource("1_w1j7j")
 
@@ -92,6 +93,7 @@ visible = false
 shape = SubResource("CircleShape2D_0dl46")
 
 [node name="Animated" type="AnimatedSprite2D" parent="." unique_id=148520550]
+use_parent_material = true
 sprite_frames = SubResource("SpriteFrames_qd5iv")
 animation = &"Coin"
 autoplay = "Coin"

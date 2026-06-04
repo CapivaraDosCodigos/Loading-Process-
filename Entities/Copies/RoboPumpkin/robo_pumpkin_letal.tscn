@@ -1,0 +1,94 @@
+[gd_scene format=3 uid="uid://e26fwayiiid3"]
+
+[ext_resource type="Script" uid="uid://hyh0dbmb4pg2" path="res://Entities/Inimigos/InimigoGround.gd" id="1_qq7i3"]
+[ext_resource type="Material" uid="uid://cnrivju85edsn" path="res://Entities/Players/ShaderMaterial/Blink_Shader_Material.tres" id="2_guvm3"]
+[ext_resource type="Texture2D" uid="uid://ckmbcb18if3q7" path="res://Textures/Sprite Pack 2/4 - Robo Pumpkin/Hurt (16 x 16).png" id="3_oorb2"]
+[ext_resource type="Texture2D" uid="uid://c6ollukx3qwem" path="res://Textures/Sprite Pack 2/4 - Robo Pumpkin/Walking (16 x 16).png" id="4_xpnv2"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fpt26"]
+atlas = ExtResource("4_xpnv2")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kw64t"]
+atlas = ExtResource("4_xpnv2")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_1kxlt"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_oorb2")
+}],
+"loop": false,
+"name": &"Hurt",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fpt26")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kw64t")
+}],
+"loop": true,
+"name": &"Walking",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7m6ug"]
+size = Vector2(8, 12)
+
+[sub_resource type="GDScript" id="GDScript_nx3a2"]
+resource_name = "espinhoamigo"
+script/source = "extends Spike2D
+
+func _on_body_entered(body: Node2D) -> void:
+	if body is Player2D:
+		body.take_damage(Vector2(0, -body.jump_velocity))
+"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_m1eld"]
+size = Vector2(12, 3)
+
+[node name="Robo Pumpkin Letal" type="CharacterBody2D" unique_id=1037510275 node_paths=PackedStringArray("collision", "wall_detector", "animated") groups=["Inimigos"]]
+collision_layer = 4
+collision_mask = 263
+script = ExtResource("1_qq7i3")
+collision = NodePath("Collision")
+wall_detector = NodePath("Wall_detector")
+animated = NodePath("Animated")
+
+[node name="Animated" type="AnimatedSprite2D" parent="." unique_id=187277772]
+material = ExtResource("2_guvm3")
+sprite_frames = SubResource("SpriteFrames_1kxlt")
+animation = &"Walking"
+autoplay = "Walking"
+
+[node name="Collision" type="CollisionShape2D" parent="." unique_id=359271650]
+position = Vector2(0, 3)
+rotation = 1.5707964
+shape = SubResource("RectangleShape2D_7m6ug")
+
+[node name="VisibleOnScreenEnabler2D" type="VisibleOnScreenEnabler2D" parent="." unique_id=859881714]
+rect = Rect2(-8, -8, 16, 16)
+show_rect = false
+
+[node name="Wall_detector" type="RayCast2D" parent="." unique_id=1247649078]
+visible = false
+modulate = Color(1, 0, 1, 1)
+position = Vector2(0, 1)
+target_position = Vector2(-7, 0)
+collision_mask = 7
+
+[node name="Spike2D" type="Area2D" parent="." unique_id=1431837586]
+collision_layer = 0
+collision_mask = 5
+script = SubResource("GDScript_nx3a2")
+metadata/_custom_type_script = "uid://ccjqfdwimdrdq"
+
+[node name="Collision3" type="CollisionShape2D" parent="Spike2D" unique_id=23719589]
+position = Vector2(0, -3.5)
+shape = SubResource("RectangleShape2D_m1eld")
+debug_color = Color(0.9740793, 0, 0.43279848, 0.41960785)
+
+[connection signal="body_entered" from="Spike2D" to="Spike2D" method="_on_body_entered"]

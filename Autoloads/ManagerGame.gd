@@ -18,23 +18,24 @@ signal dead_player
 @warning_ignore("unused_signal")
 signal dead_boss
 
-var camera_in_player: bool = true
 var is_paused_force: bool = false
 var is_paused: bool = false
 var paused_transition: bool = false
 
 var coins: int = 0
-var score: int = 0
-var player_life: int = 9
-var current_slot: int = 0
+var player_life: int = 3
 
+# Informaçoes de save
+var score: int = 0
+var current_slot: int = 0
 var items: Array[Game.Item] = [Game.Item.ScalingEquipment, Game.Item.Dash]
 
 var player: Player2D
 var check_point: Node2D
 var locate_point: Node2D
 
-var camera: CameraEffect2D
+var camera: CameraCustom2D
+var area_camera_inclusive: CameraArea2D
 
 func show_ui() -> void:
 	controls.show()
@@ -64,7 +65,7 @@ func time_stop_event() -> void:
 func _apply_time_effect(start: bool) -> void:
 	var uv: Vector2 = Vector2.ONE / 2
 	if player:
-		uv = _get_screen_uv_from_node(player).clamp(Vector2.ZERO, Vector2.ONE)
+		uv = MathGame.get_screen_uv_from_node(player).clamp(Vector2.ZERO, Vector2.ONE)
 	efeitoTimeStop.set("shader_parameter/player", uv)
 
 	if start:
@@ -83,24 +84,3 @@ func _apply_time_effect(start: bool) -> void:
 		#colorBase.visible = false
 	else:
 		colorInvertido.visible = false
-
-func _get_screen_uv_from_node(node: Node2D) -> Vector2:
-	if not node:
-		return Vector2.ZERO
-	
-	var viewport: Viewport = node.get_viewport()
-	var camera2d: Camera2D = viewport.get_camera_2d()
-	
-	if not camera2d:
-		push_warning("Sem Camera2D ativa")
-		return Vector2.ZERO
-	
-	var global_pos: Vector2 = node.global_position
-
-	var screen_pos: Vector2 = get_viewport().get_canvas_transform() * global_pos
-	
-	var size: Vector2 = viewport.get_visible_rect().size
-
-	var uv: Vector2 = screen_pos / size
-	
-	return uv

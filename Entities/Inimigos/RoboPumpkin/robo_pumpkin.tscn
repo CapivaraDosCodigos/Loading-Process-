@@ -1,9 +1,10 @@
 [gd_scene format=3 uid="uid://xskjypcy8mqv"]
 
-[ext_resource type="Script" uid="uid://hyh0dbmb4pg2" path="res://Entities/Inimigos/RoboPumpkin/InimigoGround.gd" id="1_wgswt"]
+[ext_resource type="Script" uid="uid://hyh0dbmb4pg2" path="res://Entities/Inimigos/InimigoGround.gd" id="1_wgswt"]
+[ext_resource type="Material" uid="uid://cnrivju85edsn" path="res://Entities/Players/ShaderMaterial/Blink_Shader_Material.tres" id="2_1ol3c"]
 [ext_resource type="Texture2D" uid="uid://bv5jqwcnjvvft" path="res://Textures/Sprite Pack 2/4 - Robo Pumpkin/Safe/Hurt (16 x 16).png" id="2_wgswt"]
 [ext_resource type="Texture2D" uid="uid://bcxyu6k7frqu" path="res://Textures/Sprite Pack 2/4 - Robo Pumpkin/Safe/Walking (16 x 16).png" id="4_a63bg"]
-[ext_resource type="PackedScene" uid="uid://dfcww07k3b188" path="res://Entities/Assets/hitbox.tscn" id="5_cnvmn"]
+[ext_resource type="PackedScene" uid="uid://dfcww07k3b188" path="res://Objetos/Assets/hitbox.tscn" id="5_cnvmn"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_wgswt"]
 atlas = ExtResource("4_a63bg")
@@ -35,33 +36,35 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_wgswt"]
-radius = 4.0
-height = 12.0
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7m6ug"]
+size = Vector2(9, 12)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cnvmn"]
 size = Vector2(12, 2)
 
-[node name="Robo Pumpkin" type="CharacterBody2D" unique_id=1037510275 node_paths=PackedStringArray("wall_detector", "animated") groups=["Inimigos"]]
+[node name="Robo Pumpkin" type="CharacterBody2D" unique_id=1037510275 node_paths=PackedStringArray("collision", "hitbox", "wall_detector", "animated") groups=["Inimigos"]]
 collision_layer = 4
 collision_mask = 263
 script = ExtResource("1_wgswt")
+collision = NodePath("Collision")
+hitbox = NodePath("Hitbox")
 wall_detector = NodePath("Wall_detector")
 animated = NodePath("Animated")
 
 [node name="Animated" type="AnimatedSprite2D" parent="." unique_id=187277772]
+material = ExtResource("2_1ol3c")
 sprite_frames = SubResource("SpriteFrames_1kxlt")
-animation = &"Hurt"
+animation = &"Walking"
 autoplay = "Walking"
+frame_progress = 0.970821
 
 [node name="Collision" type="CollisionShape2D" parent="." unique_id=359271650]
-visible = false
-position = Vector2(0, 3)
+position = Vector2(-2.1855694e-08, 3.5)
 rotation = 1.5707964
-shape = SubResource("CapsuleShape2D_wgswt")
+shape = SubResource("RectangleShape2D_7m6ug")
 
 [node name="VisibleOnScreenEnabler2D" type="VisibleOnScreenEnabler2D" parent="." unique_id=859881714]
-rect = Rect2(-7, -7, 14, 15)
+rect = Rect2(-8, -8, 16, 16)
 show_rect = false
 
 [node name="Wall_detector" type="RayCast2D" parent="." unique_id=1247649078]
@@ -69,10 +72,9 @@ visible = false
 modulate = Color(1, 0, 1, 1)
 position = Vector2(0, 1)
 target_position = Vector2(-7, 0)
-collision_mask = 6
+collision_mask = 7
 
 [node name="Hitbox" parent="." unique_id=1128202378 instance=ExtResource("5_cnvmn")]
-visible = false
 
 [node name="Collision2" type="CollisionShape2D" parent="Hitbox" unique_id=1436478941]
 position = Vector2(0, -3)

@@ -1,10 +1,11 @@
+@tool
 extends AudioStreamPlayer2D
 class_name AudioPlayer2D
 
-@export var volume_0_100: float = 100.0:
+@export var volume: float = 100.0:
 	set(value):
-		volume_0_100 = clamp(value, 0.0, 100.0)
-		volume_db = linear_to_db(volume_0_100 / 100.0)
+		volume = clamp(value, 0.0, 100.0)
+		volume_db = linear_to_db(volume / 100.0)
 @export var loop: bool = false
 @export var pitch_random: bool = false
 @export var min_pitch: float = 0.8
@@ -37,7 +38,7 @@ func play_stream(stream_p: AudioStream, from_position: float = 0.0) -> void:
 	if not stream_p:
 		return
 	
-	self.stream = stream_p
+	stream = stream_p
 	
 	_apply_loop()
 	

@@ -1,12 +1,12 @@
 extends Area2D
 class_name Coin2D
 
+static var audio: AudioStream = preload("uid://d32eu2b040w82")
+
 @onready var animated: AnimatedSprite2D = $Animated
 @onready var collision: CollisionShape2D = $Collision
 
 @export var score_mode: bool = false
-
-static var audio: AudioStream = preload("uid://d32eu2b040w82")
 
 func _ready() -> void:
 	ManagerGame.time_stop.connect(_stop)
@@ -30,7 +30,7 @@ func _on_body_entered(body: Node2D) -> void:
 	if body is Player2D:
 		add_moeda.call_deferred(body)
 
-func add_moeda(body: Player2D) -> void:
+func add_moeda(_body: Player2D) -> void:
 	animated.play("End")
 	
 	collision.queue_free.call_deferred()
@@ -39,7 +39,8 @@ func add_moeda(body: Player2D) -> void:
 		ManagerGame.score += 1
 	else:
 		ManagerGame.coins += 1
-		body.play_audio("Items", audio, 90.0, false, false)
+		AudioManager.set_loop(AudioGame.SFX_ITEMS, false).set_pitch_random(true, 0.95, 1.05)
+		AudioManager.play(AudioGame.SFX_ITEMS, audio, 60.0)
 	
 	var parent: Node = get_parent()
 	if parent is RigidBody2D:
