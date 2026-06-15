@@ -31,38 +31,17 @@ func _ready() -> void:
 	if animation_player:
 		animation_player.animation_finished.connect(_on_animation_player_finished)
 	
-	_internal_flip()
-	
-	_internal_ready()
-	
 	HP = HP_base
 
-func _internal_ready() -> void:
-	pass
-
-func _gravity(delta: float) -> void:
+func _apply_gravity(delta: float) -> void:
 	if not is_on_floor():
 		velocity += get_gravity() * delta
 
-func _movement() -> void:
+func _apply_movement() -> void:
 	pass
 
-func _flip_direction() -> void:
+func _apply_flip() -> void:
 	pass
-
-func _internal_flip() -> void:
-	direction.x = scale.y * -1.0
-	scale.y = 1.0
-	rotation = 0.0
-	
-	if wall_detector:
-		wall_detector.scale.x = direction.x * -1.0
-	
-	if animated:
-		animated.scale.x = direction.x * -1.0
-	
-	elif sprite:
-		sprite.scale.x = direction.x * -1.0
 
 func _on_animated_finished() -> void:
 	if animated.animation == "Hurt":

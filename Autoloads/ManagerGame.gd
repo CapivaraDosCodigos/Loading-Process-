@@ -1,4 +1,4 @@
-extends Node
+extends Window
 
 var inGame: bool = true
 
@@ -84,3 +84,6 @@ func _apply_time_effect(start: bool) -> void:
 		#colorBase.visible = false
 	else:
 		colorInvertido.visible = false
+
+func _on_size_changed() -> void:
+	print("test ", size)

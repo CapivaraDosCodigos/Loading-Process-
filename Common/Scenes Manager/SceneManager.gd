@@ -1,5 +1,5 @@
 extends Node
-class_name SceneManagerNode
+#class_name SceneManagerNode
 
 ## Gerenciador de troca de cenas com tela de loading e transições visuais, ideal para uso como AutoLoad global
 
@@ -44,11 +44,10 @@ func load_scene(_scene_path: String, _use_sub_threads: bool = true, transition: 
 	
 	await new_load_screen.loading_screen_ready
 	_start_load()
-	#await load_finished
 
 ## Processa o carregamento assíncrono da cena e atualiza o progresso
 func _process(_delta: float) -> void:
-	var load_status := ResourceLoader.load_threaded_get_status(scene_path, progress)
+	var load_status: ResourceLoader.ThreadLoadStatus = ResourceLoader.load_threaded_get_status(scene_path, progress)
 	progress_changed.emit(progress[0])
 	
 	match load_status:

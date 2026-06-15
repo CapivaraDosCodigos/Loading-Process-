@@ -23,7 +23,7 @@ script = ExtResource("1_1g7qf")
 
 [node name="ButtonLeft" type="TouchScreenButton" parent="base2D" unique_id=1313928293]
 unique_name_in_owner = true
-position = Vector2(24, 248)
+position = Vector2(24, 296)
 scale = Vector2(1.5, 1.5)
 texture_normal = ExtResource("1_3c10e")
 texture_pressed = ExtResource("2_r7hee")
@@ -32,7 +32,7 @@ visibility_mode = 1
 
 [node name="ButtonRight" type="TouchScreenButton" parent="base2D" unique_id=2032161006]
 unique_name_in_owner = true
-position = Vector2(120, 248.00002)
+position = Vector2(120, 296)
 scale = Vector2(1.5, 1.5)
 texture_normal = ExtResource("3_wi0ar")
 texture_pressed = ExtResource("4_e0y5j")
@@ -41,7 +41,7 @@ visibility_mode = 1
 
 [node name="ButtonLeft2" type="TouchScreenButton" parent="base2D" unique_id=171300799]
 unique_name_in_owner = true
-position = Vector2(120.00001, 200)
+position = Vector2(120.00001, 248.00002)
 rotation = 1.5707964
 scale = Vector2(1.5, 1.5)
 texture_normal = ExtResource("1_3c10e")

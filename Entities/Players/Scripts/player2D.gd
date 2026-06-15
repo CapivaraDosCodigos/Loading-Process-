@@ -65,6 +65,7 @@ var knockback_vector: Vector2 = Vector2.ZERO
 var dash_velocity: Vector2 = Vector2.ZERO
 
 func _ready() -> void:
+	
 	jump_velocity = (jump_height * 2.0) / max_time_to_peak
 	gravity = (jump_height * 2.0) / pow(max_time_to_peak, 2)
 	fall_gravity = gravity * 2.0
@@ -119,7 +120,10 @@ func _unhandled_input(event: InputEvent) -> void:
 		_invocaion()
 
 func _invocaion() -> void:
-	pass
+	var copiar_load: PackedScene = load("uid://c6dwuxtm4i3rx")
+	var copiar_ins: CopyBody2D = copiar_load.instantiate()
+	copiar_ins.global_position = global_position - Vector2(0.0, 16.0)
+	add_sibling(copiar_ins)
 
 func _set_shader_blink_intensity(new_value: float) -> void:
 	animation.material.set("shader_parameter/blink_intensity", new_value)
@@ -172,7 +176,7 @@ func _apply_damage(knockback_force: Vector2, duration: float = knockback_duratio
 	#current_state = State.Hurt
 	await get_tree().create_timer(duration, false).timeout
 	
-	state_machine.change_state("Movement")
+	state_machine.transition_to_next_state("Jump")
 	#current_state = State.Movement
 
 func _should_die() -> bool:

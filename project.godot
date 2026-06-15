@@ -20,7 +20,6 @@ config/icon="res://icon.svg"
 
 Global="*uid://dwc670uxsidax"
 ManagerGame="*uid://bbnjf8q31uebh"
-SceneManager="*uid://i15wa57mxkf2"
 SpawnManager="*uid://ydp0bqxkx17r"
 AudioManager="*uid://cochi04cli4u1"
 DialogueManager="*uid://ilwe2k2eypqf"
@@ -35,6 +34,7 @@ window/size/viewport_width=640
 window/size/viewport_height=360
 window/size/mode=3
 window/stretch/mode="canvas_items"
+window/stretch/aspect="keep_height"
 
 [editor_plugins]
 
@@ -173,6 +173,7 @@ locale/translations=PackedStringArray("res://Location/Traduções2.english.trans
 textures/canvas_textures/default_texture_filter=0
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
+textures/vram_compression/import_s3tc_bptc=true
 
 [shader_globals]
 

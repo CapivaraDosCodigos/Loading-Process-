@@ -7,7 +7,7 @@ func enter(_previous_state_path: String, _data: Dictionary = {}) -> void:
 func physics_update(delta: float) -> void:
 	player.can_dash = true
 	
-	player.velocity.y += player.gravity * delta
+	player.velocity.y += player.gravity / 4.0 * delta
 	
 	player.wall_direction = -1.0 if player.ray_right.is_colliding() else 1.0
 	
@@ -48,7 +48,7 @@ func handle_jump()-> bool:
 	
 		player.coyote_timer = 0
 		player.buffer_jump.set_buffer_time()
-		player.wall_jump_lock = 8
+		player.wall_jump_lock = 12
 		
 		finished.emit("Jump")
 		AudioManager.set_loop(AudioGame.PLAYER_SFX_1, false).set_pitch_random(true)

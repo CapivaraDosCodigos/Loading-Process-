@@ -1,31 +1,30 @@
 [gd_scene format=3 uid="uid://cyakeccoybbeu"]
 
 [ext_resource type="Script" uid="uid://hyh0dbmb4pg2" path="res://Entities/Inimigos/InimigoGround.gd" id="1_8wyte"]
-[ext_resource type="Material" uid="uid://bmr35ylhb60gy" path="res://Shaders/OutlineMaterial.tres" id="2_my3na"]
-[ext_resource type="Texture2D" uid="uid://dwtxvfvtfa648" path="res://Textures/Seasonal Tilesets/Monochome/textura_exportada.png" id="3_my3na"]
+[ext_resource type="Texture2D" uid="uid://bb28lw40sdphy" path="res://Textures/Seasonal Tilesets/Monochome/Textura_Monochome_Sombra.png" id="2_nawdm"]
 [ext_resource type="PackedScene" uid="uid://dfcww07k3b188" path="res://Objetos/Assets/hitbox.tscn" id="5_rtd67"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_my3na"]
-atlas = ExtResource("3_my3na")
-region = Rect2(96, 0, 16, 16)
+[sub_resource type="AtlasTexture" id="AtlasTexture_iq5n4"]
+atlas = ExtResource("2_nawdm")
+region = Rect2(96, 192, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_p877j"]
-atlas = ExtResource("3_my3na")
-region = Rect2(16, 0, 16, 16)
+[sub_resource type="AtlasTexture" id="AtlasTexture_18aiv"]
+atlas = ExtResource("2_nawdm")
+region = Rect2(16, 192, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_3wofl"]
-atlas = ExtResource("3_my3na")
-region = Rect2(32, 0, 16, 16)
+[sub_resource type="AtlasTexture" id="AtlasTexture_8gaaa"]
+atlas = ExtResource("2_nawdm")
+region = Rect2(32, 192, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_nj6x0"]
-atlas = ExtResource("3_my3na")
-region = Rect2(48, 0, 16, 16)
+[sub_resource type="AtlasTexture" id="AtlasTexture_cvys1"]
+atlas = ExtResource("2_nawdm")
+region = Rect2(48, 192, 16, 16)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_1kxlt"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_my3na")
+"texture": SubResource("AtlasTexture_iq5n4")
 }],
 "loop": false,
 "name": &"Hurt",
@@ -33,13 +32,13 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_p877j")
+"texture": SubResource("AtlasTexture_18aiv")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_3wofl")
+"texture": SubResource("AtlasTexture_8gaaa")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_nj6x0")
+"texture": SubResource("AtlasTexture_cvys1")
 }],
 "loop": true,
 "name": &"Walking",
@@ -64,11 +63,10 @@ wall_detector = NodePath("Wall_detector")
 animated = NodePath("Animated")
 
 [node name="Animated" type="AnimatedSprite2D" parent="." unique_id=187277772]
-material = ExtResource("2_my3na")
 sprite_frames = SubResource("SpriteFrames_1kxlt")
 animation = &"Walking"
 autoplay = "Walking"
-frame_progress = 0.86650443
+frame_progress = 0.35248473
 flip_h = true
 
 [node name="Collision" type="CollisionShape2D" parent="." unique_id=359271650]

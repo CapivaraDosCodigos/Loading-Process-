@@ -7,5 +7,5 @@ shader = ExtResource("1_brr4l")
 shader_parameter/outline_color = Color(0.30353206, 0.30353206, 0.30353206, 1)
 shader_parameter/outline_size = 1.0
 shader_parameter/alpha_threshold = 0.0
-shader_parameter/outline_samples = 8
+shader_parameter/outline_samples = 4
 shader_parameter/shade_color = Color(1, 1, 1, 0)

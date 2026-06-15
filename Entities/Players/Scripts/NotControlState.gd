@@ -1,4 +1,4 @@
-extends StateNode
+extends State
 
 @export var gravity: bool = false
 

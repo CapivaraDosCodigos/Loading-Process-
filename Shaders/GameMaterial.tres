@@ -4,7 +4,8 @@
 
 [resource]
 shader = ExtResource("1_cray5")
-shader_parameter/darkest = Color(0.1875, 0.19270833, 0.25, 1)
-shader_parameter/dark = Color(0.375, 0.38541666, 0.5, 1)
-shader_parameter/light = Color(0.5625, 0.578125, 0.75, 1)
-shader_parameter/lightest = Color(0.75, 0.7708333, 1, 1)
+shader_parameter/darkest = Color(0.25, 0.23333333, 0.1875, 1)
+shader_parameter/dark = Color(0.5, 0.46666667, 0.375, 1)
+shader_parameter/light = Color(0.75, 0.7, 0.5625, 1)
+shader_parameter/lightest = Color(1, 0.93333334, 0.75, 1)
+shader_parameter/use_global_colors = false

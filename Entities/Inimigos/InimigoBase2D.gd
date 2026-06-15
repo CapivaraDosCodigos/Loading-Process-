@@ -63,10 +63,10 @@ func _gravity(delta: float) -> void:
 	if not is_on_floor():
 		velocity += get_gravity() * delta
 
-func _movement() -> void:
+func _apply_movement() -> void:
 	pass
 
-func _flip_direction() -> void:
+func _apply_flip() -> void:
 	pass
 
 func _internal_flip() -> void:

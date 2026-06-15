@@ -450,6 +450,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 1
 metadata/_edit_lock_ = true
 
 [node name="MarginContainer" type="MarginContainer" parent="." unique_id=1551681090]
@@ -475,6 +476,7 @@ size_flags_vertical = 0
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
+mouse_filter = 1
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 6
 theme_override_fonts/font = SubResource("FontFile_8vi0y")
@@ -487,6 +489,7 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
+mouse_filter = 1
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 6
 theme_override_fonts/font = SubResource("FontFile_8vi0y")
@@ -548,6 +551,7 @@ custom_minimum_size = Vector2(160, 10)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
+mouse_filter = 1
 step = 1.0
 show_percentage = false
 
@@ -579,6 +583,7 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
+mouse_filter = 1
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 6
 theme_override_fonts/font = SubResource("FontFile_8vi0y")
@@ -596,6 +601,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 1
 color = Color(0, 0, 0.007843138, 0.25490198)
 script = ExtResource("8_twp0f")
 

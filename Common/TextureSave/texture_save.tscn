@@ -2,23 +2,13 @@
 
 [ext_resource type="Script" uid="uid://ba63st86ncw4g" path="res://Common/TextureSave/texture_save.gd" id="1_e4apo"]
 
-[sub_resource type="Gradient" id="Gradient_vaoiw"]
-colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 1)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_wjflo"]
-gradient = SubResource("Gradient_vaoiw")
-width = 16
-height = 16
-fill_from = Vector2(0, 1)
-
 [node name="TextureSave" type="TextureRect" unique_id=806918421]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = SubResource("GradientTexture2D_wjflo")
 stretch_mode = 3
 script = ExtResource("1_e4apo")
-pasta_saida = "/storage/emulated/0/Documents/loading-process/Textures/Seasonal Tilesets/5 - Misc. universal tiles"
-aplicar_material = false
+pasta_saida = "/storage/emulated/0/Documents/loading-process/Textures/Seasonal Tilesets/Monochome"
+nome_arquivo = "textura_Monochome_sombra_2"

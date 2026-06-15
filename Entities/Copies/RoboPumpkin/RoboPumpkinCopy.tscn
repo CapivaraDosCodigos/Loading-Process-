@@ -1,24 +1,23 @@
 [gd_scene format=3 uid="uid://c6dwuxtm4i3rx"]
 
-[ext_resource type="Script" uid="uid://diug4l77136u6" path="res://Entities/Copies/Copy2D.gd" id="1_04wdh"]
-[ext_resource type="Material" uid="uid://cnrivju85edsn" path="res://Entities/Players/ShaderMaterial/Blink_Shader_Material.tres" id="2_sqwy6"]
-[ext_resource type="Texture2D" uid="uid://bv5jqwcnjvvft" path="res://Textures/Sprite Pack 2/4 - Robo Pumpkin/Safe/Hurt (16 x 16).png" id="3_8ykjp"]
-[ext_resource type="Texture2D" uid="uid://bcxyu6k7frqu" path="res://Textures/Sprite Pack 2/4 - Robo Pumpkin/Safe/Walking (16 x 16).png" id="4_xyndw"]
-[ext_resource type="PackedScene" uid="uid://dfcww07k3b188" path="res://Objetos/Assets/hitbox.tscn" id="5_tfcnr"]
+[ext_resource type="Script" uid="uid://64nviget6u5f" path="res://Entities/Copies/RoboPumpkin/RoboPumpkinCopy.gd" id="1_t3hk8"]
+[ext_resource type="Material" uid="uid://cnrivju85edsn" path="res://Entities/Players/ShaderMaterial/Blink_Shader_Material.tres" id="2_m2tb2"]
+[ext_resource type="Texture2D" uid="uid://bv5jqwcnjvvft" path="res://Textures/Sprite Pack 2/4 - Robo Pumpkin/Safe/Hurt (16 x 16).png" id="3_wn6au"]
+[ext_resource type="Texture2D" uid="uid://bcxyu6k7frqu" path="res://Textures/Sprite Pack 2/4 - Robo Pumpkin/Safe/Walking (16 x 16).png" id="4_t84hk"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_wgswt"]
-atlas = ExtResource("4_xyndw")
+atlas = ExtResource("4_t84hk")
 region = Rect2(0, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_cnvmn"]
-atlas = ExtResource("4_xyndw")
+atlas = ExtResource("4_t84hk")
 region = Rect2(16, 0, 16, 16)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_1kxlt"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("3_8ykjp")
+"texture": ExtResource("3_wn6au")
 }],
 "loop": false,
 "name": &"Hurt",
@@ -37,29 +36,31 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7m6ug"]
-size = Vector2(9, 12)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_cnvmn"]
-size = Vector2(12, 2)
+size = Vector2(8, 12)
 
 [node name="Robo Pumpkin" type="CharacterBody2D" unique_id=1770881886 node_paths=PackedStringArray("collision", "wall_detector", "animated") groups=["Inimigos"]]
-collision_layer = 4
-collision_mask = 263
-script = ExtResource("1_04wdh")
+collision_mask = 262
+script = ExtResource("1_t3hk8")
+HP_base = null
+score = null
+speed = null
+distortion_position = null
+distortion = null
 collision = NodePath("Collision")
 wall_detector = NodePath("Wall_detector")
 animated = NodePath("Animated")
 metadata/_custom_type_script = "uid://diug4l77136u6"
 
 [node name="Animated" type="AnimatedSprite2D" parent="." unique_id=187277772]
-material = ExtResource("2_sqwy6")
+material = ExtResource("2_m2tb2")
 sprite_frames = SubResource("SpriteFrames_1kxlt")
 animation = &"Walking"
 autoplay = "Walking"
 frame_progress = 0.970821
 
 [node name="Collision" type="CollisionShape2D" parent="." unique_id=359271650]
-position = Vector2(-2.1855694e-08, 3.5)
+visible = false
+position = Vector2(0, 3)
 rotation = 1.5707964
 shape = SubResource("RectangleShape2D_7m6ug")
 
@@ -69,11 +70,3 @@ modulate = Color(1, 0, 1, 1)
 position = Vector2(0, 1)
 target_position = Vector2(-7, 0)
 collision_mask = 7
-
-[node name="Hitbox" parent="." unique_id=1128202378 instance=ExtResource("5_tfcnr")]
-collision_layer = 0
-
-[node name="Collision2" type="CollisionShape2D" parent="Hitbox" unique_id=1436478941]
-position = Vector2(0, -3)
-shape = SubResource("RectangleShape2D_cnvmn")
-debug_color = Color(0.9740793, 0, 0.43279848, 0.41960785)

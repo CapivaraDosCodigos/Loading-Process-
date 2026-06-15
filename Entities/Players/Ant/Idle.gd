@@ -7,6 +7,8 @@ func physics_update(delta: float) -> void:
 	if player.is_on_floor():
 		player.can_dash = true
 	
+	player.animation.scale.x = player.direction
+	
 	player.apply_gravity(delta)
 	
 	if handle_dash():

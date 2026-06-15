@@ -11,7 +11,7 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("GameHUD/Invertido:material:shader_parameter/progress")
+tracks/0/path = NodePath("../GameHUD/Invertido:material:shader_parameter/progress")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -27,7 +27,7 @@ length = 0.8
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("GameHUD/Invertido:material:shader_parameter/progress")
+tracks/0/path = NodePath("../GameHUD/Invertido:material:shader_parameter/progress")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -47,7 +47,21 @@ _data = {
 shader = ExtResource("1_i1u7a")
 shader_parameter/intensity = 0.70000003325
 
-[node name="ManagerGame" type="Node" unique_id=817211211]
+[node name="Window" type="Window" unique_id=1981778806]
+process_mode = 3
+handle_input_locally = false
+canvas_item_default_texture_filter = 0
+audio_listener_enable_2d = true
+oversampling_override = 1.0
+mode = 3
+title = "Loading Process Game"
+initial_position = 1
+size = Vector2i(640, 360)
+transient = true
+borderless = true
+content_scale_size = Vector2i(640, 360)
+content_scale_mode = 1
+content_scale_aspect = 2
 script = ExtResource("1_22gst")
 
 [node name="GameHUD" type="CanvasLayer" parent="." unique_id=1683612246]
@@ -55,7 +69,6 @@ layer = 10
 visible = false
 
 [node name="Animator" type="AnimationPlayer" parent="GameHUD" unique_id=1733961308]
-root_node = NodePath("../..")
 libraries/ = SubResource("AnimationLibrary_l2lt8")
 autoplay = &"RESET"
 
@@ -68,6 +81,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 1
 
 [node name="Invertido" type="ColorRect" parent="GameHUD" unique_id=1237741161]
 unique_name_in_owner = true
@@ -78,8 +92,11 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 1
 
 [node name="HUD" parent="GameHUD" unique_id=1559610119 instance=ExtResource("3_22gst")]
 
 [node name="Controls" parent="." unique_id=372594056 instance=ExtResource("4_s0s73")]
 visible = false
+
+[connection signal="size_changed" from="." to="." method="_on_size_changed"]
