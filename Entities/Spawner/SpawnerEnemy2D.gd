@@ -2,6 +2,9 @@
 extends Spawner2D
 class_name SpawnerEnemy2D
 
+func _init() -> void:
+	add_to_group("Spawner")
+
 func _get_configuration_warnings() -> PackedStringArray:
 	var warning: PackedStringArray = []
 	

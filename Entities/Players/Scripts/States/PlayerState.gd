@@ -4,6 +4,7 @@ const IDLE = "Idle"
 const RUN = "Run"
 const JUMP = "Jump"
 const WALL_SLIDE = "WallSlide"
+const DASH = "Dash"
 
 var player: Player2D
 

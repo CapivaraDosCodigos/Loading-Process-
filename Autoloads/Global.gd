@@ -22,7 +22,8 @@ func start_game(slot: int) -> void:
 	if save == null:
 		error_start.emit()
 		return
-	
+		
+	ManagerGame.inGame = true
 	ManagerGame.items = save.items
 	ManagerGame.score = save.score
 	ManagerGame.current_slot = slot

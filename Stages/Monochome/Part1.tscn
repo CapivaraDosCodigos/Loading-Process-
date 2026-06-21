@@ -7,9 +7,11 @@
 [ext_resource type="TileSet" uid="uid://be6kkylvjwpqx" path="res://Stages/TileSetWorld.tres" id="4_y2kcg"]
 [ext_resource type="PackedScene" uid="uid://d15ddxvbvouva" path="res://Entities/Players/Ant/Ant_Player.tscn" id="5_mjwu3"]
 [ext_resource type="Script" uid="uid://dxq3cneouibe6" path="res://Common/CameraCustom2D/camera_extended.gd" id="6_1d3mm"]
-[ext_resource type="PackedScene" uid="uid://x1q4pbpewaba" path="res://Entities/Inimigos/Spawner/SpawnerEnemy2D.tscn" id="6_mjwu3"]
 [ext_resource type="Script" uid="uid://qqc1wp8gt1qu" path="res://Common/CameraCustom2D/camera_area_extended.gd" id="6_q16xa"]
 [ext_resource type="Resource" uid="uid://vrmkbsi8kkho" path="res://Entities/Inimigos/Monochome/Inseto.tres" id="7_1d3mm"]
+[ext_resource type="Script" uid="uid://1hmn6hvqh4y8" path="res://Entities/Spawner/SpawnerEnemy2D.gd" id="7_ja2s8"]
+[ext_resource type="Resource" uid="uid://cw53ajkr7ew4a" path="res://Entities/Inimigos/RoboPumpkin/robo_pumpkin.tres" id="9_1d3mm"]
+[ext_resource type="Resource" uid="uid://du2e3acdhcdgd" path="res://Entities/Inimigos/RocketCherry/rocket_cherry.tres" id="10_ja2s8"]
 
 [node name="Tutorial" type="Node2D" unique_id=1935198871 node_paths=PackedStringArray("player", "node_pai")]
 script = ExtResource("1_q16xa")
@@ -53,9 +55,23 @@ metadata/_edit_lock_ = true
 unique_name_in_owner = true
 position = Vector2(72, 488)
 
-[node name="SpawnerEnemy2D" parent="Player" unique_id=2131030254 instance=ExtResource("6_mjwu3")]
+[node name="SpawnerEnemy2D4" type="Marker2D" parent="Player" unique_id=1549276315]
 position = Vector2(264, 488)
+script = ExtResource("7_ja2s8")
 packed_spawn = ExtResource("7_1d3mm")
+metadata/_custom_type_script = "uid://1hmn6hvqh4y8"
+
+[node name="SpawnerEnemy2D" type="Marker2D" parent="Player" unique_id=288667032]
+position = Vector2(344, 488)
+script = ExtResource("7_ja2s8")
+packed_spawn = ExtResource("9_1d3mm")
+metadata/_custom_type_script = "uid://1hmn6hvqh4y8"
+
+[node name="SpawnerEnemy2D2" type="Marker2D" parent="Player" unique_id=1343790733]
+position = Vector2(392, 472)
+script = ExtResource("7_ja2s8")
+packed_spawn = ExtResource("10_ja2s8")
+metadata/_custom_type_script = "uid://1hmn6hvqh4y8"
 
 [node name="Frontground" type="TileMapLayer" parent="." unique_id=894626266]
 z_index = 2

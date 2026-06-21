@@ -27,4 +27,4 @@ func _start_animetion() -> void:
 	
 func _finished() -> void:
 	await get_tree().create_timer(2.0, false).timeout
-	SceneManager.load_scene(world_path, true, "transition_2")
+	Global.load_scene(world_path, true, "transition_2")

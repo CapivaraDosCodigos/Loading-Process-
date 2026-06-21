@@ -1,30 +1,33 @@
 [gd_scene format=3 uid="uid://hpm4w0aouya"]
 
 [ext_resource type="Script" uid="uid://hyh0dbmb4pg2" path="res://Entities/Inimigos/InimigoGround.gd" id="1_usqfw"]
-[ext_resource type="Texture2D" uid="uid://df8glfm4e1dq4" path="res://Textures/Sprite Pack 2/7 - Rocket Cherry/Hurt (16 x 32).png" id="2_n5l5q"]
 [ext_resource type="Material" uid="uid://cnrivju85edsn" path="res://Entities/Players/ShaderMaterial/Blink_Shader_Material.tres" id="2_u61ke"]
-[ext_resource type="Texture2D" uid="uid://ddw7iqnxy411m" path="res://Textures/Sprite Pack 2/7 - Rocket Cherry/Hopping (16 x 32).png" id="3_u61ke"]
+[ext_resource type="Texture2D" uid="uid://bny32kxltfych" path="res://Textures/Sprite Pack 2/7 - Rocket Cherry/Rocket Cherry (32 x 96).png" id="3_n5l5q"]
 [ext_resource type="PackedScene" uid="uid://dfcww07k3b188" path="res://Objetos/Assets/hitbox.tscn" id="5_jkovs"]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_u61ke"]
+atlas = ExtResource("3_n5l5q")
+region = Rect2(16, 64, 16, 32)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_mg5f3"]
-atlas = ExtResource("3_u61ke")
-region = Rect2(16, 0, 16, 32)
+atlas = ExtResource("3_n5l5q")
+region = Rect2(16, 32, 16, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_uc2yc"]
-atlas = ExtResource("3_u61ke")
-region = Rect2(0, 0, 16, 32)
+atlas = ExtResource("3_n5l5q")
+region = Rect2(0, 32, 16, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_dk53q"]
-atlas = ExtResource("3_u61ke")
-region = Rect2(16, 0, 16, 32)
+atlas = ExtResource("3_n5l5q")
+region = Rect2(16, 32, 16, 32)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_1kxlt"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("2_n5l5q")
+"texture": SubResource("AtlasTexture_u61ke")
 }],
-"loop": false,
+"loop": 0,
 "name": &"Hurt",
 "speed": 5.0
 }, {
@@ -32,7 +35,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_mg5f3")
 }],
-"loop": true,
+"loop": 1,
 "name": &"Idle",
 "speed": 5.0
 }, {
@@ -43,13 +46,13 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_dk53q")
 }],
-"loop": true,
+"loop": 1,
 "name": &"Walking",
 "speed": 5.0
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_u61ke"]
-size = Vector2(9, 12)
+size = Vector2(8, 12)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cnvmn"]
 size = Vector2(12, 2)
@@ -71,14 +74,14 @@ position = Vector2(0, -8)
 sprite_frames = SubResource("SpriteFrames_1kxlt")
 animation = &"Walking"
 autoplay = "Walking"
-frame_progress = 0.8434323
+frame_progress = 0.5517352
 
 [node name="VisibleOnScreenEnabler2D" type="VisibleOnScreenEnabler2D" parent="." unique_id=859881714]
 rect = Rect2(-7, -7, 14, 15)
 show_rect = false
 
 [node name="Collision" type="CollisionShape2D" parent="." unique_id=359271650]
-position = Vector2(-2.1855692e-08, 3.5)
+position = Vector2(-4.371139e-08, 4)
 rotation = 1.5707964
 shape = SubResource("RectangleShape2D_u61ke")
 metadata/_edit_group_ = true
@@ -92,6 +95,6 @@ collision_mask = 7
 [node name="Hitbox" parent="." unique_id=1128202378 instance=ExtResource("5_jkovs")]
 
 [node name="Collision2" type="CollisionShape2D" parent="Hitbox" unique_id=1436478941]
-position = Vector2(0, -3)
+position = Vector2(0, -2)
 shape = SubResource("RectangleShape2D_cnvmn")
 debug_color = Color(0.9740793, 0, 0.43279848, 0.41960785)

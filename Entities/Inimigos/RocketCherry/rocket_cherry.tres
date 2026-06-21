@@ -1,11 +1,11 @@
 [gd_resource type="Resource" script_class="PackedEnemy" format=3 uid="uid://du2e3acdhcdgd"]
 
 [ext_resource type="PackedScene" uid="uid://cbl8i00ww3pyo" path="res://Entities/Inimigos/RocketCherry/rocket_cherry.tscn" id="1_rixr1"]
-[ext_resource type="Texture2D" uid="uid://couejxk8kby4y" path="res://Textures/Sprite Pack 2/7 - Rocket Cherry/Flying (16 x 32).png" id="2_y0t62"]
-[ext_resource type="Script" uid="uid://dt2yq4d45uckq" path="res://Entities/Inimigos/Spawner/PackedInimigo.gd" id="3_rixr1"]
+[ext_resource type="Texture2D" uid="uid://bny32kxltfych" path="res://Textures/Sprite Pack 2/7 - Rocket Cherry/Rocket Cherry (32 x 96).png" id="2_rixr1"]
+[ext_resource type="Script" uid="uid://dt2yq4d45uckq" path="res://Entities/Spawner/PackedInimigo.gd" id="3_rixr1"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ueycd"]
-atlas = ExtResource("2_y0t62")
+atlas = ExtResource("2_rixr1")
 region = Rect2(0, 0, 16, 32)
 
 [resource]

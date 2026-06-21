@@ -1,11 +1,14 @@
 [gd_resource type="Resource" script_class="PackedEnemy" format=3 uid="uid://cbcv1t852c1gv"]
 
 [ext_resource type="PackedScene" uid="uid://dj5gvtytjhpuk" path="res://Entities/Inimigos/RoboPumpkin/robo_pumpkin_letal.tscn" id="1_6p6uk"]
-[ext_resource type="Texture2D" uid="uid://bic07odukg2gj" path="res://Textures/Sprite Pack 2/4 - Robo Pumpkin/Standing (16 x 16).png" id="2_te4m5"]
-[ext_resource type="Script" uid="uid://dt2yq4d45uckq" path="res://Entities/Inimigos/Spawner/PackedInimigo.gd" id="3_l53b0"]
+[ext_resource type="Texture2D" uid="uid://disdq8ladd5nx" path="res://Textures/Sprite Pack 2/4 - Robo Pumpkin/Robo Pumpkin (32 x 32).png" id="2_6p6uk"]
+[ext_resource type="Script" uid="uid://dt2yq4d45uckq" path="res://Entities/Spawner/PackedInimigo.gd" id="3_6p6uk"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_te4m5"]
+atlas = ExtResource("2_6p6uk")
+region = Rect2(0, 16, 16, 16)
 
 [resource]
-script = ExtResource("3_l53b0")
+script = ExtResource("3_6p6uk")
 packed_scene = ExtResource("1_6p6uk")
-preview_texture = ExtResource("2_te4m5")
-metadata/_custom_type_script = "uid://dt2yq4d45uckq"
+preview_texture = SubResource("AtlasTexture_te4m5")

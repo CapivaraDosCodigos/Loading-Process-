@@ -38,8 +38,18 @@ static func get_screen_position_from_node(node: Node2D) -> Vector2:
 	return screen_pos
 
 static func calculate_knockback(body_pos: Vector2, target_pos: Vector2, knockback_height: float, knockback_power: float) -> Vector2:
-	var y_force: float = -knockback_height if target_pos.y >= body_pos.y else 0.0
+	var y_force: float = -knockback_height if target_pos.y > body_pos.y else 0.0
 	
 	var knockback: Vector2 = Vector2((body_pos.x - target_pos.x) * knockback_power, y_force)
 	
 	return knockback
+
+static func desnormalized(vector: Vector2) -> Vector2:
+	if vector.x != 0.0:
+		vector.x = abs(vector.x) / vector.x
+		
+	if vector.y != 0.0:
+		vector.y = abs(vector.y) / vector.y
+	
+	return vector
+	

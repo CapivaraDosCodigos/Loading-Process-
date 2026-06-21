@@ -18,7 +18,7 @@ func physics_update(delta: float) -> void:
 		return
 	
 	elif not player.can_wall_slide():
-		finished.emit("Run")
+		finished.emit(RUN)
 		return
 
 func handle_dash()-> bool:
@@ -26,8 +26,8 @@ func handle_dash()-> bool:
 		if player.has_dash:
 			player.direction = player.wall_direction
 			player.animation.scale.x = player.direction
-			player.animation.play("Jump")
-			finished.emit("Dash")
+			player.animation.play(JUMP)
+			finished.emit(DASH)
 			
 			return true
 			
@@ -39,7 +39,7 @@ func handle_dash()-> bool:
 func handle_jump()-> bool:
 	if player.buffer_jump.is_interval():
 		player.velocity = Vector2(
-			player.wall_slide_force * player.wall_direction,
+			player.jump_height * player.wall_direction * 2.0,
 			-player.jump_velocity
 		)
 		
@@ -50,7 +50,7 @@ func handle_jump()-> bool:
 		player.buffer_jump.set_buffer_time()
 		player.wall_jump_lock = 12
 		
-		finished.emit("Jump")
+		finished.emit(JUMP)
 		AudioManager.set_loop(AudioGame.PLAYER_SFX_1, false).set_pitch_random(true)
 		AudioManager.play(AudioGame.PLAYER_SFX_1, Player2D.audio_jump, 40.0)
 		return true

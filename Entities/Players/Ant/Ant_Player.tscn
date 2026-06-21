@@ -1,38 +1,21 @@
 [gd_scene format=3 uid="uid://d15ddxvbvouva"]
 
 [ext_resource type="Script" uid="uid://cplihoc3hmqpv" path="res://Entities/Players/Scripts/player2D.gd" id="1_t38ms"]
-[ext_resource type="Script" uid="uid://bdpwbx7o4ork5" path="res://Entities/Players/Scripts/StateMachineNode.gd" id="2_x1c3o"]
-[ext_resource type="Script" uid="uid://co2oi31f4cukt" path="res://Common/InputBuffer/InputBuffer.gd" id="4_7f07p"]
-[ext_resource type="Script" uid="uid://cyn1op1vu83qt" path="res://Entities/Players/Ant/Idle.gd" id="4_76ytj"]
+[ext_resource type="Script" uid="uid://bdpwbx7o4ork5" path="res://Common/State Machine/StateMachine.gd" id="2_x1c3o"]
+[ext_resource type="Script" uid="uid://cyn1op1vu83qt" path="res://Entities/Players/Scripts/States/Idle.gd" id="4_76ytj"]
 [ext_resource type="Material" uid="uid://cnrivju85edsn" path="res://Entities/Players/ShaderMaterial/Blink_Shader_Material.tres" id="4_cp1n4"]
-[ext_resource type="Script" uid="uid://xk0fgpfqqkii" path="res://Entities/Players/Ant/Run.gd" id="5_gmobf"]
-[ext_resource type="Script" uid="uid://bwlu0fys8ab3d" path="res://Entities/Players/Ant/Jump.gd" id="6_lpg7p"]
-[ext_resource type="Script" uid="uid://de53iudda2btw" path="res://Entities/Players/Scripts/DashState.gd" id="7_cp1n4"]
+[ext_resource type="Script" uid="uid://xk0fgpfqqkii" path="res://Entities/Players/Scripts/States/Run.gd" id="5_gmobf"]
+[ext_resource type="Script" uid="uid://bwlu0fys8ab3d" path="res://Entities/Players/Scripts/States/Jump.gd" id="6_lpg7p"]
+[ext_resource type="Script" uid="uid://de53iudda2btw" path="res://Entities/Players/Scripts/States/Dash.gd" id="7_cp1n4"]
 [ext_resource type="Script" uid="uid://yow552i063f1" path="res://Entities/Players/Scripts/head_area.gd" id="7_xpxb3"]
-[ext_resource type="Script" uid="uid://dj1cl5xyxv3p4" path="res://Entities/Players/Scripts/WallSlideState.gd" id="8_x1c3o"]
-[ext_resource type="Script" uid="uid://tn01e0u7igny" path="res://Entities/Players/Scripts/HurtState.gd" id="9_7f07p"]
+[ext_resource type="Script" uid="uid://dj1cl5xyxv3p4" path="res://Entities/Players/Scripts/States/WallSlide.gd" id="8_x1c3o"]
+[ext_resource type="Script" uid="uid://tn01e0u7igny" path="res://Entities/Players/Scripts/States/HurtState.gd" id="9_7f07p"]
+[ext_resource type="Script" uid="uid://detsdqonnok2u" path="res://Entities/Players/Scripts/States/Fall.gd" id="9_8o8t5"]
 [ext_resource type="Texture2D" uid="uid://bxk165phrhc8m" path="res://Entities/Players/Ant/Ant Texture/tv ant.png" id="11_76ytj"]
 [ext_resource type="Texture2D" uid="uid://b8mj6oxfpcfec" path="res://Entities/Players/Ant/Ant Texture/dash.png" id="12_8o8t5"]
 [ext_resource type="Texture2D" uid="uid://ypj6dukwwnjk" path="res://Entities/Players/Ant/Ant Texture/Hurt (16 x 16).png" id="13_lp4ef"]
 [ext_resource type="Texture2D" uid="uid://diigwdop0a616" path="res://Entities/Players/Ant/Ant Texture/Small (32x16).png" id="14_verfp"]
-
-[sub_resource type="InputEventAction" id="InputEventAction_68y17"]
-action = &"ui_accept"
-
-[sub_resource type="Resource" id="Resource_76ytj"]
-script = ExtResource("4_7f07p")
-input = SubResource("InputEventAction_68y17")
-interval_time = 6
-metadata/_custom_type_script = "uid://co2oi31f4cukt"
-
-[sub_resource type="InputEventAction" id="InputEventAction_7f07p"]
-action = &"Dash"
-
-[sub_resource type="Resource" id="Resource_68y17"]
-script = ExtResource("4_7f07p")
-input = SubResource("InputEventAction_7f07p")
-interval_time = 6
-metadata/_custom_type_script = "uid://co2oi31f4cukt"
+[ext_resource type="FontFile" uid="uid://ci5egqcj678qh" path="res://Assets/Fontes/RevMiniPixel.ttf" id="15_76ytj"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_7eqn4"]
 atlas = ExtResource("11_76ytj")
@@ -90,7 +73,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_7eqn4")
 }],
-"loop": true,
+"loop": 1,
 "name": &"Climbing",
 "speed": 5.0
 }, {
@@ -107,7 +90,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_4m6dy")
 }],
-"loop": false,
+"loop": 0,
 "name": &"Dash",
 "speed": 20.0
 }, {
@@ -118,7 +101,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_hj1c0")
 }],
-"loop": true,
+"loop": 1,
 "name": &"Hurt",
 "speed": 5.0
 }, {
@@ -135,7 +118,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_lvhlr")
 }],
-"loop": true,
+"loop": 1,
 "name": &"Idle",
 "speed": 5.0
 }, {
@@ -152,7 +135,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_3np4h")
 }],
-"loop": true,
+"loop": 1,
 "name": &"Jump",
 "speed": 5.0
 }, {
@@ -181,7 +164,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_r7ih8")
 }],
-"loop": true,
+"loop": 1,
 "name": &"Run",
 "speed": 5.0
 }, {
@@ -201,7 +184,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_47876")
 }],
-"loop": true,
+"loop": 1,
 "name": &"Small",
 "speed": 5.0
 }]
@@ -301,7 +284,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_dwb5n")
 }],
-"loop": true,
+"loop": 1,
 "name": &"Climbing",
 "speed": 5.0
 }, {
@@ -318,7 +301,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_8o8t5")
 }],
-"loop": false,
+"loop": 0,
 "name": &"Dash",
 "speed": 20.0
 }, {
@@ -329,7 +312,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_lp4ef")
 }],
-"loop": true,
+"loop": 1,
 "name": &"Hurt",
 "speed": 5.0
 }, {
@@ -346,7 +329,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_paoun")
 }],
-"loop": true,
+"loop": 1,
 "name": &"Idle",
 "speed": 5.0
 }, {
@@ -363,7 +346,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_ykrj5")
 }],
-"loop": true,
+"loop": 1,
 "name": &"Jump",
 "speed": 5.0
 }, {
@@ -392,7 +375,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_1ui5y")
 }],
-"loop": true,
+"loop": 1,
 "name": &"Run",
 "speed": 5.0
 }, {
@@ -412,7 +395,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_sj720")
 }],
-"loop": true,
+"loop": 1,
 "name": &"Small",
 "speed": 5.0
 }]
@@ -453,9 +436,7 @@ size = Vector2(10, 2)
 collision_mask = 327
 script = ExtResource("1_t38ms")
 immortal = true
-buffer_jump = SubResource("Resource_76ytj")
 speed = 110.0
-buffer_dash = SubResource("Resource_68y17")
 metadata/_custom_type_script = "uid://cplihoc3hmqpv"
 
 [node name="StateMachine" type="Node" parent="." unique_id=1920979965 node_paths=PackedStringArray("initial_state")]
@@ -487,6 +468,10 @@ metadata/_custom_type_script = "uid://bsgww5nsh2py6"
 script = ExtResource("9_7f07p")
 metadata/_custom_type_script = "uid://bsgww5nsh2py6"
 
+[node name="Fall" type="Node" parent="StateMachine" unique_id=2080316129]
+script = ExtResource("9_8o8t5")
+metadata/_custom_type_script = "uid://bsgww5nsh2py6"
+
 [node name="Animation" type="AnimatedSprite2D" parent="." unique_id=323388771]
 material = ExtResource("4_cp1n4")
 sprite_frames = SubResource("SpriteFrames_tgc46")
@@ -496,7 +481,7 @@ script = SubResource("GDScript_76ytj")
 
 [node name="Olho" type="AnimatedSprite2D" parent="Animation" unique_id=301488834]
 sprite_frames = SubResource("SpriteFrames_j2k4w")
-animation = &"Small"
+animation = &"Climbing"
 
 [node name="Particles" type="GPUParticles2D" parent="." unique_id=2112902689]
 emitting = false
@@ -556,6 +541,14 @@ script = ExtResource("7_xpxb3")
 position = Vector2(0, -5)
 shape = SubResource("RectangleShape2D_x44r4")
 debug_color = Color(1, 1, 1, 0.41960785)
+
+[node name="Label" type="Label" parent="." unique_id=715286151]
+offset_left = -19.0
+offset_top = -14.0
+offset_right = 21.0
+offset_bottom = 9.0
+theme_override_fonts/font = ExtResource("15_76ytj")
+theme_override_font_sizes/font_size = 8
 
 [connection signal="screen_exited" from="Notifier" to="." method="_on_notifier_screen_exited"]
 [connection signal="body_entered" from="hurtbox" to="." method="_on_hurtbox_body_entered"]

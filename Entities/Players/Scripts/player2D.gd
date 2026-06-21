@@ -17,18 +17,19 @@ static var explosion_scene: PackedScene = preload("uid://b0uva68sp3g41")
 static var light_bulb: PackedScene = preload("uid://yxdk6ehtmywe")
 static var animated_shader: PackedScene = preload("uid://dp8d0wvd7wm0j")
 
+static var buffer_jump: InputBuffer = InputBuffer.new("ui_accept", 5)
+static var buffer_dash: InputBuffer = InputBuffer.new("Dash", 5)
+
 @export_group("Jump")
-@export var buffer_jump: InputBuffer
 @export var coyote_frames: int = 5
 @export var jump_height: float = 64.0
 @export_range(0.1, 1.0, 0.01) var max_time_to_peak: float = 0.5
-@export var wall_slide_force: float = 128.0
+#@export var wall_slide_force: float = 128.0
 
 @export_group("Movement")
 @export var speed: float = 200.0
 
 @export_group("Dash")
-@export var buffer_dash: InputBuffer
 @export var dash_distance: float = 64.0
 @export_range(0.1, 1.0, 0.05) var dash_duration: float = 0.2
 
@@ -75,8 +76,9 @@ func _ready() -> void:
 
 func _process(_delta: float) -> void:
 	has_dash = Game.Item.Dash in ManagerGame.items
+	$Label.text = str(state_machine.get_state()) + " " + str(velocity)
 
-func _physics_process(_delta: float) -> void:
+func _physics_process(delta: float) -> void:
 	if ManagerGame.paused_transition:
 		if animation.is_playing():
 			animation.stop()
@@ -90,6 +92,7 @@ func _physics_process(_delta: float) -> void:
 	
 	buffer_jump.update_process()
 	buffer_dash.update_process()
+	state_machine.physics_update(delta)
 	
 	if wall_jump_lock > 0:
 		wall_jump_lock -= 1
@@ -122,7 +125,7 @@ func _unhandled_input(event: InputEvent) -> void:
 func _invocaion() -> void:
 	var copiar_load: PackedScene = load("uid://c6dwuxtm4i3rx")
 	var copiar_ins: CopyBody2D = copiar_load.instantiate()
-	copiar_ins.global_position = global_position - Vector2(0.0, 16.0)
+	copiar_ins.global_position = global_position - Vector2(0.0, 24.0)
 	add_sibling(copiar_ins)
 
 func _set_shader_blink_intensity(new_value: float) -> void:
@@ -173,11 +176,9 @@ func _apply_damage(knockback_force: Vector2, duration: float = knockback_duratio
 	
 	particles.emitting = true
 	
-	#current_state = State.Hurt
 	await get_tree().create_timer(duration, false).timeout
 	
 	state_machine.transition_to_next_state("Jump")
-	#current_state = State.Movement
 
 func _should_die() -> bool:
 	if ManagerGame.player_life > 0:
@@ -248,22 +249,23 @@ func apply_gravity(delta: float) -> void:
 		velocity.y += gravity * delta
 
 func handle_movement() -> void:
-	if not is_on_floor() and wall_jump_lock == 0:
+	if wall_jump_lock != 0:
+		return
+	
+	if not is_on_floor():
 		velocity.x = 0.0
 		#velocity.x = move_toward(velocity.x, 0.0, speed)
+	var direction_input: float = Game.get_input().x
 	
-	var direction_input: float = Input.get_axis("ui_left", "ui_right")
-	
-	if direction_input != 0.0 and wall_jump_lock == 0:
-	#if direction_input != 0.0:
+	if direction_input != 0.0:
 		direction = direction_input
 		velocity.x = direction * speed
 		#velocity.x = lerp(velocity.x, direction * speed, AIR_FRICTION)
 		animation.scale.x = direction 
 		
-	elif wall_jump_lock == 0:
-		velocity.x = 0.0
-		#velocity.x = move_toward(velocity.x, 0.0, speed)
+	else:
+		#velocity.x = 0.0
+		velocity.x = move_toward(velocity.x, 0.0, speed)
 
 func create_ghost_sprite() -> void:
 	var anim: AnimatedSprite2D = animated_shader.instantiate()

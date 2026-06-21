@@ -9,7 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://fn8l0q8obqk2" path="res://Textures/Seasonal Tilesets/5 - Misc. universal tiles/Misc_universal_tiles.png" id="7_ywovk"]
 [ext_resource type="PackedScene" uid="uid://b8hdjn8jjq7au" path="res://Objetos/Items/Check Point/locate_point.tscn" id="10_h3kb4"]
 [ext_resource type="Texture2D" uid="uid://bngrh74vyc7ht" path="res://Stages/Mundo 1 - Grassland/1 - Grassland/Terrain (16 x 16).png" id="13_rpwjl"]
-[ext_resource type="Texture2D" uid="uid://bb28lw40sdphy" path="res://Textures/Seasonal Tilesets/Monochome/Textura_Monochome_Sombra.png" id="15_4ro6o"]
+[ext_resource type="Texture2D" uid="uid://crp57hqm3wvsx" path="res://Textures/Seasonal Tilesets/Monochome/textura_Monochome.png" id="15_4ro6o"]
 [ext_resource type="PackedScene" uid="uid://dnhw8a254jpum" path="res://Objetos/Items/Moeda/moeda.tscn" id="15_h3kb4"]
 [ext_resource type="Texture2D" uid="uid://sa8p5r8bcm42" path="res://Textures/Seasonal Tilesets/5 - Misc. universal tiles/textura_exportada.png" id="16_vugke"]
 [ext_resource type="PackedScene" uid="uid://dm3tx8vbohrbt" path="res://Objetos/Items/Check Point/check_point.tscn" id="17_0kdmq"]

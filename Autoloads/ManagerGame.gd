@@ -45,6 +45,9 @@ func hide_ui() -> void:
 	controls.hide()
 	game_hud.hide()
 
+func set_transparent(value: bool) -> void:
+	transparent = value
+
 func respawn_player() -> void:
 	if check_point:
 		player.global_position = check_point.global_position
@@ -84,6 +87,3 @@ func _apply_time_effect(start: bool) -> void:
 		#colorBase.visible = false
 	else:
 		colorInvertido.visible = false
-
-func _on_size_changed() -> void:
-	print("test ", size)

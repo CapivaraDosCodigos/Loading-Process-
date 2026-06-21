@@ -2,22 +2,25 @@
 
 [ext_resource type="Script" uid="uid://hyh0dbmb4pg2" path="res://Entities/Inimigos/InimigoGround.gd" id="1_cfas5"]
 [ext_resource type="Material" uid="uid://cnrivju85edsn" path="res://Entities/Players/ShaderMaterial/Blink_Shader_Material.tres" id="2_cfas5"]
-[ext_resource type="Texture2D" uid="uid://ckmbcb18if3q7" path="res://Textures/Sprite Pack 2/4 - Robo Pumpkin/Hurt (16 x 16).png" id="2_m1eld"]
-[ext_resource type="Texture2D" uid="uid://c6ollukx3qwem" path="res://Textures/Sprite Pack 2/4 - Robo Pumpkin/Walking (16 x 16).png" id="3_cfas5"]
+[ext_resource type="Texture2D" uid="uid://disdq8ladd5nx" path="res://Textures/Sprite Pack 2/4 - Robo Pumpkin/Robo Pumpkin (32 x 32).png" id="3_nx3a2"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m1eld"]
+atlas = ExtResource("3_nx3a2")
+region = Rect2(16, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cfas5"]
+atlas = ExtResource("3_nx3a2")
+region = Rect2(16, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_fpt26"]
-atlas = ExtResource("3_cfas5")
+atlas = ExtResource("3_nx3a2")
 region = Rect2(0, 0, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_kw64t"]
-atlas = ExtResource("3_cfas5")
-region = Rect2(16, 0, 16, 16)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_1kxlt"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("2_m1eld")
+"texture": SubResource("AtlasTexture_m1eld")
 }],
 "loop": false,
 "name": &"Hurt",
@@ -25,10 +28,10 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_fpt26")
+"texture": SubResource("AtlasTexture_cfas5")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_kw64t")
+"texture": SubResource("AtlasTexture_fpt26")
 }],
 "loop": true,
 "name": &"Walking",
@@ -63,9 +66,10 @@ material = ExtResource("2_cfas5")
 sprite_frames = SubResource("SpriteFrames_1kxlt")
 animation = &"Walking"
 autoplay = "Walking"
+frame_progress = 0.88854575
 
 [node name="Collision" type="CollisionShape2D" parent="." unique_id=359271650]
-position = Vector2(0, 3)
+position = Vector2(0, 4)
 rotation = 1.5707964
 shape = SubResource("RectangleShape2D_7m6ug")
 
@@ -81,6 +85,7 @@ target_position = Vector2(-7, 0)
 collision_mask = 7
 
 [node name="Spike2D" type="Area2D" parent="." unique_id=1431837586]
+position = Vector2(0, 1)
 collision_layer = 0
 collision_mask = 5
 script = SubResource("GDScript_nx3a2")

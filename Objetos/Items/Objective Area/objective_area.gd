@@ -4,4 +4,4 @@ extends Area2D
 
 func _on_body_entered(_body: Node2D) -> void:
 	if scene_path != "":
-		SceneManager.load_scene(scene_path, true, "transition_2")
+		Global.load_scene(scene_path, true, "transition_2")

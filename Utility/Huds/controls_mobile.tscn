@@ -13,6 +13,7 @@
 [ext_resource type="Texture2D" uid="uid://3wpsndfxwnlb" path="res://Textures/Buttons/pause_pressed_button (24x24).png" id="11_l32vt"]
 [ext_resource type="Texture2D" uid="uid://cstjl7hxrkwi5" path="res://Textures/Buttons/button_interact (24x24).png" id="12_gmpxm"]
 [ext_resource type="Texture2D" uid="uid://dq24bqennwbuu" path="res://Textures/Buttons/button_interact_pressed (24x24).png" id="13_l32vt"]
+[ext_resource type="Theme" uid="uid://rgc24ucsh4oi" path="res://Assets/Themes/theme_game1.tres" id="14_l32vt"]
 
 [node name="Controls" type="CanvasLayer" unique_id=372594056]
 process_mode = 3
@@ -23,6 +24,7 @@ script = ExtResource("1_1g7qf")
 
 [node name="ButtonLeft" type="TouchScreenButton" parent="base2D" unique_id=1313928293]
 unique_name_in_owner = true
+visible = false
 position = Vector2(24, 296)
 scale = Vector2(1.5, 1.5)
 texture_normal = ExtResource("1_3c10e")
@@ -32,6 +34,7 @@ visibility_mode = 1
 
 [node name="ButtonRight" type="TouchScreenButton" parent="base2D" unique_id=2032161006]
 unique_name_in_owner = true
+visible = false
 position = Vector2(120, 296)
 scale = Vector2(1.5, 1.5)
 texture_normal = ExtResource("3_wi0ar")
@@ -41,6 +44,7 @@ visibility_mode = 1
 
 [node name="ButtonLeft2" type="TouchScreenButton" parent="base2D" unique_id=171300799]
 unique_name_in_owner = true
+visible = false
 position = Vector2(120.00001, 248.00002)
 rotation = 1.5707964
 scale = Vector2(1.5, 1.5)
@@ -51,6 +55,7 @@ visibility_mode = 1
 
 [node name="ButtonRight2" type="TouchScreenButton" parent="base2D" unique_id=353358251]
 unique_name_in_owner = true
+visible = false
 position = Vector2(120, 296)
 rotation = 1.5707964
 scale = Vector2(1.5, 1.5)
@@ -94,3 +99,12 @@ texture_normal = ExtResource("12_gmpxm")
 texture_pressed = ExtResource("13_l32vt")
 action = "Interect"
 visibility_mode = 1
+
+[node name="VirtualJoystick" type="VirtualJoystick" parent="base2D" unique_id=1635577825]
+offset_left = 56.0
+offset_top = 280.0
+offset_right = 88.0
+offset_bottom = 312.0
+theme = ExtResource("14_l32vt")
+joystick_size = 96.0
+tip_size = 48.0

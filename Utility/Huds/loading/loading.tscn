@@ -51,17 +51,4 @@ script = ExtResource("2_4f74f")
 transition_type = 8
 metadata/_custom_type_script = "uid://qasm6afliri1"
 
-[node name="ConfirmationDialog" type="ConfirmationDialog" parent="." unique_id=2017680983]
-handle_input_locally = false
-oversampling_override = 1.0
-initial_position = 1
-size = Vector2i(264, 80)
-popup_window = true
-content_scale_mode = 1
-content_scale_aspect = 1
-ok_button_text = "Jogar"
-dialog_text = "O Jogo ainda está carregando "
-
 [connection signal="pressed" from="MarginContainer/VBoxContainer/Start_Button" to="." method="_on_start_button_pressed"]
-[connection signal="canceled" from="ConfirmationDialog" to="." method="_on_confirmation_dialog_canceled"]
-[connection signal="confirmed" from="ConfirmationDialog" to="." method="_on_confirmation_dialog_confirmed"]

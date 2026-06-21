@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://hpm4w0aouya" path="res://Entities/Inimigos/RocketCherry/cherry.tscn" id="1_m881j"]
 [ext_resource type="Texture2D" uid="uid://ddw7iqnxy411m" path="res://Textures/Sprite Pack 2/7 - Rocket Cherry/Hopping (16 x 32).png" id="2_kjnmq"]
-[ext_resource type="Script" uid="uid://dt2yq4d45uckq" path="res://Entities/Inimigos/Spawner/PackedInimigo.gd" id="3_hk0xu"]
+[ext_resource type="Script" uid="uid://dt2yq4d45uckq" path="res://Entities/Spawner/PackedInimigo.gd" id="3_hk0xu"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_8wkbb"]
 atlas = ExtResource("2_kjnmq")

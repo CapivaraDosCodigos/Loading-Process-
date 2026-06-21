@@ -17,11 +17,11 @@ func physics_update(delta: float) -> void:
 	elif player.buffer_jump.is_interval() and player.coyote_timer > 0:
 		finished.emit(JUMP)
 	
-	elif Input.is_action_pressed("ui_left") or Input.is_action_pressed("ui_right"):
+	elif Input.is_action_pressed("ui_left") or Input.is_action_pressed("ui_right") or !is_equal_approx(player.velocity.x, 0.0):
 		finished.emit(RUN)
 	
 	elif player.can_wall_slide():
-		finished.emit("WallSlide")
+		finished.emit(WALL_SLIDE)
 
 func handle_dash()-> bool:
 	if player.buffer_dash.is_interval() and player.can_dash and player.dash_cooldown:

@@ -98,5 +98,3 @@ mouse_filter = 1
 
 [node name="Controls" parent="." unique_id=372594056 instance=ExtResource("4_s0s73")]
 visible = false
-
-[connection signal="size_changed" from="." to="." method="_on_size_changed"]

@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://dwpp3kntohdrw" path="res://Objetos/Plataformas/falling_platform.tscn" id="1_xiomv"]
 [ext_resource type="Texture2D" uid="uid://00rqu1cs44kl" path="res://Textures/Seasonal Tilesets/5 - Misc. universal tiles/Blocos/falling-platform-brown.png" id="2_jwfvi"]
-[ext_resource type="Script" uid="uid://bwytxaawfcab5" path="res://Entities/Inimigos/Spawner/PackedSpawn.gd" id="3_n28fc"]
+[ext_resource type="Script" uid="uid://bwytxaawfcab5" path="res://Entities/Spawner/PackedSpawn.gd" id="3_n28fc"]
 
 [resource]
 script = ExtResource("3_n28fc")

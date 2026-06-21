@@ -6,13 +6,13 @@ var dash_velocity_base: float = 1.0
 var turnaround: bool = false
 
 func enter(_previous_state_path: String, _data: Dictionary = {}) -> void:
-	player.animation.play("Jump")
+	player.animation.play(JUMP)
 	player.can_dash = false
 	player.dash_cooldown = false
 	turnaround = false
 	dash_velocity_base = 1.0
 	
-	var dir_input := Input.get_vector("ui_left", "ui_right", "ui_up","ui_down")
+	var dir_input: Vector2 = Game.get_input().normalized()
 	if dir_input != Vector2.ZERO:
 		dash_direction = dir_input
 	else:
@@ -23,21 +23,21 @@ func enter(_previous_state_path: String, _data: Dictionary = {}) -> void:
 	
 	await get_tree().create_timer(player.dash_duration, false).timeout
 	
-	finished.emit(RUN)
-	
-	if player.buffer_jump.is_interval() and player.coyote_timer > 0:
-		finished.emit(JUMP)
+	if player.buffer_jump.is_interval() and player.coyote_timer == 0:
+		finished.emit(JUMP, {"velocity_add": player.velocity})
 	
 	elif Input.is_action_pressed("ui_left") or Input.is_action_pressed("ui_right"):
-		finished.emit(RUN)
+		finished.emit(RUN, {"velocity_add": player.velocity})
 	
 	elif player.can_wall_slide():
-		finished.emit("WallSlide")
+		finished.emit(WALL_SLIDE, {"velocity_add": player.velocity})
+	
+	else:
+		finished.emit(RUN, {"velocity_add": player.velocity})
 	
 	dash_direction = Vector2.ZERO
 	
 	player.dash_ghost_timer = 0
-	#player.velocity = Vector2.ZERO
 	
 	await get_tree().physics_frame
 	await get_tree().physics_frame
@@ -50,16 +50,16 @@ func physics_update(delta: float) -> void:
 	player.velocity.y = (player.dash_distance / player.dash_duration) * dash_direction.y / 1.5
 	
 	if dash_direction.x != 0.0:
-		player.animation.scale.x = dash_direction.x
+		player.animation.scale.x = MathGame.desnormalized(dash_direction).x
 	
 	if turnaround:
-		player.apply_gravity(delta * 2.0)
+		player.apply_gravity(delta * 4.0)
 	
 	if player.dash_ghost_timer == 0:
 		player.create_ghost_sprite()
 		player.dash_ghost_timer = 3
 	
-	if is_wall_slide() and dash_direction.x == 0.0:
+	if is_wall_slide():
 		var wall_direction: float = -1.0 if player.ray_right.is_colliding() else 1.0
 		if wall_direction == dash_direction.x * -1.0:
 			dash_direction.x *= -1.0

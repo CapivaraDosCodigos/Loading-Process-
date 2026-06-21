@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://clduqr40pgdxk" path="res://Entities/Inimigos/Tank Boy/tank_boy_lose.tscn" id="1_0ibh2"]
 [ext_resource type="Texture2D" uid="uid://bqdb5a6yeremr" path="res://Textures/Sprite Pack 2/8 - Comrade Cheese Puff/Running_Away (16 x 16).png" id="2_vtx3x"]
-[ext_resource type="Script" uid="uid://dt2yq4d45uckq" path="res://Entities/Inimigos/Spawner/PackedInimigo.gd" id="3_1pxt0"]
+[ext_resource type="Script" uid="uid://dt2yq4d45uckq" path="res://Entities/Spawner/PackedInimigo.gd" id="3_1pxt0"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_illkj"]
 atlas = ExtResource("2_vtx3x")
