@@ -1,24 +1,36 @@
 extends PlayerState
 
-var dash_velocity_add: Vector2
+var wall_jump_lock: int = 0
 
 func enter(_previous_state_path: String, data: Dictionary = {}) -> void:
-	if data.has("velocity_add"):
-		dash_velocity_add = data["velocity_add"]
+	var wall_direction: float = 0.0
+	wall_direction = data["wall_direction"]
 	
-	player.velocity.y = -player.jump_velocity
+	player.velocity = Vector2(
+		player.jump_height * wall_direction * 2.0,
+		-player.jump_velocity
+	)
+		
+	player.direction = wall_direction
+	player.animation.scale.x = player.direction
+	
 	player.coyote_timer = 0
 	player.buffer_jump.set_buffer_time()
-	player.animation.play(JUMP)
+	wall_jump_lock = 12
 	
 	AudioManager.set_loop(AudioGame.PLAYER_SFX_1, false).set_pitch_random(true)
 	AudioManager.play(AudioGame.PLAYER_SFX_1, Player2D.audio_jump, 40.0)
+	
+	player.animation.play(JUMP)
 
 func physics_update(delta: float) -> void:
 	handle_movement()
 	
 	_apply_gravity(delta)
 	player.animation.scale.x = player.direction
+	
+	if wall_jump_lock > 0:
+		wall_jump_lock -= 1
 	
 	if player.is_on_floor():
 		if is_equal_approx(player.velocity.x, 0.0):
@@ -37,20 +49,13 @@ func physics_update(delta: float) -> void:
 
 func handle_movement() -> void:
 	var direction_input: float = Game.get_input().x
-	
-	var velocity_add: Vector2 = Vector2.ZERO
-	
-	if MathGame.desnormalized(dash_velocity_add).x == direction_input:
-		velocity_add.x = dash_velocity_add.abs().x
-		
-	dash_velocity_add = dash_velocity_add.lerp(Vector2.ZERO, player.AIR_FRICTION / 10.0)
-	
-	if not player.is_on_floor() and dash_velocity_add == Vector2.ZERO:
-		player.velocity.x = 0.0
+
+	if wall_jump_lock > 0:
+		return
 	
 	if direction_input != 0.0:
 		player.direction = direction_input
-		player.velocity.x = player.direction * max(player.speed, velocity_add.x)
+		player.velocity.x = player.direction * player.speed
 	else:
 		player.velocity.x = move_toward(player.velocity.x, 0.0, player.speed)
 

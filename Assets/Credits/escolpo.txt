@@ -1,0 +1,20 @@
+  | Cores Player:
+	• Amarelo (Padrão)
+	• Verde
+	• Azul
+	• Roxo
+	• Vermelho
+	• Laranja
+	• Rosa
+	• Colorido
+
+| Todas as cores:
+	• Amarelo (Player)
+	• Verde
+	• Azul
+	• Roxo
+	• Vermelho
+	• Laranja
+	• Rosa
+	• Cinza (Cenário)
+	• Colorido

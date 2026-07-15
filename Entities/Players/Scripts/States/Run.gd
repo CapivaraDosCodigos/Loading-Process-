@@ -14,7 +14,8 @@ func physics_update(delta: float) -> void:
 	if player.is_on_floor():
 		player.can_dash = true
 	
-	player.apply_gravity(delta)
+	player.velocity.y += player.fall_gravity * delta
+	player.animation.scale.x = player.direction
 	
 	if handle_dash():
 		return
@@ -27,6 +28,9 @@ func physics_update(delta: float) -> void:
 	
 	elif player.can_wall_slide():
 		finished.emit(WALL_SLIDE)
+	
+	elif not player.is_on_floor():
+		finished.emit("Fall")
 
 func handle_movement() -> void:
 	var direction_input: float = Game.get_input().x
@@ -39,22 +43,14 @@ func handle_movement() -> void:
 		
 	dash_velocity_add = dash_velocity_add.lerp(Vector2.ZERO, player.AIR_FRICTION / 10.0)
 	
-	if player.wall_jump_lock != 0 and dash_velocity_add == Vector2.ZERO:
-		return
-	
-	if not player.is_on_floor() and dash_velocity_add == Vector2.ZERO:
-		player.velocity.x = 0.0
-	
 	if direction_input != 0.0:
 		player.direction = direction_input
-		#player.velocity.x = player.direction * (player.speed + velocity_add.x)
 		player.velocity.x = player.direction * max(player.speed, velocity_add.x)
-		player.animation.scale.x = player.direction 
 	else:
 		player.velocity.x = move_toward(player.velocity.x, 0.0, player.speed)
 
 func handle_dash()-> bool:
-	if player.buffer_dash.is_interval() and player.can_dash and player.dash_cooldown:
+	if player.buffer_dash.is_interval() and player.dash_cooldown:
 		if player.has_dash:
 			finished.emit(DASH)
 			return true

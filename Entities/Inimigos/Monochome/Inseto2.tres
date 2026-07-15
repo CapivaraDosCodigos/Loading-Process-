@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="PackedEnemy" format=3 uid="uid://ros56mhrl7eg"]
+
+[ext_resource type="PackedScene" uid="uid://w8f00sbomfmc" path="res://Entities/Inimigos/Monochome/Inseto2.tscn" id="1_g5rry"]
+[ext_resource type="Script" uid="uid://dt2yq4d45uckq" path="res://Entities/Spawner/PackedInimigo.gd" id="1_o0cny"]
+[ext_resource type="Texture2D" uid="uid://bb28lw40sdphy" path="res://Textures/Seasonal Tilesets/Monochome/Textura_Monochome_Sombra.png" id="2_b6umf"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_syc4o"]
+atlas = ExtResource("2_b6umf")
+region = Rect2(0, 304, 16, 16)
+
+[resource]
+script = ExtResource("1_o0cny")
+packed_scene = ExtResource("1_g5rry")
+preview_texture = SubResource("AtlasTexture_syc4o")
+metadata/_custom_type_script = "uid://dt2yq4d45uckq"

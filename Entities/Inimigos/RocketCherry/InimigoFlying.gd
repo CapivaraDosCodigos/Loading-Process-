@@ -47,6 +47,9 @@ func _move() -> void:
 	move_tween.tween_property(self, "follow", start_position, duration).set_trans(Tween.TRANS_LINEAR).set_ease(Tween.EASE_IN_OUT).set_delay(WAIT_DURATION)
 
 func _spawn_new_inimigo() -> void:
+	if inimigo_filho_path == "":
+		return
+	
 	var inimigo_filho_load: PackedScene = load(inimigo_filho_path)
 	var inimigo_filho: Node2D = inimigo_filho_load.instantiate()
 	inimigo_filho.global_position = inimigo_marker.global_position

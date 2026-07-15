@@ -1,13 +1,12 @@
 extends CharacterBody2D
 class_name Player2D
 
-@export var immortal: bool = false
-
-const selection: PackedScene = preload("res://Entities/Players/area_seletion.tscn")
-
-#region
-
 const AIR_FRICTION: float = 0.5
+const COLORS_DIR: Dictionary[COLORS, ShaderMaterial] = {
+	COLORS.YELLOW: preload("uid://c4ruxuomui3od"),
+	COLORS.RED: preload("uid://gyv2wwfjnull"),
+	COLORS.GRAY: preload("uid://bglfmn7coq3du") }
+enum COLORS { YELLOW, RED, GRAY }
 
 static var audio_jump: AudioStream = preload("uid://diu3u0xv087kx")
 static var audio_dash: AudioStream = preload("uid://lscbx1hh6oq0")
@@ -20,11 +19,12 @@ static var animated_shader: PackedScene = preload("uid://dp8d0wvd7wm0j")
 static var buffer_jump: InputBuffer = InputBuffer.new("ui_accept", 5)
 static var buffer_dash: InputBuffer = InputBuffer.new("Dash", 5)
 
+@export var color: COLORS = COLORS.YELLOW
+
 @export_group("Jump")
 @export var coyote_frames: int = 5
 @export var jump_height: float = 64.0
 @export_range(0.1, 1.0, 0.01) var max_time_to_peak: float = 0.5
-#@export var wall_slide_force: float = 128.0
 
 @export_group("Movement")
 @export var speed: float = 200.0
@@ -38,38 +38,39 @@ static var buffer_dash: InputBuffer = InputBuffer.new("Dash", 5)
 @export var knockback_height: float = 200.0
 @export var knockback_power: float = 20.0
 
+@export_category("DEBUG")
+@export var immortal: bool = false
+
 @onready var animation: AnimatedSprite2D = $Animation
 @onready var collision: CollisionShape2D = $Collision
 @onready var particles: GPUParticles2D = $Particles
 @onready var ray_right: RayCast2D = $RayRight
 @onready var ray_left: RayCast2D = $RayLeft
 @onready var state_machine: StateMachine = $StateMachine
-#endregion
 
 var can_dash: bool = true
 var dash_cooldown: bool = true
-var has_dash: bool = false
-var has_wall_slide: bool = false
 
 var coyote_timer: int = 0
-var wall_jump_lock: int = 0
 var dash_ghost_timer: int = 0
 
-var direction: float = 1
-var fall_gravity: float = 0.0
-var gravity: float = 0.0
-var jump_velocity: float = 0.0
-var wall_direction: float = 0.0
+var direction: float = 1.0
 
 var knockback_vector: Vector2 = Vector2.ZERO
 
-var dash_velocity: Vector2 = Vector2.ZERO
+# Definidas no ready
+var fall_gravity: float = 0.0
+var gravity: float = 0.0
+var jump_velocity: float = 0.0
+var dash_velocity: float = 0.0
+var has_dash: bool = false
+var has_wall_slide: bool = false
 
 func _ready() -> void:
-	
 	jump_velocity = (jump_height * 2.0) / max_time_to_peak
 	gravity = (jump_height * 2.0) / pow(max_time_to_peak, 2)
 	fall_gravity = gravity * 2.0
+	dash_velocity = dash_distance / dash_duration
 	
 	has_wall_slide = Game.Item.ScalingEquipment in ManagerGame.items
 	has_dash = Game.Item.Dash in ManagerGame.items
@@ -77,6 +78,8 @@ func _ready() -> void:
 func _process(_delta: float) -> void:
 	has_dash = Game.Item.Dash in ManagerGame.items
 	$Label.text = str(state_machine.get_state()) + " " + str(velocity)
+	
+	animation.material = COLORS_DIR[color]
 
 func _physics_process(delta: float) -> void:
 	if ManagerGame.paused_transition:
@@ -94,17 +97,17 @@ func _physics_process(delta: float) -> void:
 	buffer_dash.update_process()
 	state_machine.physics_update(delta)
 	
-	if wall_jump_lock > 0:
-		wall_jump_lock -= 1
-	
-	if dash_ghost_timer > 0:
-		dash_ghost_timer -= 1
-	
 	if is_on_floor():
 		coyote_timer = coyote_frames
 	else:
 		if coyote_timer > 0:
 			coyote_timer -= 1
+	
+	if dash_ghost_timer > 0:
+		dash_ghost_timer -= 1
+	else:
+		create_ghost_sprite()
+		dash_ghost_timer = 2
 	
 	move_and_slide()
 	
@@ -123,62 +126,13 @@ func _unhandled_input(event: InputEvent) -> void:
 		_invocaion()
 
 func _invocaion() -> void:
-	var copiar_load: PackedScene = load("uid://c6dwuxtm4i3rx")
-	var copiar_ins: CopyBody2D = copiar_load.instantiate()
-	copiar_ins.global_position = global_position - Vector2(0.0, 24.0)
-	add_sibling(copiar_ins)
+	pass
 
 func _set_shader_blink_intensity(new_value: float) -> void:
 	animation.material.set("shader_parameter/blink_intensity", new_value)
 
 func _apply_damage(knockback_force: Vector2, duration: float = knockback_duration) -> void:
-	state_machine.transition_to_next_state("Hurt")
-	
-	AudioManager.set_loop(AudioGame.PLAYER_SFX_1, false).set_pitch_random(true, 0.8, 1.2)
-	AudioManager.play(AudioGame.PLAYER_SFX_1, audio_hurt, 90.0)
-	
-	knockback_vector = knockback_force
-	var knockback_tween: Tween = create_tween()
-	var hurt_direction: float = direction
-	
-	knockback_tween.parallel().tween_property(self, "knockback_vector", Vector2.ZERO, duration)
-	
-	knockback_tween.parallel().tween_method(_set_shader_blink_intensity, 1.0, 0.0, duration)
-	ManagerGame.camera.shake(2.0, duration)
-	
-	if knockback_force.y == 0.0 or knockback_force.x == 0.0:
-		animation.scale = Vector2(1.2 * hurt_direction, 0.8)
-		var save_position: Vector2 = animation.position
-		animation.position.y += 1.6
-		
-		knockback_tween.parallel().tween_property(animation, "scale", Vector2(hurt_direction, 1.0), duration)
-		knockback_tween.parallel().tween_property(animation, "position", save_position, duration)
-		
-	else:
-		animation.scale = Vector2(0.8 * hurt_direction, 1.2)
-		var save_position: Vector2 = animation.position
-		animation.position.y -= 1.6
-		
-		knockback_tween.parallel().tween_property(animation, "scale", Vector2(hurt_direction, 1.0), duration)
-		knockback_tween.parallel().tween_property(animation, "position", save_position, duration)
-	
-	particles.restart()
-	
-	if sign(knockback_force.x) != 0.0:
-		particles.scale.x = sign(knockback_force.x)
-	else:
-		particles.scale.x = -direction
-	
-	if sign(knockback_force.y) != 0.0:
-		particles.scale.y = -sign(knockback_force.y) 
-	else:
-		particles.scale.y = 1.0
-	
-	particles.emitting = true
-	
-	await get_tree().create_timer(duration, false).timeout
-	
-	state_machine.transition_to_next_state("Jump")
+	state_machine.transition_to_next_state("Hurt", {"knockback_force": knockback_force, "duration": duration})
 
 func _should_die() -> bool:
 	if ManagerGame.player_life > 0:
@@ -235,46 +189,25 @@ func use_skills() -> void:
 			ManagerGame.time_stop_event()
 
 func can_wall_slide() -> bool:
-	if wall_jump_lock > 0 or not has_wall_slide:
+	if not has_wall_slide:
 		return false
 	
 	var touching_wall: bool = ray_right.is_colliding() or ray_left.is_colliding()
 	
 	return not is_on_floor() and touching_wall and velocity.y > 0
 
-func apply_gravity(delta: float) -> void:
-	if velocity.y > 0 or !Input.is_action_pressed("ui_accept"):
-		velocity.y += fall_gravity * delta
-	else:
-		velocity.y += gravity * delta
-
-func handle_movement() -> void:
-	if wall_jump_lock != 0:
-		return
-	
-	if not is_on_floor():
-		velocity.x = 0.0
-		#velocity.x = move_toward(velocity.x, 0.0, speed)
-	var direction_input: float = Game.get_input().x
-	
-	if direction_input != 0.0:
-		direction = direction_input
-		velocity.x = direction * speed
-		#velocity.x = lerp(velocity.x, direction * speed, AIR_FRICTION)
-		animation.scale.x = direction 
-		
-	else:
-		#velocity.x = 0.0
-		velocity.x = move_toward(velocity.x, 0.0, speed)
-
 func create_ghost_sprite() -> void:
-	var anim: AnimatedSprite2D = animated_shader.instantiate()
+	if velocity.abs().x <+ speed+1 and velocity.abs().y <= speed+1:
+		return
+		
+	var anim: AnimatedSpriteShader2D = animated_shader.instantiate()
 	anim.sprite_frames = animation.sprite_frames
 	anim.animation = animation.animation
 	anim.frame = animation.frame
 	anim.flip_h = animation.flip_h
 	anim.global_position = global_position
 	anim.scale = animation.scale
+	anim.set_shader(animation.material.get("shader_parameter/lightest"))
 	
 	add_sibling(anim)
 	anim.stop()
@@ -286,8 +219,8 @@ func die() -> void:
 	explosion_instance.animation_finished.connect(ManagerGame.dead_player.emit)
 	add_sibling(explosion_instance)
 	
-	ManagerGame.camera.shake(2.0, 1.0)
-	
+	set_physics_process(false)
+	ManagerGame.shake_camera.emit(2.0, 1.0)
 	queue_free()
 
 func take_damage(knockback_force: Vector2, duration: float = 0.25) -> void:

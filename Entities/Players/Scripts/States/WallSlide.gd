@@ -1,6 +1,8 @@
 extends PlayerState
 #class_name WallSlideState
 
+var wall_direction: float = 0.0
+
 func enter(_previous_state_path: String, _data: Dictionary = {}) -> void:
 	player.animation.play("Climbing")
 
@@ -9,22 +11,31 @@ func physics_update(delta: float) -> void:
 	
 	player.velocity.y += player.gravity / 4.0 * delta
 	
-	player.wall_direction = -1.0 if player.ray_right.is_colliding() else 1.0
+	wall_direction = -1.0 if player.ray_right.is_colliding() else 1.0
 	
 	if handle_jump():
+		finished.emit("WallJump", {"wall_direction": wall_direction})
 		return
 	
 	elif handle_dash():
 		return
 	
 	elif not player.can_wall_slide():
-		finished.emit(RUN)
-		return
+		if player.is_on_floor():
+			if is_equal_approx(player.velocity.x, 0.0):
+				finished.emit(IDLE)
+			else:
+				finished.emit(RUN)
+		else:
+			finished.emit(FALL)
+	else: 
+		player.direction = wall_direction
+		player.animation.scale.x = -player.direction
 
 func handle_dash()-> bool:
-	if player.buffer_dash.is_interval() and player.can_dash and player.dash_cooldown:
+	if player.buffer_dash.is_interval() and player.dash_cooldown:
 		if player.has_dash:
-			player.direction = player.wall_direction
+			player.direction = wall_direction
 			player.animation.scale.x = player.direction
 			player.animation.play(JUMP)
 			finished.emit(DASH)
@@ -37,21 +48,4 @@ func handle_dash()-> bool:
 	return false
 
 func handle_jump()-> bool:
-	if player.buffer_jump.is_interval():
-		player.velocity = Vector2(
-			player.jump_height * player.wall_direction * 2.0,
-			-player.jump_velocity
-		)
-		
-		player.direction = player.wall_direction
-		player.animation.scale.x = player.direction
-	
-		player.coyote_timer = 0
-		player.buffer_jump.set_buffer_time()
-		player.wall_jump_lock = 12
-		
-		finished.emit(JUMP)
-		AudioManager.set_loop(AudioGame.PLAYER_SFX_1, false).set_pitch_random(true)
-		AudioManager.play(AudioGame.PLAYER_SFX_1, Player2D.audio_jump, 40.0)
-		return true
-	return false
+	return player.buffer_jump.is_interval()

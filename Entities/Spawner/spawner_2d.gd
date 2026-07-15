@@ -6,6 +6,7 @@ class_name Spawner2D
 	set(value):
 		packed_spawn = value
 		queue_redraw()
+@export var extra_vars: Dictionary[StringName, Variant] = {}
 
 var current_object: Node2D
 
@@ -39,6 +40,10 @@ func _draw() -> void:
 	draw_set_transform(Vector2.ZERO, 0.0, Vector2(-1.0 if packed_spawn.flip_h else 1.0, 1.0))
 	
 	draw_texture(packed_spawn.preview_texture, pos + packed_spawn.offset)
+
+func _set_extra_vars() -> void:
+	for v: StringName in extra_vars.keys():
+		current_object.set_deferred(v, extra_vars[v])
 
 func spawn() -> void:
 	if not packed_spawn.packed_scene or not packed_spawn:

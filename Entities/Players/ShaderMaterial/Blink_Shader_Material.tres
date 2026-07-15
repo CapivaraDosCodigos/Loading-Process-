@@ -5,8 +5,13 @@
 [resource]
 resource_local_to_scene = true
 shader = ExtResource("1_ffm8m")
-shader_parameter/blink_color = Color(0.75, 0.7708333, 1, 1)
+shader_parameter/blink_color = Color(1, 1, 1, 1)
 shader_parameter/blink_intensity = 0.0
-shader_parameter/alternate_hue = false
-shader_parameter/hue_shift_speed = 0.5
-shader_parameter/hue_strength = 1.0
+shader_parameter/one_color = false
+shader_parameter/darkest = Color(0.25, 0.23333333, 0.1875, 1)
+shader_parameter/dark = Color(0.5, 0.46666667, 0.375, 1)
+shader_parameter/light = Color(0.75, 0.7, 0.5625, 1)
+shader_parameter/lightest = Color(1, 0.93333334, 0.75, 1)
+shader_parameter/step_1 = 0.25
+shader_parameter/step_2 = 0.5
+shader_parameter/step_3 = 0.75

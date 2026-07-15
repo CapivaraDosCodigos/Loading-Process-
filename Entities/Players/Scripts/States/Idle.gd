@@ -7,9 +7,8 @@ func physics_update(delta: float) -> void:
 	if player.is_on_floor():
 		player.can_dash = true
 	
+	player.velocity.y += player.fall_gravity * delta
 	player.animation.scale.x = player.direction
-	
-	player.apply_gravity(delta)
 	
 	if handle_dash():
 		return
@@ -22,9 +21,12 @@ func physics_update(delta: float) -> void:
 	
 	elif player.can_wall_slide():
 		finished.emit(WALL_SLIDE)
+	
+	elif not player.is_on_floor():
+		finished.emit("Fall")
 
 func handle_dash()-> bool:
-	if player.buffer_dash.is_interval() and player.can_dash and player.dash_cooldown:
+	if player.buffer_dash.is_interval() and player.dash_cooldown:
 		if player.has_dash:
 			finished.emit("Dash")
 			return true

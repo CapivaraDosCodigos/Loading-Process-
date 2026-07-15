@@ -21,6 +21,7 @@ layer = 50
 script = ExtResource("1_1g7qf")
 
 [node name="base2D" type="Node2D" parent="." unique_id=410990943]
+scale = Vector2(0.5, 0.5)
 
 [node name="ButtonLeft" type="TouchScreenButton" parent="base2D" unique_id=1313928293]
 unique_name_in_owner = true

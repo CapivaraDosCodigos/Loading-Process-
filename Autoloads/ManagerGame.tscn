@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://bt2veg1sbdv23" path="res://Autoloads/ManagerGame.gd" id="1_22gst"]
 [ext_resource type="Shader" uid="uid://c2jna8smf0y70" path="res://Shaders/OffInScreen.gdshader" id="1_i1u7a"]
-[ext_resource type="Material" uid="uid://b0xsqrtrfp4un" path="res://Shaders/Testes/TimeStop_material.tres" id="2_s0s73"]
+[ext_resource type="Material" uid="uid://b0xsqrtrfp4un" path="res://Assets/Shader Material/TimeStop_material.tres" id="2_s0s73"]
 [ext_resource type="PackedScene" uid="uid://cmrake25tlapc" path="res://Utility/Huds/hud.tscn" id="3_22gst"]
 [ext_resource type="PackedScene" uid="uid://gli5foejngdy" path="res://Utility/Huds/controls_mobile.tscn" id="4_s0s73"]
 
@@ -48,7 +48,6 @@ shader = ExtResource("1_i1u7a")
 shader_parameter/intensity = 0.70000003325
 
 [node name="Window" type="Window" unique_id=1981778806]
-process_mode = 3
 handle_input_locally = false
 canvas_item_default_texture_filter = 0
 audio_listener_enable_2d = true
@@ -56,17 +55,16 @@ oversampling_override = 1.0
 mode = 3
 title = "Loading Process Game"
 initial_position = 1
-size = Vector2i(640, 360)
+size = Vector2i(320, 180)
 transient = true
 borderless = true
-content_scale_size = Vector2i(640, 360)
+content_scale_size = Vector2i(320, 180)
 content_scale_mode = 1
 content_scale_aspect = 2
 script = ExtResource("1_22gst")
 
 [node name="GameHUD" type="CanvasLayer" parent="." unique_id=1683612246]
 layer = 10
-visible = false
 
 [node name="Animator" type="AnimationPlayer" parent="GameHUD" unique_id=1733961308]
 libraries/ = SubResource("AnimationLibrary_l2lt8")
@@ -95,6 +93,7 @@ grow_vertical = 2
 mouse_filter = 1
 
 [node name="HUD" parent="GameHUD" unique_id=1559610119 instance=ExtResource("3_22gst")]
+visible = false
 
 [node name="Controls" parent="." unique_id=372594056 instance=ExtResource("4_s0s73")]
 visible = false

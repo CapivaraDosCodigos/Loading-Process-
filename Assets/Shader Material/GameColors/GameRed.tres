@@ -1,0 +1,16 @@
+[gd_resource type="ShaderMaterial" format=3 uid="uid://gyv2wwfjnull"]
+
+[ext_resource type="Shader" uid="uid://k6lnr5gd84qg" path="res://Shaders/Blink.gdshader" id="1_guvh5"]
+
+[resource]
+resource_local_to_scene = true
+shader = ExtResource("1_guvh5")
+shader_parameter/blink_color = Color(1, 1, 1, 1)
+shader_parameter/blink_intensity = 0.0
+shader_parameter/darkest = Color(0.25, 0.0775, 0.0775, 1)
+shader_parameter/dark = Color(0.5, 0.155, 0.155, 1)
+shader_parameter/light = Color(0.75, 0.2325, 0.2325, 1)
+shader_parameter/lightest = Color(1, 0.30588236, 0.30588236, 1)
+shader_parameter/step_1 = 0.25
+shader_parameter/step_2 = 0.5
+shader_parameter/step_3 = 0.75

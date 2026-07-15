@@ -1,8 +1,8 @@
-[gd_scene format=3 uid="uid://cyakeccoybbeu"]
+[gd_scene format=3 uid="uid://chjwb8eq875x1"]
 
-[ext_resource type="Script" uid="uid://hyh0dbmb4pg2" path="res://Entities/Inimigos/InimigoGround.gd" id="1_8wyte"]
-[ext_resource type="Texture2D" uid="uid://bb28lw40sdphy" path="res://Textures/Seasonal Tilesets/Monochome/Textura_Monochome_Sombra.png" id="2_nawdm"]
-[ext_resource type="PackedScene" uid="uid://dfcww07k3b188" path="res://Objetos/Assets/hitbox.tscn" id="5_rtd67"]
+[ext_resource type="Script" uid="uid://bjde5fuwuqf55" path="res://Entities/Inimigos/Monochome/Inseto3.gd" id="1_c2fvm"]
+[ext_resource type="PackedScene" uid="uid://dfcww07k3b188" path="res://Objetos/Assets/hitbox.tscn" id="2_skwri"]
+[ext_resource type="Texture2D" uid="uid://bb28lw40sdphy" path="res://Textures/Seasonal Tilesets/Monochome/Textura_Monochome_Sombra.png" id="3_5d0yi"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7m6ug"]
 size = Vector2(8, 12)
@@ -11,19 +11,19 @@ size = Vector2(8, 12)
 size = Vector2(12, 2)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_iq5n4"]
-atlas = ExtResource("2_nawdm")
+atlas = ExtResource("3_5d0yi")
 region = Rect2(96, 192, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_18aiv"]
-atlas = ExtResource("2_nawdm")
+atlas = ExtResource("3_5d0yi")
 region = Rect2(16, 192, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_8gaaa"]
-atlas = ExtResource("2_nawdm")
+atlas = ExtResource("3_5d0yi")
 region = Rect2(32, 192, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_cvys1"]
-atlas = ExtResource("2_nawdm")
+atlas = ExtResource("3_5d0yi")
 region = Rect2(48, 192, 16, 16)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_1kxlt"]
@@ -51,16 +51,11 @@ animations = [{
 "speed": 10.0
 }]
 
-[node name="Robo Pumpkin" type="CharacterBody2D" unique_id=1037510275 node_paths=PackedStringArray("collision", "hitbox", "wall_detector", "animated") groups=["Inimigos"]]
+[node name="Robo Pumpkin" type="CharacterBody2D" unique_id=1332807745 groups=["Inimigos"]]
 collision_layer = 4
 collision_mask = 263
-script = ExtResource("1_8wyte")
-distortion_position = 0.0
-distortion = Vector2(1, 1)
-collision = NodePath("Collision")
-hitbox = NodePath("Hitbox")
-wall_detector = NodePath("Wall_detector")
-animated = NodePath("Animated")
+script = ExtResource("1_c2fvm")
+metadata/_custom_type_script = "uid://hyh0dbmb4pg2"
 
 [node name="Collision" type="CollisionShape2D" parent="." unique_id=359271650]
 visible = false
@@ -79,7 +74,7 @@ position = Vector2(0, 1)
 target_position = Vector2(-7, 0)
 collision_mask = 7
 
-[node name="Hitbox" parent="." unique_id=1128202378 instance=ExtResource("5_rtd67")]
+[node name="Hitbox" parent="." unique_id=1128202378 instance=ExtResource("2_skwri")]
 visible = false
 
 [node name="Collision2" type="CollisionShape2D" parent="Hitbox" unique_id=1436478941]

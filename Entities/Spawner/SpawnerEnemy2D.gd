@@ -54,6 +54,8 @@ func spawn() -> void:
 			for key: StringName in packed_spawn.extra_nodes.keys():
 				if key in current_object:
 					current_object.set_deferred(key, get_node(packed_spawn.extra_nodes[key]))
+		
+	_set_extra_vars()
 	
 	current_object.global_position = global_position
 	#current_enemy.position = Vector2.ZERO

@@ -18,6 +18,8 @@ signal dead_player
 @warning_ignore("unused_signal")
 signal dead_boss
 
+signal shake_camera(magnitude: float, duration: float)
+
 var is_paused_force: bool = false
 var is_paused: bool = false
 var paused_transition: bool = false
@@ -33,8 +35,12 @@ var items: Array[Game.Item] = [Game.Item.ScalingEquipment, Game.Item.Dash]
 var player: Player2D
 var check_point: Node2D
 var locate_point: Node2D
-
-var camera: CameraCustom2D
+var camera: CameraCustom2D:
+	set(value):
+		camera = value
+		if not camera:
+			return
+		shake_camera.connect(camera.shake)
 var area_camera_inclusive: CameraArea2D
 
 func show_ui() -> void:

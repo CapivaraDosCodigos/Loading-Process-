@@ -5,6 +5,8 @@ const RUN = "Run"
 const JUMP = "Jump"
 const WALL_SLIDE = "WallSlide"
 const DASH = "Dash"
+const HURT = "Hurt"
+const FALL = "Fall"
 
 var player: Player2D
 
