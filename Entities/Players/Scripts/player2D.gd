@@ -43,7 +43,7 @@ static var buffer_dash: InputBuffer = InputBuffer.new("Dash", 5)
 
 @onready var animation: AnimatedSprite2D = $Animation
 @onready var collision: CollisionShape2D = $Collision
-@onready var particles: GPUParticles2D = $Particles
+@onready var particles: Particles2D = $Particles
 @onready var ray_right: RayCast2D = $RayRight
 @onready var ray_left: RayCast2D = $RayLeft
 @onready var state_machine: StateMachine = $StateMachine
@@ -74,6 +74,8 @@ func _ready() -> void:
 	
 	has_wall_slide = Game.Item.ScalingEquipment in ManagerGame.items
 	has_dash = Game.Item.Dash in ManagerGame.items
+	
+	animation.material = COLORS_DIR[color]
 
 func _process(_delta: float) -> void:
 	has_dash = Game.Item.Dash in ManagerGame.items
@@ -117,22 +119,6 @@ func _physics_process(delta: float) -> void:
 		
 		if icollider is FallingPlatform2D:
 			icollider.has_collided_with()
-	
-	#if global_position.y > 536.0:
-		#get_tree().reload_current_scene()
-
-func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_pressed("Interect"):
-		_invocaion()
-
-func _invocaion() -> void:
-	pass
-
-func _set_shader_blink_intensity(new_value: float) -> void:
-	animation.material.set("shader_parameter/blink_intensity", new_value)
-
-func _apply_damage(knockback_force: Vector2, duration: float = knockback_duration) -> void:
-	state_machine.transition_to_next_state("Hurt", {"knockback_force": knockback_force, "duration": duration})
 
 func _should_die() -> bool:
 	if ManagerGame.player_life > 0:
@@ -145,11 +131,12 @@ func _on_hurtbox_body_entered(body: Node2D) -> void:
 		return
 	
 	var knockback: Vector2 = MathGame.calculate_knockback(global_position, body.global_position, knockback_height,knockback_power)
+	var vertical_hit: bool = MathGame.is_vertical_hit(global_position, body.global_position)
 	
 	if body.is_in_group("Projectiles"):
 		body.queue_free()
-		
-	take_damage(knockback)
+	
+	take_damage(knockback, 0.25, vertical_hit)
 
 func _on_hurt_box_down_body_entered(body: Node2D) -> void:
 	if ManagerGame.is_paused:
@@ -163,7 +150,7 @@ func _on_hurt_box_down_body_entered(body: Node2D) -> void:
 	if body.is_in_group("Projectiles"):
 		body.queue_free()
 	
-	take_damage(knockback)
+	take_damage(knockback, 0.25, false)
 
 func _on_notifier_screen_exited() -> void:
 	if ManagerGame.area_camera_inclusive:
@@ -223,7 +210,7 @@ func die() -> void:
 	ManagerGame.shake_camera.emit(2.0, 1.0)
 	queue_free()
 
-func take_damage(knockback_force: Vector2, duration: float = 0.25) -> void:
+func take_damage(knockback_force: Vector2, duration: float, vertical_hit: bool) -> void:
 	if state_machine.is_state("Hurt"):
 		return
 	
@@ -232,4 +219,5 @@ func take_damage(knockback_force: Vector2, duration: float = 0.25) -> void:
 	if _should_die() and not immortal:
 		die()
 	else:
-		_apply_damage(knockback_force, duration)
+		state_machine.transition_to_next_state("Hurt", {"knockback_force": knockback_force, "duration": duration, "vertical_hit": vertical_hit})
+		

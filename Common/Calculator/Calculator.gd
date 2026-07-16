@@ -37,6 +37,9 @@ static func get_screen_position_from_node(node: Node2D) -> Vector2:
 	
 	return screen_pos
 
+static func is_vertical_hit(body_pos: Vector2, target_pos: Vector2, tolerance: float = 8.0) -> bool:
+	return abs(target_pos.y - body_pos.y) > tolerance
+
 static func calculate_knockback(body_pos: Vector2, target_pos: Vector2, knockback_height: float, knockback_power: float) -> Vector2:
 	var y_force: float = -knockback_height if target_pos.y > body_pos.y else 0.0
 	
@@ -52,4 +55,3 @@ static func desnormalized(vector: Vector2) -> Vector2:
 		vector.y = abs(vector.y) / vector.y
 	
 	return vector
-	

@@ -8,7 +8,7 @@ func _apply_movement() -> void:
 	direction.x = MathGame.desnormalized(target.global_position - global_position).x
 	var distance: float = global_position.direction_to(target.global_position).x
 	
-	if is_on_floor() and !is_zero_approx(distance / 1000.0):
+	if is_on_floor() and ground_detector.is_colliding() and !is_zero_approx(distance / 1000.0):
 		velocity.x = direction.x * speed
 	else:
 		velocity.x = 0.0
@@ -29,6 +29,9 @@ func _apply_flip() -> void:
 	
 	if wall_detector:
 		wall_detector.scale.x = direction.x * -1.0
+	
+	if ground_detector:
+		ground_detector.scale.x = direction.x * -1.0
 	
 	if animated:
 		animated.scale.x = direction.x * -1.0

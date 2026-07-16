@@ -4,12 +4,6 @@
 [ext_resource type="Texture2D" uid="uid://bb28lw40sdphy" path="res://Textures/Seasonal Tilesets/Monochome/Textura_Monochome_Sombra.png" id="3_kdivc"]
 [ext_resource type="PackedScene" uid="uid://dfcww07k3b188" path="res://Objetos/Assets/hitbox.tscn" id="4_8kk22"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_ki5ow"]
-size = Vector2(10, 10)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_uo31x"]
-size = Vector2(10, 2)
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_r32bs"]
 atlas = ExtResource("3_kdivc")
 region = Rect2(0, 304, 16, 16)
@@ -44,6 +38,12 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ki5ow"]
+size = Vector2(10, 10)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_uo31x"]
+size = Vector2(10, 2)
+
 [node name="Inseto2" type="CharacterBody2D" unique_id=2003651222 node_paths=PackedStringArray("inimigo_marker", "collision", "hitbox", "animated") groups=["Inimigos"]]
 collision_layer = 4
 collision_mask = 5
@@ -56,11 +56,19 @@ hitbox = NodePath("Hitbox")
 animated = NodePath("Animated")
 metadata/_custom_type_script = "uid://bfvb23jsccsa1"
 
+[node name="Animated" type="AnimatedSprite2D" parent="." unique_id=184162401]
+sprite_frames = SubResource("SpriteFrames_cy4pu")
+animation = &"Flying"
+autoplay = "Flying"
+frame_progress = 0.58846277
+
 [node name="Collision" type="CollisionShape2D" parent="." unique_id=1526186445]
+visible = false
 position = Vector2(0, 2)
 shape = SubResource("RectangleShape2D_ki5ow")
 
 [node name="Hitbox" parent="." unique_id=1128202378 instance=ExtResource("4_8kk22")]
+visible = false
 position = Vector2(0, -6)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox" unique_id=1917815569]
@@ -70,9 +78,3 @@ debug_color = Color(0.9740793, 0, 0.43279848, 0.41960785)
 
 [node name="CherryMarker" type="Marker2D" parent="." unique_id=960990407]
 visible = false
-
-[node name="Animated" type="AnimatedSprite2D" parent="." unique_id=184162401]
-sprite_frames = SubResource("SpriteFrames_cy4pu")
-animation = &"Flying"
-autoplay = "Flying"
-frame_progress = 0.58846277

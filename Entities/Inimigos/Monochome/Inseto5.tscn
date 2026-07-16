@@ -1,23 +1,28 @@
-[gd_scene format=3 uid="uid://cyakeccoybbeu"]
+[gd_scene format=3 uid="uid://disghyo3pn4xc"]
 
-[ext_resource type="Script" uid="uid://hyh0dbmb4pg2" path="res://Entities/Inimigos/InimigoGround.gd" id="1_8wyte"]
-[ext_resource type="Texture2D" uid="uid://bb28lw40sdphy" path="res://Textures/Seasonal Tilesets/Monochome/Textura_Monochome_Sombra.png" id="2_nawdm"]
-[ext_resource type="PackedScene" uid="uid://dfcww07k3b188" path="res://Objetos/Assets/hitbox.tscn" id="5_rtd67"]
+[ext_resource type="Script" uid="uid://datdp36udwcvy" path="res://Entities/Inimigos/Monochome/Inseto5.gd" id="1_y6rji"]
+[ext_resource type="Texture2D" uid="uid://bb28lw40sdphy" path="res://Textures/Seasonal Tilesets/Monochome/Textura_Monochome_Sombra.png" id="2_xo50x"]
+[ext_resource type="PackedScene" uid="uid://dfcww07k3b188" path="res://Objetos/Assets/hitbox.tscn" id="3_b6b5j"]
+[ext_resource type="Texture2D" uid="uid://dwtxvfvtfa648" path="res://Textures/Seasonal Tilesets/Monochome/textura_exportada.png" id="3_xo50x"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_iq5n4"]
-atlas = ExtResource("2_nawdm")
+atlas = ExtResource("2_xo50x")
 region = Rect2(96, 192, 16, 16)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_b6b5j"]
+atlas = ExtResource("3_xo50x")
+region = Rect2(0, 0, 16, 16)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_18aiv"]
-atlas = ExtResource("2_nawdm")
+atlas = ExtResource("2_xo50x")
 region = Rect2(16, 192, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_8gaaa"]
-atlas = ExtResource("2_nawdm")
+atlas = ExtResource("2_xo50x")
 region = Rect2(32, 192, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_cvys1"]
-atlas = ExtResource("2_nawdm")
+atlas = ExtResource("2_xo50x")
 region = Rect2(48, 192, 16, 16)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_1kxlt"]
@@ -28,6 +33,14 @@ animations = [{
 }],
 "loop": 0,
 "name": &"Hurt",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b6b5j")
+}],
+"loop": 1,
+"name": &"Idle",
 "speed": 5.0
 }, {
 "frames": [{
@@ -51,11 +64,11 @@ size = Vector2(8, 12)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cnvmn"]
 size = Vector2(12, 2)
 
-[node name="Inseto1" type="CharacterBody2D" unique_id=2047432975 node_paths=PackedStringArray("wall_detector", "animated") groups=["Inimigos"]]
+[node name="Inseto5" type="CharacterBody2D" unique_id=1332807745 node_paths=PackedStringArray("ground_detector", "animated") groups=["Inimigos"]]
 collision_layer = 4
 collision_mask = 263
-script = ExtResource("1_8wyte")
-wall_detector = NodePath("Wall_detector")
+script = ExtResource("1_y6rji")
+ground_detector = NodePath("GroundDetector")
 animated = NodePath("Animated")
 metadata/_custom_type_script = "uid://hyh0dbmb4pg2"
 
@@ -65,9 +78,8 @@ show_rect = false
 
 [node name="Animated" type="AnimatedSprite2D" parent="." unique_id=187277772]
 sprite_frames = SubResource("SpriteFrames_1kxlt")
-animation = &"Walking"
+animation = &"Idle"
 autoplay = "Walking"
-frame_progress = 0.35248473
 flip_h = true
 
 [node name="Collision" type="CollisionShape2D" parent="." unique_id=359271650]
@@ -76,7 +88,7 @@ position = Vector2(-4.371139e-08, 4)
 rotation = 1.5707964
 shape = SubResource("RectangleShape2D_7m6ug")
 
-[node name="Hitbox" parent="." unique_id=1128202378 instance=ExtResource("5_rtd67")]
+[node name="Hitbox" parent="." unique_id=1128202378 instance=ExtResource("3_b6b5j")]
 visible = false
 
 [node name="Collision2" type="CollisionShape2D" parent="Hitbox" unique_id=1436478941]
@@ -84,9 +96,9 @@ position = Vector2(0, -2)
 shape = SubResource("RectangleShape2D_cnvmn")
 debug_color = Color(0.9740793, 0, 0.43279848, 0.41960785)
 
-[node name="Wall_detector" type="RayCast2D" parent="." unique_id=1247649078]
+[node name="GroundDetector" type="RayCast2D" parent="." unique_id=397857635]
 visible = false
-modulate = Color(1, 0, 1, 1)
+modulate = Color(18.892157, 15.022721, 0, 1)
 position = Vector2(0, 1)
-target_position = Vector2(-7, 0)
-collision_mask = 7
+target_position = Vector2(-7, 8)
+collision_mask = 2

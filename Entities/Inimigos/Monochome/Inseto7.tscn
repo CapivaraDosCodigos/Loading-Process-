@@ -1,23 +1,23 @@
-[gd_scene format=3 uid="uid://cyakeccoybbeu"]
+[gd_scene format=3 uid="uid://txhjmc5ia3h4"]
 
-[ext_resource type="Script" uid="uid://hyh0dbmb4pg2" path="res://Entities/Inimigos/InimigoGround.gd" id="1_8wyte"]
-[ext_resource type="Texture2D" uid="uid://bb28lw40sdphy" path="res://Textures/Seasonal Tilesets/Monochome/Textura_Monochome_Sombra.png" id="2_nawdm"]
-[ext_resource type="PackedScene" uid="uid://dfcww07k3b188" path="res://Objetos/Assets/hitbox.tscn" id="5_rtd67"]
+[ext_resource type="Script" uid="uid://b6qd2m8f8cjeh" path="res://Entities/Inimigos/Monochome/Inseto7.gd" id="1_beh6i"]
+[ext_resource type="Texture2D" uid="uid://bb28lw40sdphy" path="res://Textures/Seasonal Tilesets/Monochome/Textura_Monochome_Sombra.png" id="2_yidmd"]
+[ext_resource type="PackedScene" uid="uid://dfcww07k3b188" path="res://Objetos/Assets/hitbox.tscn" id="3_y3fqg"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_iq5n4"]
-atlas = ExtResource("2_nawdm")
+atlas = ExtResource("2_yidmd")
 region = Rect2(96, 192, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_18aiv"]
-atlas = ExtResource("2_nawdm")
+atlas = ExtResource("2_yidmd")
 region = Rect2(16, 192, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_8gaaa"]
-atlas = ExtResource("2_nawdm")
+atlas = ExtResource("2_yidmd")
 region = Rect2(32, 192, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_cvys1"]
-atlas = ExtResource("2_nawdm")
+atlas = ExtResource("2_yidmd")
 region = Rect2(48, 192, 16, 16)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_1kxlt"]
@@ -51,11 +51,10 @@ size = Vector2(8, 12)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cnvmn"]
 size = Vector2(12, 2)
 
-[node name="Inseto1" type="CharacterBody2D" unique_id=2047432975 node_paths=PackedStringArray("wall_detector", "animated") groups=["Inimigos"]]
+[node name="Inseto7" type="CharacterBody2D" unique_id=2047432975 node_paths=PackedStringArray("animated") groups=["Inimigos"]]
 collision_layer = 4
 collision_mask = 263
-script = ExtResource("1_8wyte")
-wall_detector = NodePath("Wall_detector")
+script = ExtResource("1_beh6i")
 animated = NodePath("Animated")
 metadata/_custom_type_script = "uid://hyh0dbmb4pg2"
 
@@ -65,9 +64,8 @@ show_rect = false
 
 [node name="Animated" type="AnimatedSprite2D" parent="." unique_id=187277772]
 sprite_frames = SubResource("SpriteFrames_1kxlt")
-animation = &"Walking"
+animation = &"Hurt"
 autoplay = "Walking"
-frame_progress = 0.35248473
 flip_h = true
 
 [node name="Collision" type="CollisionShape2D" parent="." unique_id=359271650]
@@ -76,17 +74,10 @@ position = Vector2(-4.371139e-08, 4)
 rotation = 1.5707964
 shape = SubResource("RectangleShape2D_7m6ug")
 
-[node name="Hitbox" parent="." unique_id=1128202378 instance=ExtResource("5_rtd67")]
+[node name="Hitbox" parent="." unique_id=1128202378 instance=ExtResource("3_y3fqg")]
 visible = false
 
 [node name="Collision2" type="CollisionShape2D" parent="Hitbox" unique_id=1436478941]
 position = Vector2(0, -2)
 shape = SubResource("RectangleShape2D_cnvmn")
 debug_color = Color(0.9740793, 0, 0.43279848, 0.41960785)
-
-[node name="Wall_detector" type="RayCast2D" parent="." unique_id=1247649078]
-visible = false
-modulate = Color(1, 0, 1, 1)
-position = Vector2(0, 1)
-target_position = Vector2(-7, 0)
-collision_mask = 7

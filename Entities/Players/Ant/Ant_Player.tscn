@@ -17,6 +17,7 @@
 [ext_resource type="Texture2D" uid="uid://ypj6dukwwnjk" path="res://Entities/Players/Ant/Ant Texture/Hurt (16 x 16).png" id="13_lp4ef"]
 [ext_resource type="Texture2D" uid="uid://diigwdop0a616" path="res://Entities/Players/Ant/Ant Texture/Small (32x16).png" id="14_verfp"]
 [ext_resource type="FontFile" uid="uid://ci5egqcj678qh" path="res://Assets/Fontes/RevMiniPixel.ttf" id="15_76ytj"]
+[ext_resource type="Script" uid="uid://b3i4fugpre6cn" path="res://Entities/Players/Ant/particles.gd" id="16_verfp"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_7eqn4"]
 atlas = ExtResource("11_76ytj")
@@ -437,25 +438,39 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="Gradient" id="Gradient_cp1n4"]
-colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+[sub_resource type="Curve" id="Curve_7eqn4"]
+_limits = [0.0, 200.0, 0.0, 1.0]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
 
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_x1c3o"]
-gradient = SubResource("Gradient_cp1n4")
+[sub_resource type="CurveTexture" id="CurveTexture_beh6i"]
+curve = SubResource("Curve_7eqn4")
 
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_cp1n4"]
-lifetime_randomness = 1.0
-particle_flag_disable_z = true
-emission_shape = 1
-emission_sphere_radius = 6.0
-direction = Vector3(0.5, -0.5, 0)
-initial_velocity_min = 200.0
-initial_velocity_max = 400.0
-gravity = Vector3(0, 490, 0)
-damping_min = 100.00001
-damping_max = 800.00006
+[sub_resource type="Gradient" id="Gradient_lp4ef"]
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_7eqn4"]
+gradient = SubResource("Gradient_lp4ef")
+width = 16
+
+[sub_resource type="Curve" id="Curve_verfp"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_verfp"]
+curve = SubResource("Curve_verfp")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_verfp"]
+velocity_pivot = Vector3(100, 200, 0)
+initial_velocity_min = -10.0
+initial_velocity_max = 150.0
+gravity = Vector3(0, 98, 0)
+scale_min = 0.0
 scale_max = 2.0
-color_ramp = SubResource("GradientTexture1D_x1c3o")
+scale_curve = SubResource("CurveTexture_verfp")
+color_ramp = SubResource("GradientTexture1D_7eqn4")
+color_initial_ramp = SubResource("GradientTexture1D_7eqn4")
+anim_speed_curve = SubResource("CurveTexture_beh6i")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_t38ms"]
 size = Vector2(10, 12)
@@ -525,14 +540,15 @@ use_parent_material = true
 sprite_frames = SubResource("SpriteFrames_j2k4w")
 animation = &"Fall"
 
-[node name="Particles" type="GPUParticles2D" parent="." unique_id=2112902689]
-visible = false
+[node name="Particles" type="GPUParticles2D" parent="." unique_id=925961517]
 emitting = false
 amount = 20
 lifetime = 0.8
 one_shot = true
 explosiveness = 1.0
-process_material = SubResource("ParticleProcessMaterial_cp1n4")
+process_material = SubResource("ParticleProcessMaterial_verfp")
+script = ExtResource("16_verfp")
+metadata/_custom_type_script = "uid://b3i4fugpre6cn"
 
 [node name="Notifier" type="VisibleOnScreenNotifier2D" parent="." unique_id=1780280279]
 rect = Rect2(-1, -1, 2, 2)

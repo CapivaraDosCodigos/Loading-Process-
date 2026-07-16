@@ -25,7 +25,6 @@ var HP: int = 1
 @export_group("Nodes")
 @export var collision: CollisionShape2D
 @export var hitbox: AreaHitbox2D
-@export var wall_detector: RayCast2D
 @export var sprite: Sprite2D
 @export var animated: AnimatedSprite2D
 @export var animation_player: AnimationPlayer
@@ -73,9 +72,6 @@ func _internal_flip() -> void:
 	direction.x = scale.y * -1.0
 	scale.y = 1.0
 	rotation = 0.0
-	
-	if wall_detector:
-		wall_detector.scale.x = direction.x * -1.0
 	
 	if animated:
 		animated.scale.x = direction.x * -1.0

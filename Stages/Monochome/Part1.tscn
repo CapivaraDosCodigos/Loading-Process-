@@ -9,8 +9,12 @@
 [ext_resource type="Script" uid="uid://qqc1wp8gt1qu" path="res://Common/CameraCustom2D/camera_area_extended.gd" id="6_q16xa"]
 [ext_resource type="Resource" uid="uid://vrmkbsi8kkho" path="res://Entities/Inimigos/Monochome/Inseto.tres" id="7_1d3mm"]
 [ext_resource type="Script" uid="uid://1hmn6hvqh4y8" path="res://Entities/Spawner/SpawnerEnemy2D.gd" id="7_ja2s8"]
-[ext_resource type="Resource" uid="uid://ros56mhrl7eg" path="res://Entities/Inimigos/Monochome/Inseto2.tres" id="7_mjwu3"]
-[ext_resource type="PackedScene" uid="uid://chjwb8eq875x1" path="res://Entities/Inimigos/Monochome/Inseto3.tscn" id="8_1d3mm"]
+[ext_resource type="Resource" uid="uid://ros56mhrl7eg" path="res://Entities/Inimigos/Monochome/InsetoVoa2.tres" id="7_mjwu3"]
+[ext_resource type="Resource" uid="uid://pepcm3xop6ri" path="res://Entities/Inimigos/Monochome/Inseto3.tres" id="8_1d3mm"]
+[ext_resource type="Resource" uid="uid://djc5s8oge22v6" path="res://Entities/Inimigos/Monochome/Inseto4.tres" id="9_ja2s8"]
+[ext_resource type="Resource" uid="uid://bupam1hh48ntr" path="res://Entities/Inimigos/Monochome/Inseto5.tres" id="10_5jxui"]
+[ext_resource type="Resource" uid="uid://csagvtnqi0fr5" path="res://Entities/Inimigos/Monochome/Inseto6.tres" id="11_kdhpw"]
+[ext_resource type="Resource" uid="uid://b73akvbtabytb" path="res://Entities/Inimigos/Monochome/Inseto7.tres" id="12_c1y0s"]
 
 [node name="Parte1" type="Node2D" unique_id=1935198871 node_paths=PackedStringArray("player", "node_pai")]
 script = ExtResource("1_q16xa")
@@ -46,19 +50,49 @@ position = Vector2(56, 488)
 color = 1
 
 [node name="SpawnerEnemy2D4" type="Marker2D" parent="TileMapLayer1" unique_id=1549276315]
-position = Vector2(168, 488)
+position = Vector2(248, 504)
 script = ExtResource("7_ja2s8")
 packed_spawn = ExtResource("7_1d3mm")
 metadata/_custom_type_script = "uid://1hmn6hvqh4y8"
 
 [node name="SpawnerEnemy2D5" type="Marker2D" parent="TileMapLayer1" unique_id=994452209]
-position = Vector2(360, 472)
+position = Vector2(360, 456)
 script = ExtResource("7_ja2s8")
 packed_spawn = ExtResource("7_mjwu3")
+extra_vars = Dictionary[StringName, Variant]({
+&"move_horizonta": true
+})
 metadata/_custom_type_script = "uid://1hmn6hvqh4y8"
 
-[node name="Robo Pumpkin" parent="TileMapLayer1" unique_id=1332807745 instance=ExtResource("8_1d3mm")]
-position = Vector2(120, 472)
+[node name="SpawnerEnemy2D6" type="Marker2D" parent="TileMapLayer1" unique_id=1201089175]
+position = Vector2(216, 488)
+script = ExtResource("7_ja2s8")
+packed_spawn = ExtResource("8_1d3mm")
+metadata/_custom_type_script = "uid://1hmn6hvqh4y8"
+
+[node name="SpawnerEnemy2D7" type="Marker2D" parent="TileMapLayer1" unique_id=386843259]
+position = Vector2(-120, 472)
+script = ExtResource("7_ja2s8")
+packed_spawn = ExtResource("9_ja2s8")
+metadata/_custom_type_script = "uid://1hmn6hvqh4y8"
+
+[node name="SpawnerEnemy2D8" type="Marker2D" parent="TileMapLayer1" unique_id=348663532]
+position = Vector2(504, 488)
+script = ExtResource("7_ja2s8")
+packed_spawn = ExtResource("10_5jxui")
+metadata/_custom_type_script = "uid://1hmn6hvqh4y8"
+
+[node name="SpawnerEnemy2D9" type="Marker2D" parent="TileMapLayer1" unique_id=871178418]
+position = Vector2(344, 472)
+script = ExtResource("7_ja2s8")
+packed_spawn = ExtResource("11_kdhpw")
+metadata/_custom_type_script = "uid://1hmn6hvqh4y8"
+
+[node name="SpawnerEnemy2D10" type="Marker2D" parent="TileMapLayer1" unique_id=2089377294]
+position = Vector2(184, 488)
+script = ExtResource("7_ja2s8")
+packed_spawn = ExtResource("12_c1y0s")
+metadata/_custom_type_script = "uid://1hmn6hvqh4y8"
 
 [node name="Moedas" type="TileMapLayer" parent="." unique_id=1562322712]
 material = ExtResource("4_bwpyb")
