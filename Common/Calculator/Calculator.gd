@@ -41,11 +41,9 @@ static func is_vertical_hit(body_pos: Vector2, target_pos: Vector2, tolerance: f
 	return abs(target_pos.y - body_pos.y) > tolerance
 
 static func calculate_knockback(body_pos: Vector2, target_pos: Vector2, knockback_height: float, knockback_power: float) -> Vector2:
-	var y_force: float = -knockback_height if target_pos.y > body_pos.y else 0.0
-	
-	var knockback: Vector2 = Vector2((body_pos.x - target_pos.x) * knockback_power, y_force)
-	
-	return knockback
+	var y_force: float = -knockback_height# if is_vertical_hit(body_pos, target_pos) else 0.0
+	var x_force: float = Vector2((body_pos.x - target_pos.x), 0.0).normalized().x
+	return Vector2(x_force * knockback_power, y_force)
 
 static func desnormalized(vector: Vector2) -> Vector2:
 	if vector.x != 0.0:

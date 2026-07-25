@@ -1,75 +1,39 @@
 extends PlayerState
-#class_name HurtState
+
+var knockback: Vector2 = Vector2.ZERO
 
 func enter(_previous_state_path: String, data: Dictionary = {}) -> void:
-	var knockback_force: Vector2 = data["knockback_force"]
-	var duration: float = data["duration"]
-	var vertical_hit: bool = data["vertical_hit"]
+	player.animation.play(HURT)
 	
-	AudioManager.set_loop(AudioGame.PLAYER_SFX_1, false).set_pitch_random(true, 0.8, 1.2)
-	AudioManager.play(AudioGame.PLAYER_SFX_1, player.audio_hurt, 90.0)
-	ManagerGame.camera.shake(2.0, duration)
+	var body_pos: Vector2 = data["body_pos"]
 	
-	player.knockback_vector = knockback_force
-	var knockback_tween: Tween = create_tween()
-	var hurt_direction: float = player.direction
+	var x_force: float = Vector2((player.global_position.x - body_pos.x), 0.0).normalized().x * player.knockback_height
+	var y_force: float = -player.knockback_height if !MathGame.is_vertical_hit(player.global_position, body_pos) else player.knockback_height
+	if is_zero_approx(x_force / 1000.0):
+		x_force = [1.0, -1.0].pick_random() * player.knockback_height
 	
-	knockback_tween.parallel().tween_property(player, "knockback_vector", Vector2.ZERO, duration)
-	knockback_tween.parallel().tween_method(_set_shader_blink_intensity, 1.0, 0.0, duration)
+	knockback = Vector2(x_force, y_force)
 	
-	if vertical_hit:
-		player.animation.scale = Vector2(1.1 * hurt_direction, 0.9)
-		var save_position: Vector2 = player.animation.position
-		player.animation.position.y += 1.6
-
-		knockback_tween.parallel().tween_property(
-			player.animation,
-			"scale",
-			Vector2(hurt_direction, 1.0),
-			duration
-		)
-		knockback_tween.parallel().tween_property(
-			player.animation,
-			"position",
-			save_position,
-			duration
-		)
-
+	var tween: Tween = create_tween()
+	
+	tween.parallel().tween_property(self, "knockback", Vector2.ZERO, 0.25)
+	tween.parallel().tween_method(_set_shader_blink_intensity, 1.0, 0.0, 0.25)
+	
+	await tween.finished
+	
+	if player.buffer_jump.is_interval() and player.coyote_timer > 0:
+		finished.emit(JUMP, {"velocity_add": player.velocity})
+	elif player.can_wall_slide():
+		finished.emit(WALL_SLIDE, {"velocity_add": player.velocity})
+	elif not player.is_on_floor():
+		finished.emit("Fall", {"velocity_add": player.velocity})
 	else:
-		player.animation.scale = Vector2(0.9 * hurt_direction, 1.1)
-		var save_position: Vector2 = player.animation.position
-		player.animation.position.y -= 1.6
+		finished.emit(RUN, {"velocity_add": player.velocity})
 
-		knockback_tween.parallel().tween_property(
-			player.animation,
-			"scale",
-			Vector2(hurt_direction, 1.0),
-			duration
-		)
-		knockback_tween.parallel().tween_property(player.animation,
-			"position",
-			save_position,
-			duration
-		)
-	
-	player.particles.emit(Vector2(sign(knockback_force.x), -sign(knockback_force.y)))
-	player.dash_cooldown = false
-	finished.emit(IDLE)
-	
-	await get_tree().physics_frame
-	await get_tree().physics_frame
-	await get_tree().physics_frame
-	
-	player.dash_cooldown = true
-
-func physics_update(delta: float) -> void:
-	if player.knockback_vector.x != 0:
-		player.velocity.x = player.knockback_vector.x
-
-	if player.knockback_vector.y != 0:
-		player.velocity.y = player.knockback_vector.y
-	else:
-		player.velocity.y += player.fall_gravity * delta
+func physics_update(_delta: float) -> void:
+	player.velocity = knockback
+	player.dash_ghost_timer = 2
 
 func _set_shader_blink_intensity(new_value: float) -> void:
-	player.animation.material.set("shader_parameter/blink_intensity", new_value)
+	if player.animation.material:
+		player.animation.material.set("shader_parameter/blink_intensity", new_value)

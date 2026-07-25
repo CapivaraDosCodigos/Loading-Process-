@@ -1,0 +1,19 @@
+[gd_resource type="ShaderMaterial" format=3 uid="uid://bolhwx21wdob3"]
+
+[ext_resource type="Shader" uid="uid://okpdkytmine2" path="res://Shaders/Colors.gdshader" id="1_1ukgj"]
+
+[sub_resource type="Gradient" id="Gradient_rfebp"]
+interpolation_mode = 2
+interpolation_color_space = 2
+colors = PackedColorArray(0.25, 0.23333333, 0.1875, 1, 1, 0.93333334, 0.75, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_oiorg"]
+gradient = SubResource("Gradient_rfebp")
+width = 16
+
+[resource]
+resource_local_to_scene = true
+shader = ExtResource("1_1ukgj")
+shader_parameter/palette = SubResource("GradientTexture1D_oiorg")
+shader_parameter/blink_color = Color(1, 1, 1, 1)
+shader_parameter/blink_intensity = 0.0

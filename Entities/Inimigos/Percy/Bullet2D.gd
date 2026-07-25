@@ -12,6 +12,7 @@ func _ready() -> void:
 	ManagerGame.time_play.connect(_play)
 	
 	SpawnManager.add_objeto_in_cache(self)
+	add_to_group("Projectiles")
 	
 	if ManagerGame.is_paused:
 		_stop()

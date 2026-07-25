@@ -1,0 +1,44 @@
+[gd_scene format=3 uid="uid://d2oq8jupxe74o"]
+
+[ext_resource type="Texture2D" uid="uid://tiaohisf58ga" path="res://Textures/Seasonal Tilesets/Starry Night/background_sky.png" id="1_l8doe"]
+[ext_resource type="Texture2D" uid="uid://ci41nfh41i01l" path="res://Textures/Seasonal Tilesets/Starry Night/clouds.png" id="2_o7xsq"]
+
+[node name="BG Starry Night" type="Node2D" unique_id=1471544226]
+z_index = -10
+
+[node name="Layer5" type="Parallax2D" parent="." unique_id=1393032887]
+scroll_scale = Vector2(0.3, 1)
+scroll_offset = Vector2(0, 176)
+repeat_size = Vector2(540, 0)
+repeat_times = 3
+limit_end = Vector2(10000000, 536)
+
+[node name="Texture" type="Sprite2D" parent="Layer5" unique_id=1938612001]
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("1_l8doe")
+centered = false
+metadata/_edit_lock_ = true
+
+[node name="TextureColor" type="ColorRect" parent="Layer5" unique_id=16406830]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 270.0
+offset_right = 540.0
+offset_bottom = 405.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.16862746, 0.05882353, 0.32941177, 1)
+
+[node name="Layer3" type="Parallax2D" parent="." unique_id=1544335028]
+scroll_offset = Vector2(0, 240)
+repeat_size = Vector2(540, 0)
+autoscroll = Vector2(-10, 0)
+repeat_times = 3
+metadata/_edit_lock_ = true
+
+[node name="Texture" type="Sprite2D" parent="Layer3" unique_id=169747035]
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("2_o7xsq")
+centered = false
+metadata/_edit_lock_ = true

@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="PackedEnemy" format=3 uid="uid://ros56mhrl7eg"]
+
+[ext_resource type="PackedScene" uid="uid://w8f00sbomfmc" path="res://Entities/Inimigos/Blankey/Blankey.tscn" id="1_g5rry"]
+[ext_resource type="Script" uid="uid://dt2yq4d45uckq" path="res://Entities/Spawner/PackedInimigo.gd" id="1_o0cny"]
+[ext_resource type="Texture2D" uid="uid://d0f8h3hbciwks" path="res://Textures/Sprite Pack 4/10 - Blankey_Floating (32 x 32).png" id="2_n6tp5"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_syc4o"]
+atlas = ExtResource("2_n6tp5")
+region = Rect2(96, 0, 32, 32)
+
+[resource]
+script = ExtResource("1_o0cny")
+packed_scene = ExtResource("1_g5rry")
+preview_texture = SubResource("AtlasTexture_syc4o")
+metadata/_custom_type_script = "uid://dt2yq4d45uckq"

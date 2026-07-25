@@ -1,0 +1,88 @@
+[gd_scene format=3 uid="uid://w8f00sbomfmc"]
+
+[ext_resource type="Script" uid="uid://dmady44ckodec" path="res://Entities/Inimigos/RocketCherry/InimigoFlying.gd" id="1_akvt1"]
+[ext_resource type="Texture2D" uid="uid://d0f8h3hbciwks" path="res://Textures/Sprite Pack 4/10 - Blankey_Floating (32 x 32).png" id="2_ujhkl"]
+[ext_resource type="Texture2D" uid="uid://b0hcvdwgyobd0" path="res://Textures/Sprite Pack 4/10 - Blankey_Hurt (32 x 32).png" id="3_si7dr"]
+[ext_resource type="PackedScene" uid="uid://dfcww07k3b188" path="res://Objetos/hitbox.tscn" id="4_8kk22"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q68sx"]
+atlas = ExtResource("2_ujhkl")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j1fqq"]
+atlas = ExtResource("2_ujhkl")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lo4e7"]
+atlas = ExtResource("2_ujhkl")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yfi5m"]
+atlas = ExtResource("2_ujhkl")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_cy4pu"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q68sx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j1fqq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lo4e7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yfi5m")
+}],
+"loop": 1,
+"name": &"Flying",
+"speed": 7.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_si7dr")
+}],
+"loop": 0,
+"name": &"Hurt",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ki5ow"]
+size = Vector2(10, 10)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_uo31x"]
+size = Vector2(10, 2)
+
+[node name="Blankey" type="CharacterBody2D" unique_id=2003651222 node_paths=PackedStringArray("collision", "hitbox", "animated")]
+collision_layer = 4
+collision_mask = 5
+motion_mode = 1
+script = ExtResource("1_akvt1")
+speed = 2.5
+distortion = Vector2(1.1, 0.9)
+collision = NodePath("Collision")
+hitbox = NodePath("Hitbox")
+animated = NodePath("Animated")
+metadata/_custom_type_script = "uid://bfvb23jsccsa1"
+
+[node name="Animated" type="AnimatedSprite2D" parent="." unique_id=184162401]
+position = Vector2(0, -1)
+sprite_frames = SubResource("SpriteFrames_cy4pu")
+animation = &"Flying"
+autoplay = "Flying"
+
+[node name="Collision" type="CollisionShape2D" parent="." unique_id=1526186445]
+visible = false
+position = Vector2(0, 2)
+shape = SubResource("RectangleShape2D_ki5ow")
+
+[node name="Hitbox" parent="." unique_id=1128202378 instance=ExtResource("4_8kk22")]
+visible = false
+position = Vector2(0, -6)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox" unique_id=1917815569]
+position = Vector2(0, 1)
+shape = SubResource("RectangleShape2D_uo31x")
+debug_color = Color(0.9740793, 0, 0.43279848, 0.41960785)

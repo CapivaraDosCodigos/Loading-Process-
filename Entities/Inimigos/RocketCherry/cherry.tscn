@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://hyh0dbmb4pg2" path="res://Entities/Inimigos/InimigoGround.gd" id="1_usqfw"]
 [ext_resource type="Shader" uid="uid://k6lnr5gd84qg" path="res://Shaders/Blink.gdshader" id="2_n5l5q"]
 [ext_resource type="Texture2D" uid="uid://bny32kxltfych" path="res://Textures/Sprite Pack 2/7 - Rocket Cherry/Rocket Cherry (32 x 96).png" id="3_n5l5q"]
-[ext_resource type="PackedScene" uid="uid://dfcww07k3b188" path="res://Objetos/Assets/hitbox.tscn" id="5_jkovs"]
+[ext_resource type="PackedScene" uid="uid://dfcww07k3b188" path="res://Objetos/hitbox.tscn" id="5_jkovs"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_n5l5q"]
 resource_local_to_scene = true

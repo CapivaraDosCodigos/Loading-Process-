@@ -6,8 +6,6 @@ func _apply_movement() -> void:
 	velocity.x = direction.x * speed
 	if is_on_floor():
 		velocity.y = -jump
-		
-	move_and_slide()
 
 func _should_flip() -> bool:
 	if not wall_detector:

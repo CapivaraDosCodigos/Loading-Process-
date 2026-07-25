@@ -1,24 +1,20 @@
 extends CharacterBody2D
 class_name InimigoBase2D
 
-static var moeda: PackedScene:
-	get():
-		if not moeda:
-			moeda = load("uid://cxnyd8te4rynx")
-		return moeda
-
 var direction: Vector2 = Vector2.LEFT
 
 var is_hurtet: bool = false
+var is_stun: bool = false
+
 var take_damage_force: bool = false
 
 var HP: int = 1
 
 @export var HP_base: int = 1
 @export var score: int = 10
-
 @export var speed: float = 20.0
 
+@export_group("Distortion")
 @export var distortion_position: float = 1.6
 @export var distortion: Vector2 = Vector2(1.2, 0.8)
 
@@ -29,11 +25,15 @@ var HP: int = 1
 @export var animated: AnimatedSprite2D
 @export var animation_player: AnimationPlayer
 
-func _ready() -> void:
+func _init() -> void:
+	add_to_group("Inimigos")
+	
 	ManagerGame.time_stop.connect(_stop)
 	ManagerGame.time_play.connect(_play)
-	#ManagerGame.dead_player.connect(_reset_inimgo)
 	
+	HP = HP_base
+
+func _ready() -> void:
 	if animated:
 		animated.animation_finished.connect(_on_animated_finished)
 	
@@ -43,8 +43,6 @@ func _ready() -> void:
 	_internal_flip()
 	
 	_internal_ready()
-	
-	HP = HP_base
 	
 	if ManagerGame.is_paused:
 		_stop()
@@ -81,17 +79,21 @@ func _internal_flip() -> void:
 
 func _on_animated_finished() -> void:
 	if animated.animation == "Hurt":
-		#create_coins()
 		queue_free()
 
 func _on_animation_player_finished(animated_name: StringName) -> void:
 	if animated_name == "Hurt":
-		#create_coins()
 		queue_free()
 
+func set_disabled(value: bool) -> void:
+	if collision:
+		collision.set_deferred("disabled", value)
+
 func take_damage(player: Player2D = null) -> void:
+	set_collision_layer_value(3, false)
+	
 	if player:
-		player.velocity.y = -player.jump_velocity
+		player.state_machine.transition_to_next_state("Jump")
 	
 	velocity = Vector2.ZERO
 	is_hurtet = true
@@ -99,6 +101,17 @@ func take_damage(player: Player2D = null) -> void:
 	_apply_effects()
 	
 	animated.play("Hurt")
+
+func apply_stun(duration: float = 0.30) -> void:
+	is_stun = true
+	
+	animated.stop()
+	
+	await get_tree().create_timer(duration).timeout
+	
+	animated.play(animated.animation)
+	
+	is_stun = false
 
 func _apply_effects() -> void:
 	var knockback_tween: Tween = create_tween()

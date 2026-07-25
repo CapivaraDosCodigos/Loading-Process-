@@ -1,0 +1,45 @@
+[gd_scene format=3 uid="uid://dwj0iud11wtvs"]
+
+[ext_resource type="Texture2D" uid="uid://gd5mtjblf01b" path="res://Textures/Seasonal Tilesets/Wasteland/Wasteland_Sky.png" id="1_c8n17"]
+[ext_resource type="Texture2D" uid="uid://btryhqt6lgoam" path="res://Textures/Seasonal Tilesets/Wasteland/Wasteland_Mountains_1.png" id="2_u5lbe"]
+[ext_resource type="Texture2D" uid="uid://lxj511qjv3eb" path="res://Textures/Seasonal Tilesets/Wasteland/Wasteland_Mountains_2.png" id="3_a87sp"]
+
+[node name="BG Wasteland" type="Node2D" unique_id=1471544226]
+z_index = -10
+
+[node name="Layer5" type="Parallax2D" parent="." unique_id=1393032887]
+scroll_scale = Vector2(0.3, 1)
+scroll_offset = Vector2(0, 160)
+repeat_size = Vector2(768, 0)
+repeat_times = 3
+limit_end = Vector2(10000000, 536)
+
+[node name="Texture" type="Sprite2D" parent="Layer5" unique_id=1938612001]
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("1_c8n17")
+centered = false
+metadata/_edit_lock_ = true
+
+[node name="Layer4" type="Parallax2D" parent="." unique_id=886865061]
+scroll_scale = Vector2(0.5, 1)
+scroll_offset = Vector2(0, 160)
+repeat_size = Vector2(768, 0)
+repeat_times = 3
+
+[node name="Texture" type="Sprite2D" parent="Layer4" unique_id=2006416183]
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("2_u5lbe")
+centered = false
+metadata/_edit_lock_ = true
+
+[node name="Layer2" type="Parallax2D" parent="." unique_id=861825587]
+scroll_scale = Vector2(0.7, 1)
+scroll_offset = Vector2(0, 160)
+repeat_size = Vector2(768, 0)
+repeat_times = 3
+
+[node name="Texture" type="Sprite2D" parent="Layer2" unique_id=798013480]
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("3_a87sp")
+centered = false
+metadata/_edit_lock_ = true

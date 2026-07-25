@@ -1,14 +1,27 @@
 [gd_scene format=3 uid="uid://d614wdptnnvh"]
 
 [ext_resource type="Script" uid="uid://ba63st86ncw4g" path="res://Common/TextureSave/texture_save.gd" id="1_e4apo"]
+[ext_resource type="Shader" uid="uid://cd0sy06futs3a" path="res://Shaders/Filter.gdshader" id="1_mt8ui"]
+[ext_resource type="Texture2D" uid="uid://xs4ry2ls3vlf" path="res://Textures/Mini FX, Items & UI/Effects/waldgeist.png" id="2_mt8ui"]
+[ext_resource type="Texture2D" uid="uid://bjw3g34516lv2" path="res://Textures/Seasonal Tilesets/5 - Misc. universal tiles/Canos.png" id="3_8o8r0"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vaoiw"]
+shader = ExtResource("1_mt8ui")
+shader_parameter/palette_texture = ExtResource("2_mt8ui")
+shader_parameter/method = 2
+shader_parameter/luminance_threshold = 0.1
+shader_parameter/hue_weight = 1.0
 
 [node name="TextureSave" type="TextureRect" unique_id=806918421]
+material = SubResource("ShaderMaterial_vaoiw")
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+texture = ExtResource("3_8o8r0")
 stretch_mode = 3
 script = ExtResource("1_e4apo")
-pasta_saida = "/storage/emulated/0/Documents/loading-process/Textures/Seasonal Tilesets/Monochome"
-nome_arquivo = "textura_Monochome_sombra_2"
+pasta_saida = "/storage/emulated/0/A.B.P files/Export"
+nome_arquivo = ""
+metadata/_edit_lock_ = true

@@ -15,15 +15,13 @@ func _apply_movement() -> void:
 	if is_on_floor() and !is_zero_approx(distance / 1000.0):
 		velocity.y = -jump
 		
-	#elif is_zero_approx(distance / 1000.0):
-		#velocity.x = 0.0
+	elif is_zero_approx(distance / 1000.0):
+		velocity.x = 0.0
 	
 	if !is_zero_approx(get_real_velocity().x):
 		animated.play("Walking")
 	else:
 		animated.stop()
-	
-	move_and_slide()
 
 func _should_flip() -> bool:
 	return true

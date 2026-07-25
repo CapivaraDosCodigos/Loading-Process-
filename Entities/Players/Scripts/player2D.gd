@@ -3,10 +3,11 @@ class_name Player2D
 
 const AIR_FRICTION: float = 0.5
 const COLORS_DIR: Dictionary[COLORS, ShaderMaterial] = {
-	COLORS.YELLOW: preload("uid://c4ruxuomui3od"),
-	COLORS.RED: preload("uid://gyv2wwfjnull"),
-	COLORS.GRAY: preload("uid://bglfmn7coq3du") }
-enum COLORS { YELLOW, RED, GRAY }
+	COLORS.YELLOW: preload("uid://bolhwx21wdob3"),
+	COLORS.RED: preload("uid://bpo8tdats55qx"),
+	COLORS.GRAY: preload("uid://dqrn6lus63i50"), 
+	COLORS.NULL: null }
+enum COLORS { YELLOW, RED, GRAY, NULL }
 
 static var audio_jump: AudioStream = preload("uid://diu3u0xv087kx")
 static var audio_dash: AudioStream = preload("uid://lscbx1hh6oq0")
@@ -130,27 +131,22 @@ func _on_hurtbox_body_entered(body: Node2D) -> void:
 	if ManagerGame.is_paused:
 		return
 	
-	var knockback: Vector2 = MathGame.calculate_knockback(global_position, body.global_position, knockback_height,knockback_power)
-	var vertical_hit: bool = MathGame.is_vertical_hit(global_position, body.global_position)
-	
 	if body.is_in_group("Projectiles"):
 		body.queue_free()
 	
-	take_damage(knockback, 0.25, vertical_hit)
+	take_damage(body)
 
 func _on_hurt_box_down_body_entered(body: Node2D) -> void:
 	if ManagerGame.is_paused:
 		return
 	
-	if "take_damage_force" in body and not body.take_damage_force:
+	if not body.get("take_damage_force"):
 		return
 		
-	var knockback: Vector2 = MathGame.calculate_knockback(global_position, body.global_position, knockback_height,knockback_power)
-	
 	if body.is_in_group("Projectiles"):
 		body.queue_free()
 	
-	take_damage(knockback, 0.25, false)
+	take_damage(body)
 
 func _on_notifier_screen_exited() -> void:
 	if ManagerGame.area_camera_inclusive:
@@ -194,7 +190,7 @@ func create_ghost_sprite() -> void:
 	anim.flip_h = animation.flip_h
 	anim.global_position = global_position
 	anim.scale = animation.scale
-	anim.set_shader(animation.material.get("shader_parameter/lightest"))
+	#anim.set_shader(animation.material)
 	
 	add_sibling(anim)
 	anim.stop()
@@ -210,14 +206,15 @@ func die() -> void:
 	ManagerGame.shake_camera.emit(2.0, 1.0)
 	queue_free()
 
-func take_damage(knockback_force: Vector2, duration: float, vertical_hit: bool) -> void:
-	if state_machine.is_state("Hurt"):
-		return
+func take_damage(body: CollisionObject2D) -> void:
+	if body is InimigoBase2D:
+		body.apply_stun()
 	
-	knockback_vector = knockback_force
+	if state_machine.is_state(PlayerState.HURT):
+		return
 	
 	if _should_die() and not immortal:
 		die()
 	else:
-		state_machine.transition_to_next_state("Hurt", {"knockback_force": knockback_force, "duration": duration, "vertical_hit": vertical_hit})
-		
+		var data: Dictionary[String, Variant] = {"body_pos": body.global_position}
+		state_machine.transition_to_next_state(PlayerState.HURT, data)

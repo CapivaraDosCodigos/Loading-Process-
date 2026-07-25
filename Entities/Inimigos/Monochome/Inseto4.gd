@@ -7,8 +7,6 @@ func _apply_movement() -> void:
 	else:
 		velocity.x = 0.0
 		animated.stop()
-	
-	move_and_slide()
 
 func _should_flip() -> bool:
 	if not wall_detector:

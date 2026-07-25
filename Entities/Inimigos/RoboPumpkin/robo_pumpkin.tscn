@@ -2,8 +2,8 @@
 
 [ext_resource type="Script" uid="uid://hyh0dbmb4pg2" path="res://Entities/Inimigos/InimigoGround.gd" id="1_wgswt"]
 [ext_resource type="Material" uid="uid://cnrivju85edsn" path="res://Entities/Players/ShaderMaterial/Blink_Shader_Material.tres" id="2_1ol3c"]
-[ext_resource type="Texture2D" uid="uid://pte4qqw7uptu" path="res://Textures/Sprite Pack 2/4 - Robo Pumpkin/Safe/Robo Pumpkin Safe (32 x 32).png" id="3_7m6ug"]
-[ext_resource type="PackedScene" uid="uid://dfcww07k3b188" path="res://Objetos/Assets/hitbox.tscn" id="5_cnvmn"]
+[ext_resource type="Texture2D" uid="uid://cjec4g2wxh2ai" path="res://Textures/Sprite Pack 2/4 - Robo Pumpkin/Safe/Robo Pumpkin Safe Bad.png" id="3_7m6ug"]
+[ext_resource type="PackedScene" uid="uid://dfcww07k3b188" path="res://Objetos/hitbox.tscn" id="5_cnvmn"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_1ol3c"]
 atlas = ExtResource("3_7m6ug")

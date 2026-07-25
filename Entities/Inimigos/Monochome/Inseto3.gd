@@ -17,8 +17,6 @@ func _apply_movement() -> void:
 		animated.play("Walking")
 	else:
 		animated.stop()
-	
-	move_and_slide()
 
 func _should_flip() -> bool:
 	return is_on_floor()

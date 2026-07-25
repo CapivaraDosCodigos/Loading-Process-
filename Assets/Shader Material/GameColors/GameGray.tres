@@ -7,7 +7,6 @@ resource_local_to_scene = true
 shader = ExtResource("1_nqpnp")
 shader_parameter/blink_color = Color(1, 1, 1, 1)
 shader_parameter/blink_intensity = 0.0
-shader_parameter/one_color = false
 shader_parameter/darkest = Color(0.25, 0.25, 0.25, 1)
 shader_parameter/dark = Color(0.5, 0.5, 0.5, 1)
 shader_parameter/light = Color(0.75, 0.75, 0.75, 1)

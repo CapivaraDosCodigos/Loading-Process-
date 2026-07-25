@@ -60,8 +60,21 @@ folder_colors={
 "res://Location/": "blue",
 "res://Objetos/": "gray",
 "res://Shaders/": "pink",
-"res://Stages/Mundo 1 - Grassland/1 - Grassland/": "green",
 "res://Textures/": "green",
+"res://Textures/Buttons/": "blue",
+"res://Textures/Seasonal Tilesets/1 - Grassland/": "green",
+"res://Textures/Seasonal Tilesets/2 - Autumn Forest/": "orange",
+"res://Textures/Seasonal Tilesets/3 - Tropics/": "green",
+"res://Textures/Seasonal Tilesets/4 - Winter World/": "gray",
+"res://Textures/Seasonal Tilesets/5 - Misc. universal tiles/": "teal",
+"res://Textures/Seasonal Tilesets/Cave Tileset/": "blue",
+"res://Textures/Seasonal Tilesets/Futuristic City Parallax/": "yellow",
+"res://Textures/Seasonal Tilesets/Merchant Tileset Sidescroller/": "yellow",
+"res://Textures/Seasonal Tilesets/Monochome/": "gray",
+"res://Textures/Seasonal Tilesets/Starry Night/": "purple",
+"res://Textures/Seasonal Tilesets/Tilemaps/": "teal",
+"res://Textures/Seasonal Tilesets/WCP/": "gray",
+"res://Textures/Seasonal Tilesets/Wasteland/": "red",
 "res://addons/": "pink"
 }
 
@@ -171,7 +184,6 @@ textures/canvas_textures/default_texture_filter=0
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
 textures/vram_compression/import_s3tc_bptc=true
-environment/defaults/default_clear_color=Color(0.24585488, 0.24616507, 0.3, 1)
 
 [shader_globals]
 

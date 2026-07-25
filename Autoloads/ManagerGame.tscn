@@ -65,6 +65,7 @@ script = ExtResource("1_22gst")
 
 [node name="GameHUD" type="CanvasLayer" parent="." unique_id=1683612246]
 layer = 10
+visible = false
 
 [node name="Animator" type="AnimationPlayer" parent="GameHUD" unique_id=1733961308]
 libraries/ = SubResource("AnimationLibrary_l2lt8")
@@ -93,7 +94,6 @@ grow_vertical = 2
 mouse_filter = 1
 
 [node name="HUD" parent="GameHUD" unique_id=1559610119 instance=ExtResource("3_22gst")]
-visible = false
 
 [node name="Controls" parent="." unique_id=372594056 instance=ExtResource("4_s0s73")]
 visible = false

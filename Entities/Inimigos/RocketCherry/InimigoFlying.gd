@@ -6,11 +6,12 @@ const WAIT_DURATION: float = 0.25
 @export var move_horizonta: bool = false
 @export var inimigo_center: float = 16.0
 @export_file("*.tscn*") var inimigo_filho_path: String = ""
-@export_group("Nodes")
 @export var inimigo_marker: Marker2D
 
 var start_position: Vector2
+var last_position: Vector2 = Vector2.ZERO
 var follow: Vector2
+
 var move_tween: Tween
 
 func _internal_ready() -> void:
@@ -33,8 +34,36 @@ func _on_animated_finished() -> void:
 		_spawn_new_inimigo()
 		queue_free()
 
-func _physics_process(_delta: float) -> void:
-	position = position.lerp(follow, 0.5)
+func _physics_process(delta: float) -> void:
+	if is_hurtet:
+		_gravity(delta)
+	else:
+		position = position.lerp(follow, 0.5)
+		_apply_flip()
+
+func apply_stun(duration: float = 0.30) -> void:
+	is_stun = true
+	move_tween.pause()
+	
+	await get_tree().create_timer(duration).timeout
+	
+	move_tween.play()
+	is_stun = false
+
+func _apply_flip() -> void:
+	var velocity_p: Vector2 = last_position - global_position
+	last_position = global_position
+	
+	direction.x = -Vector2(velocity_p.x, 0.0).normalized().x
+	
+	if direction.x == 0.0:
+		return
+	
+	if animated:
+		animated.scale.x = direction.x
+		
+	elif sprite:
+		sprite.scale.x = direction.x
 
 func _move() -> void:
 	var move_direction: Vector2 = Vector2.RIGHT * distance if move_horizonta else Vector2.UP * distance

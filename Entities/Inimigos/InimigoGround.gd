@@ -32,18 +32,19 @@ func _internal_flip() -> void:
 func _physics_process(delta: float) -> void:
 	_gravity(delta)
 	
-	if is_hurtet:
-		return
+	if not (is_hurtet or is_stun):
+		_apply_movement()
+		
+		if _should_flip():
+			_apply_flip()
+	else:
+		velocity.x = 0.0
 	
-	_apply_movement()
-	if _should_flip():
-		_apply_flip()
+	move_and_slide()
 
 func _apply_movement() -> void:
 	if is_on_floor():
 		velocity.x = direction.x * speed
-	
-	move_and_slide()
 
 func _should_flip() -> bool:
 	if not wall_detector:

@@ -5,7 +5,7 @@
 [ext_resource type="Material" uid="uid://cnrivju85edsn" path="res://Entities/Players/ShaderMaterial/Blink_Shader_Material.tres" id="2_wxi2e"]
 [ext_resource type="Texture2D" uid="uid://cg866u8sq0510" path="res://Textures/Sprite Pack 8/4 - Percy/Shooting_Fireball (32 x 32).png" id="5_jg3ds"]
 [ext_resource type="Texture2D" uid="uid://cibuirtdonbeu" path="res://Textures/Sprite Pack 8/4 - Percy/Hurt (32 x 32).png" id="5_ukkfv"]
-[ext_resource type="PackedScene" uid="uid://dfcww07k3b188" path="res://Objetos/Assets/hitbox.tscn" id="6_ukkfv"]
+[ext_resource type="PackedScene" uid="uid://dfcww07k3b188" path="res://Objetos/hitbox.tscn" id="6_ukkfv"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wdwp1"]
 size = Vector2(12, 16)

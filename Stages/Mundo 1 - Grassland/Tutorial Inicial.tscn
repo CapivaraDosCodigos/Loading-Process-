@@ -12,7 +12,7 @@
 [ext_resource type="Resource" uid="uid://du2e3acdhcdgd" path="res://Entities/Inimigos/RocketCherry/rocket_cherry.tres" id="7_wldta"]
 [ext_resource type="PackedScene" uid="uid://doy2pbxw5yqdl" path="res://Objetos/Items/Item Lampada/Item_lampada.tscn" id="8_8wkbb"]
 [ext_resource type="Resource" uid="uid://b3b1sb0cw0c5h" path="res://Entities/Inimigos/Percy/Percy.tres" id="8_rpdgr"]
-[ext_resource type="Resource" uid="uid://cbcv1t852c1gv" path="res://Entities/Inimigos/RoboPumpkin/robo_pumpkin_letal.tres" id="9_svacd"]
+[ext_resource type="Resource" uid="uid://cbcv1t852c1gv" path="res://Entities/Inimigos/RoboPumpkinLetal/robo_pumpkin_letal.tres" id="9_svacd"]
 [ext_resource type="PackedScene" uid="uid://d15ddxvbvouva" path="res://Entities/Players/Ant/Ant_Player.tscn" id="13_8wkbb"]
 [ext_resource type="Resource" uid="uid://behg5ia4mc6aw" path="res://Entities/Inimigos/Tank Boy/tank_boy.tres" id="14_ueycd"]
 [ext_resource type="Script" uid="uid://dxq3cneouibe6" path="res://Common/CameraCustom2D/camera_extended.gd" id="21_wmu4m"]

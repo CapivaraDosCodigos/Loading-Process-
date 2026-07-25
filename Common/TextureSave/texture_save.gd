@@ -1,23 +1,16 @@
+@tool
 extends TextureRect
-
-@export var salvar_automaticamente: bool = false
-
-@export_global_dir var pasta_saida: String = "res://exports"
-
-@export var nome_arquivo: String = "textura_exportada"
 
 enum Formato { PNG, JPG, WEBP }
 
+@export_global_dir var pasta_saida: String = "res://exports"
+@export var nome_arquivo: String = "textura_exportada"
 @export var formato: Formato = Formato.PNG
-
 @export var aplicar_material: bool = true
-
 @export var qualidade_jpg: float = 0.9
 @export var qualidade_webp: float = 0.9
 
-func _ready() -> void:
-	if salvar_automaticamente:
-		exportar_textura()
+@export_tool_button("Salvar", "Add") var salvar: Callable = exportar_textura
 
 func exportar_textura() -> void:
 	if texture == null:
@@ -38,6 +31,7 @@ func exportar_textura() -> void:
 
 	if tamanho.x <= 0 or tamanho.y <= 0:
 		push_error("Tamanho inválido da textura.")
+		viewport.queue_free()
 		return
 
 	viewport.size = tamanho
@@ -64,26 +58,41 @@ func exportar_textura() -> void:
 
 	if imagem == null:
 		push_error("Falha ao capturar imagem.")
+		viewport.queue_free()
 		return
 
 	# Garante diretório
 	if not DirAccess.dir_exists_absolute(pasta_saida):
 		DirAccess.make_dir_recursive_absolute(pasta_saida)
 
-	var caminho := ""
+	# Define o nome do arquivo
+	var nome: String = nome_arquivo.strip_edges()
+
+	if nome.is_empty():
+		var data: Dictionary = Time.get_datetime_dict_from_system()
+
+		nome = "export_%04d-%02d-%02d_%02d-%02d-%02d" % [
+			data.year,
+			data.month,
+			data.day,
+			data.hour,
+			data.minute,
+			data.second
+		]
+
+	var caminho: String = ""
 
 	match formato:
-
 		Formato.PNG:
-			caminho = pasta_saida.path_join(nome_arquivo + ".png")
+			caminho = pasta_saida.path_join(nome + ".png")
 			imagem.save_png(caminho)
 
 		Formato.JPG:
-			caminho = pasta_saida.path_join(nome_arquivo + ".jpg")
+			caminho = pasta_saida.path_join(nome + ".jpg")
 			imagem.save_jpg(caminho, qualidade_jpg)
 
 		Formato.WEBP:
-			caminho = pasta_saida.path_join(nome_arquivo + ".webp")
+			caminho = pasta_saida.path_join(nome + ".webp")
 			imagem.save_webp(caminho, false, qualidade_webp)
 
 	print("Textura salva em: ", caminho)
