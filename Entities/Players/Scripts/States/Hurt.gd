@@ -5,6 +5,9 @@ var knockback: Vector2 = Vector2.ZERO
 func enter(_previous_state_path: String, data: Dictionary = {}) -> void:
 	player.animation.play(HURT)
 	
+	AudioManager.set_loop(AudioGame.PLAYER_SFX_2, false).set_pitch_random(true)
+	AudioManager.play(AudioGame.PLAYER_SFX_2, player.audio_hurt, 540.0)
+	
 	var body_pos: Vector2 = data["body_pos"]
 	
 	var x_force: float = Vector2((player.global_position.x - body_pos.x), 0.0).normalized().x * player.knockback_height
@@ -14,7 +17,7 @@ func enter(_previous_state_path: String, data: Dictionary = {}) -> void:
 	
 	knockback = Vector2(x_force, y_force)
 	
-	var tween: Tween = create_tween()
+	var tween: Tween = player.create_tween()
 	
 	tween.parallel().tween_property(self, "knockback", Vector2.ZERO, 0.25)
 	tween.parallel().tween_method(_set_shader_blink_intensity, 1.0, 0.0, 0.25)
@@ -33,6 +36,9 @@ func enter(_previous_state_path: String, data: Dictionary = {}) -> void:
 func physics_update(_delta: float) -> void:
 	player.velocity = knockback
 	player.dash_ghost_timer = 2
+
+func get_name() -> StringName:
+	return HURT
 
 func _set_shader_blink_intensity(new_value: float) -> void:
 	if player.animation.material:

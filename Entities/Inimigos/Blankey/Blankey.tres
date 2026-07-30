@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://w8f00sbomfmc" path="res://Entities/Inimigos/Blankey/Blankey.tscn" id="1_g5rry"]
 [ext_resource type="Script" uid="uid://dt2yq4d45uckq" path="res://Entities/Spawner/PackedInimigo.gd" id="1_o0cny"]
-[ext_resource type="Texture2D" uid="uid://d0f8h3hbciwks" path="res://Textures/Sprite Pack 4/10 - Blankey_Floating (32 x 32).png" id="2_n6tp5"]
+[ext_resource type="Texture2D" uid="uid://d0f8h3hbciwks" path="res://Textures/Sprite Pack 4/Blankey/10 - Blankey_Floating (32 x 32).png" id="2_n6tp5"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_syc4o"]
 atlas = ExtResource("2_n6tp5")

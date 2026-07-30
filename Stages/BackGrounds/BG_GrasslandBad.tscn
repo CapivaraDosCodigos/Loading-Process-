@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://btxq4ux3w2lmn" path="res://Textures/Seasonal Tilesets/1 - Grassland/Background parts/Bad/export_2026-07-22_23-34-49.png" id="5_2kukk"]
 
 [node name="BG Grassland" type="Node2D" unique_id=1471544226]
+modulate = Color(0.75, 0.75, 0.75, 1)
 z_index = -10
 
 [node name="Layer5" type="Parallax2D" parent="." unique_id=1393032887]

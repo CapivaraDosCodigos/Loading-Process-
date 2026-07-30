@@ -1,6 +1,5 @@
 [gd_scene format=3 uid="uid://cbl8i00ww3pyo"]
 
-[ext_resource type="Material" uid="uid://cnrivju85edsn" path="res://Entities/Players/ShaderMaterial/Blink_Shader_Material.tres" id="1_cy4pu"]
 [ext_resource type="Script" uid="uid://dmady44ckodec" path="res://Entities/Inimigos/RocketCherry/InimigoFlying.gd" id="1_uo31x"]
 [ext_resource type="Texture2D" uid="uid://bny32kxltfych" path="res://Textures/Sprite Pack 2/7 - Rocket Cherry/Rocket Cherry (32 x 96).png" id="3_uo31x"]
 [ext_resource type="PackedScene" uid="uid://dfcww07k3b188" path="res://Objetos/hitbox.tscn" id="4_uo31x"]
@@ -36,7 +35,7 @@ animations = [{
 }],
 "loop": 0,
 "name": &"Hurt",
-"speed": 5.0
+"speed": 2.5
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ki5ow"]
@@ -59,18 +58,18 @@ animated = NodePath("Animated")
 metadata/_custom_type_script = "uid://bfvb23jsccsa1"
 
 [node name="Animated" type="AnimatedSprite2D" parent="." unique_id=184162401]
-material = ExtResource("1_cy4pu")
 position = Vector2(0, -5)
 sprite_frames = SubResource("SpriteFrames_cy4pu")
-animation = &"Flying"
+animation = &"Hurt"
 autoplay = "Flying"
-frame_progress = 0.072496764
 
 [node name="Collision" type="CollisionShape2D" parent="." unique_id=1526186445]
+visible = false
 position = Vector2(0, 0.5)
 shape = SubResource("RectangleShape2D_ki5ow")
 
 [node name="Hitbox" parent="." unique_id=1128202378 instance=ExtResource("4_uo31x")]
+visible = false
 position = Vector2(0, -6)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox" unique_id=1917815569]

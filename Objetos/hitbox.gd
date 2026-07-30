@@ -14,10 +14,10 @@ func _on_body_entered(body: Node2D) -> void:
 		return
 	
 	elif body is Player2D:
-		if body.state_machine.is_state("Hurt"):
+		if not body.is_attack:
 			return
 		
-		elif owner is InimigoBase2D and body.velocity.y >= 0.0:
+		elif owner is InimigoBase2D:
 			owner.take_damage(body)
 	
 	elif body is InimigoBase2D:

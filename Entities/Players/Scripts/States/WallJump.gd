@@ -3,6 +3,8 @@ extends PlayerState
 var wall_jump_lock: int = 0
 
 func enter(_previous_state_path: String, data: Dictionary = {}) -> void:
+	player.animation.play(WALL_JUMP)
+	
 	var wall_direction: float = 0.0
 	wall_direction = data["wall_direction"]
 	
@@ -20,8 +22,6 @@ func enter(_previous_state_path: String, data: Dictionary = {}) -> void:
 	
 	AudioManager.set_loop(AudioGame.PLAYER_SFX_1, false).set_pitch_random(true)
 	AudioManager.play(AudioGame.PLAYER_SFX_1, Player2D.audio_jump, 40.0)
-	
-	player.animation.play(JUMP)
 
 func physics_update(delta: float) -> void:
 	handle_movement()
@@ -47,6 +47,9 @@ func physics_update(delta: float) -> void:
 	elif player.velocity.y > 0.0:
 		finished.emit(FALL)
 
+func get_name() -> StringName:
+	return WALL_JUMP
+
 func handle_movement() -> void:
 	var direction_input: float = Game.get_input().x
 
@@ -61,11 +64,8 @@ func handle_movement() -> void:
 
 func handle_dash()-> bool:
 	if player.buffer_dash.is_interval() and player.can_dash and player.dash_cooldown:
-		if player.has_dash:
-			finished.emit(DASH)
-			return true
-		player.buffer_dash.set_buffer_time()
-		player.use_skills()
+		finished.emit(DASH)
+		return true
 	return false
 
 func _apply_gravity(delta: float) -> void:

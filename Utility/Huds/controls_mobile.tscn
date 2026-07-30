@@ -98,7 +98,7 @@ position = Vector2(574, 136)
 scale = Vector2(2, 2)
 texture_normal = ExtResource("12_gmpxm")
 texture_pressed = ExtResource("13_l32vt")
-action = "Interect"
+action = "Invocation"
 visibility_mode = 1
 
 [node name="VirtualJoystick" type="VirtualJoystick" parent="base2D" unique_id=1635577825]

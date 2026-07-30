@@ -111,7 +111,7 @@ corner_detail = 20
 [resource]
 default_font = ExtResource("1_kr0rr")
 default_font_size = 16
-AcceptDialog/colors/title_color = Color(1, 0.93333334, 0.7490196, 1)
+AcceptDialog/colors/title_color = Color(1, 1, 1, 1)
 AcceptDialog/styles/panel = SubResource("StyleBoxFlat_4ka0h")
 Button/colors/font_color = Color(1, 0.93333334, 0.75, 1)
 Button/colors/font_focus_color = Color(0.75, 0.7, 0.5625, 1)

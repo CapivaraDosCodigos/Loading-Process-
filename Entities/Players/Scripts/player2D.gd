@@ -14,7 +14,6 @@ static var audio_dash: AudioStream = preload("uid://lscbx1hh6oq0")
 static var audio_hurt: AudioStream = preload("uid://dbs0jxxu6x1rp")
 
 static var explosion_scene: PackedScene = preload("uid://b0uva68sp3g41")
-static var light_bulb: PackedScene = preload("uid://yxdk6ehtmywe")
 static var animated_shader: PackedScene = preload("uid://dp8d0wvd7wm0j")
 
 static var buffer_jump: InputBuffer = InputBuffer.new("ui_accept", 5)
@@ -37,7 +36,6 @@ static var buffer_dash: InputBuffer = InputBuffer.new("Dash", 5)
 @export_group("Knockback")
 @export_range(0.1, 0.5, 0.05) var knockback_duration: float = 0.25
 @export var knockback_height: float = 200.0
-@export var knockback_power: float = 20.0
 
 @export_category("DEBUG")
 @export var immortal: bool = false
@@ -49,22 +47,24 @@ static var buffer_dash: InputBuffer = InputBuffer.new("Dash", 5)
 @onready var ray_left: RayCast2D = $RayLeft
 @onready var state_machine: StateMachine = $StateMachine
 
+var is_attack: bool = false
 var can_dash: bool = true
 var dash_cooldown: bool = true
 
 var coyote_timer: int = 0
 var dash_ghost_timer: int = 0
 
-var direction: float = 1.0
-
-var knockback_vector: Vector2 = Vector2.ZERO
+var direction: float = 1.0:
+	set(value):
+		if value == 0.0:
+			return
+		direction = value
 
 # Definidas no ready
 var fall_gravity: float = 0.0
 var gravity: float = 0.0
 var jump_velocity: float = 0.0
 var dash_velocity: float = 0.0
-var has_dash: bool = false
 var has_wall_slide: bool = false
 
 func _ready() -> void:
@@ -74,28 +74,14 @@ func _ready() -> void:
 	dash_velocity = dash_distance / dash_duration
 	
 	has_wall_slide = Game.Item.ScalingEquipment in ManagerGame.items
-	has_dash = Game.Item.Dash in ManagerGame.items
-	
 	animation.material = COLORS_DIR[color]
 
 func _process(_delta: float) -> void:
-	has_dash = Game.Item.Dash in ManagerGame.items
-	$Label.text = str(state_machine.get_state()) + " " + str(velocity)
-	
 	animation.material = COLORS_DIR[color]
+	
+	$Label.text = str(state_machine.get_state(), " ", velocity)
 
 func _physics_process(delta: float) -> void:
-	if ManagerGame.paused_transition:
-		if animation.is_playing():
-			animation.stop()
-		return
-	
-	if ManagerGame.camera and ManagerGame.camera.transitioning:
-		if animation.is_playing():
-			animation.stop()
-		can_dash = true
-		return
-	
 	buffer_jump.update_process()
 	buffer_dash.update_process()
 	state_machine.physics_update(delta)
@@ -120,6 +106,14 @@ func _physics_process(delta: float) -> void:
 		
 		if icollider is FallingPlatform2D:
 			icollider.has_collided_with()
+
+func _input(event: InputEvent) -> void:
+	if event.is_action_pressed("Invocation"):
+		if ManagerGame.coins > 0:
+			ManagerGame.coins -= 1
+			var cor: Dictionary = COLORS.duplicate()
+			cor.erase(COLORS.NULL)
+			color = cor.values().pick_random()
 
 func _should_die() -> bool:
 	if ManagerGame.player_life > 0:

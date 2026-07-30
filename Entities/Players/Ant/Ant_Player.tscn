@@ -2,48 +2,18 @@
 
 [ext_resource type="Script" uid="uid://cplihoc3hmqpv" path="res://Entities/Players/Scripts/player2D.gd" id="1_t38ms"]
 [ext_resource type="Script" uid="uid://bdpwbx7o4ork5" path="res://Common/State Machine/StateMachine.gd" id="2_x1c3o"]
-[ext_resource type="Script" uid="uid://cyn1op1vu83qt" path="res://Entities/Players/Scripts/States/Idle.gd" id="4_76ytj"]
-[ext_resource type="Script" uid="uid://xk0fgpfqqkii" path="res://Entities/Players/Scripts/States/Run.gd" id="5_gmobf"]
-[ext_resource type="Script" uid="uid://bwlu0fys8ab3d" path="res://Entities/Players/Scripts/States/Jump.gd" id="6_lpg7p"]
-[ext_resource type="Script" uid="uid://de53iudda2btw" path="res://Entities/Players/Scripts/States/Dash.gd" id="7_cp1n4"]
-[ext_resource type="Script" uid="uid://yow552i063f1" path="res://Entities/Players/Scripts/head_area.gd" id="7_xpxb3"]
-[ext_resource type="Script" uid="uid://dj1cl5xyxv3p4" path="res://Entities/Players/Scripts/States/WallSlide.gd" id="8_x1c3o"]
-[ext_resource type="Script" uid="uid://tn01e0u7igny" path="res://Entities/Players/Scripts/States/Hurt.gd" id="9_7f07p"]
-[ext_resource type="Script" uid="uid://detsdqonnok2u" path="res://Entities/Players/Scripts/States/Fall.gd" id="9_8o8t5"]
-[ext_resource type="Script" uid="uid://pir4p7ao4qan" path="res://Entities/Players/Scripts/States/WallJump.gd" id="10_lp4ef"]
+[ext_resource type="Script" uid="uid://de53iudda2btw" path="res://Entities/Players/Scripts/States/Dash.gd" id="3_7f07p"]
+[ext_resource type="Script" uid="uid://detsdqonnok2u" path="res://Entities/Players/Scripts/States/Fall.gd" id="4_68y17"]
+[ext_resource type="Script" uid="uid://tn01e0u7igny" path="res://Entities/Players/Scripts/States/Hurt.gd" id="5_76ytj"]
+[ext_resource type="Script" uid="uid://cyn1op1vu83qt" path="res://Entities/Players/Scripts/States/Idle.gd" id="6_8o8t5"]
+[ext_resource type="Script" uid="uid://bwlu0fys8ab3d" path="res://Entities/Players/Scripts/States/Jump.gd" id="7_lp4ef"]
+[ext_resource type="Script" uid="uid://xk0fgpfqqkii" path="res://Entities/Players/Scripts/States/Run.gd" id="8_verfp"]
+[ext_resource type="Script" uid="uid://pir4p7ao4qan" path="res://Entities/Players/Scripts/States/WallJump.gd" id="9_7eqn4"]
+[ext_resource type="Script" uid="uid://dj1cl5xyxv3p4" path="res://Entities/Players/Scripts/States/WallSlide.gd" id="10_lvhlr"]
 [ext_resource type="SpriteFrames" uid="uid://cunqhhb1sxrv5" path="res://Entities/Players/Ant/AntSpriteFrames.tres" id="12_8o8t5"]
 [ext_resource type="SpriteFrames" uid="uid://bibdcxl675mgy" path="res://Entities/Players/Ant/olho.tres" id="13_8o8t5"]
-[ext_resource type="FontFile" uid="uid://ci5egqcj678qh" path="res://Assets/Fontes/RevMiniPixel.ttf" id="15_76ytj"]
+[ext_resource type="Theme" uid="uid://rgc24ucsh4oi" path="res://Assets/Themes/theme_game1.tres" id="14_68y17"]
 [ext_resource type="Script" uid="uid://b3i4fugpre6cn" path="res://Entities/Players/Ant/particles.gd" id="16_verfp"]
-
-[sub_resource type="GDScript" id="GDScript_76ytj"]
-resource_name = "animation"
-script/source = "extends AnimatedSprite2D
-
-@onready var olho: AnimatedSprite2D = $Olho
-
-func _process(delta: float) -> void:
-	olho.animation = animation
-	olho.frame = frame
-
-	var vel: Vector2 = Vector2.ZERO
-
-	if get_parent() is CharacterBody2D:
-		vel = get_parent().velocity
-		
-	var target_offset: Vector2 = Vector2.ZERO
-
-	if abs(vel.x) > 5.0:
-		target_offset.x = sign(vel.x) * scale.x
-		
-	if abs(vel.y) > 5.0:
-		target_offset.y = sign(vel.y)
-	
-	target_offset = target_offset.normalized()
-	target_offset = target_offset.limit_length(1.0)
-	
-	olho.position = olho.position.lerp(target_offset, delta * 12.0)
-"
 
 [sub_resource type="Curve" id="Curve_7eqn4"]
 _limits = [0.0, 200.0, 0.0, 1.0]
@@ -88,61 +58,30 @@ size = Vector2(12, 10)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xpxb3"]
 size = Vector2(12, 4)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_x44r4"]
-size = Vector2(10, 2)
-
 [node name="Player" type="CharacterBody2D" unique_id=1760291039]
 collision_mask = 71
 script = ExtResource("1_t38ms")
 color = 3
-speed = 110.0
+speed = 165.0
 knockback_power = 256.0
 immortal = true
 metadata/_custom_type_script = "uid://cplihoc3hmqpv"
 
-[node name="StateMachine" type="Node" parent="." unique_id=1920979965 node_paths=PackedStringArray("initial_state")]
+[node name="StateMachine" type="Node" parent="." unique_id=1920979965]
 script = ExtResource("2_x1c3o")
-initial_state = NodePath("Idle")
+initial_state = &"Idle"
+states_scripts = Array[Script]([ExtResource("6_8o8t5"), ExtResource("8_verfp"), ExtResource("3_7f07p"), ExtResource("4_68y17"), ExtResource("5_76ytj"), ExtResource("7_lp4ef"), ExtResource("9_7eqn4"), ExtResource("10_lvhlr")])
 metadata/_custom_type_script = "uid://bdpwbx7o4ork5"
-
-[node name="Idle" type="Node" parent="StateMachine" unique_id=434680891]
-script = ExtResource("4_76ytj")
-metadata/_custom_type_script = "uid://bsgww5nsh2py6"
-
-[node name="Run" type="Node" parent="StateMachine" unique_id=1165895655]
-script = ExtResource("5_gmobf")
-metadata/_custom_type_script = "uid://bsgww5nsh2py6"
-
-[node name="Jump" type="Node" parent="StateMachine" unique_id=1522678357]
-script = ExtResource("6_lpg7p")
-metadata/_custom_type_script = "uid://bsgww5nsh2py6"
-
-[node name="Dash" type="Node" parent="StateMachine" unique_id=1484841697]
-script = ExtResource("7_cp1n4")
-metadata/_custom_type_script = "uid://bsgww5nsh2py6"
-
-[node name="WallSlide" type="Node" parent="StateMachine" unique_id=1049141994]
-script = ExtResource("8_x1c3o")
-metadata/_custom_type_script = "uid://bsgww5nsh2py6"
-
-[node name="Fall" type="Node" parent="StateMachine" unique_id=2080316129]
-script = ExtResource("9_8o8t5")
-metadata/_custom_type_script = "uid://bsgww5nsh2py6"
-
-[node name="Hurt" type="Node" parent="StateMachine" unique_id=1242026845]
-script = ExtResource("9_7f07p")
-metadata/_custom_type_script = "uid://bsgww5nsh2py6"
-
-[node name="WallJump" type="Node" parent="StateMachine" unique_id=2092978166]
-script = ExtResource("10_lp4ef")
 
 [node name="Animation" type="AnimatedSprite2D" parent="." unique_id=323388771]
 sprite_frames = ExtResource("12_8o8t5")
-animation = &"Run"
-autoplay = "Run"
-script = SubResource("GDScript_76ytj")
+animation = &"Crouch Turn"
+autoplay = "Idle"
+frame = 3
+frame_progress = 1.0
 
 [node name="Olho" type="AnimatedSprite2D" parent="Animation" unique_id=301488834]
+visible = false
 use_parent_material = true
 sprite_frames = ExtResource("13_8o8t5")
 animation = &"Fall"
@@ -182,6 +121,8 @@ collision_mask = 258
 visible = false
 collision_layer = 0
 collision_mask = 196
+monitoring = false
+monitorable = false
 
 [node name="Collision2" type="CollisionShape2D" parent="hurtbox" unique_id=1439325108]
 shape = SubResource("RectangleShape2D_hj1c0")
@@ -191,33 +132,25 @@ debug_color = Color(0.93573457, 0.15802479, 0.50309455, 0.41960785)
 visible = false
 collision_layer = 0
 collision_mask = 196
+monitoring = false
+monitorable = false
 
 [node name="Collision2" type="CollisionShape2D" parent="HurtBoxDown" unique_id=1480025747]
 position = Vector2(0, 7)
 shape = SubResource("RectangleShape2D_xpxb3")
 debug_color = Color(0.59378225, 0.42053345, 0.89536697, 0.41960785)
 
-[node name="HeadArea" type="Area2D" parent="." unique_id=2069516079]
-visible = false
-collision_layer = 0
-collision_mask = 256
-script = ExtResource("7_xpxb3")
-
-[node name="Collision3" type="CollisionShape2D" parent="HeadArea" unique_id=562682951]
-position = Vector2(0, -5)
-shape = SubResource("RectangleShape2D_x44r4")
-debug_color = Color(1, 1, 1, 0.41960785)
-
-[node name="Label" type="Label" parent="." unique_id=715286151]
-visible = false
-offset_left = -19.0
-offset_top = -14.0
-offset_right = 21.0
-offset_bottom = 9.0
-theme_override_fonts/font = ExtResource("15_76ytj")
+[node name="Label" type="Label" parent="." unique_id=1870104507]
+offset_left = -32.0
+offset_top = -24.0
+offset_right = 32.0
+offset_bottom = -1.0
+theme = ExtResource("14_68y17")
 theme_override_font_sizes/font_size = 8
+text = "Run"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [connection signal="screen_exited" from="Notifier" to="." method="_on_notifier_screen_exited"]
 [connection signal="body_entered" from="hurtbox" to="." method="_on_hurtbox_body_entered"]
 [connection signal="body_entered" from="HurtBoxDown" to="." method="_on_hurt_box_down_body_entered"]
-[connection signal="body_entered" from="HeadArea" to="HeadArea" method="_on_head_area_body_entered"]

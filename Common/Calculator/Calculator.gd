@@ -46,10 +46,10 @@ static func calculate_knockback(body_pos: Vector2, target_pos: Vector2, knockbac
 	return Vector2(x_force * knockback_power, y_force)
 
 static func desnormalized(vector: Vector2) -> Vector2:
-	if vector.x != 0.0:
+	if not is_zero_approx(vector.x / 1000000.0):
 		vector.x = abs(vector.x) / vector.x
 		
-	if vector.y != 0.0:
+	if not is_zero_approx(vector.y / 1000000.0):
 		vector.y = abs(vector.y) / vector.y
 	
 	return vector

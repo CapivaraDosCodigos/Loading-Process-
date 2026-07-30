@@ -1,32 +1,30 @@
 class_name StateMachine extends Node
 
-@export var initial_state: State = null
+@export var initial_state: StringName
+@export var states_scripts: Array[Script] = []
 
-@onready var state: State = (func get_initial_state() -> State:
-	return initial_state if initial_state != null else get_child(0)).call()
+var states: Dictionary[StringName, State] = {}
+var state: State
 
 @export var process: bool = false:
 	set(value):
 		process = value
 		set_process(process)
-
 @export var physics: bool = false:
 	set(value):
 		physics = value
 		set_physics_process(physics)
 
-#func _init(auto_process: bool = false, auto_physics: bool = false) -> void:
-	#process = auto_process
-	#physics = auto_physics
-	#set_process(process)
-	#set_physics_process(auto_physics)
-
 func _ready() -> void:
 	set_process(process)
 	set_physics_process(physics)
 	
-	for state_node: State in find_children("*", "State"):
-		state_node.finished.connect(transition_to_next_state)
+	for script in states_scripts:
+		var state_new: State = script.call("new", get_parent()) as State
+		state_new.finished.connect(transition_to_next_state)
+		states[state_new.name] = state_new
+		
+	state = states[initial_state]
 	
 	await owner.ready
 	state.enter("")
@@ -46,17 +44,19 @@ func process_update(delta: float) -> void:
 func physics_update(delta: float) -> void:
 	state.physics_update(delta)
 
-func transition_to_next_state(target_state_path: String, data: Dictionary = {}) -> void:
-	if not has_node(target_state_path):
-		printerr(owner.name + ": Trying to transition to state " + target_state_path + " but it does not exist.")
+func transition_to_next_state(target_state: StringName, data: Dictionary = {}) -> void:
+	if not states.has(target_state):
+		printerr(owner.name + ": Trying to transition to state " + target_state + " but it does not exist.")
 		return
 
 	state.exit()
-	state = get_node(target_state_path)
-	state.enter(state.name, data)
+	
+	states[target_state].enter(state.name, data)
+	
+	state = states[target_state]
 
-func is_state(target_state_path: String) -> bool:
-	return state.name == target_state_path
+func is_state(target_state: StringName) -> bool:
+	return state.name == target_state
 
-func get_state() -> String:
+func get_state() -> StringName:
 	return state.name

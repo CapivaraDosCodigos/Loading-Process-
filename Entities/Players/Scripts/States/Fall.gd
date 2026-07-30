@@ -3,7 +3,7 @@ extends PlayerState
 var dash_velocity_add: Vector2
 
 func enter(_previous_state_path: String, data: Dictionary = {}) -> void:
-	player.animation.play("Jump")
+	player.animation.play(FALL)
 	
 	if data.has("velocity_add"):
 		dash_velocity_add = data["velocity_add"]
@@ -50,12 +50,11 @@ func handle_movement() -> void:
 	else:
 		player.velocity.x = move_toward(player.velocity.x, 0.0, player.speed)
 
+func get_name() -> StringName:
+	return FALL
+
 func handle_dash()-> bool:
 	if player.buffer_dash.is_interval() and player.can_dash and player.dash_cooldown:
-		if player.has_dash:
-			finished.emit(DASH)
-			return true
-		
-		player.buffer_dash.set_buffer_time()
-		player.use_skills()
+		finished.emit(DASH)
+		return true
 	return false

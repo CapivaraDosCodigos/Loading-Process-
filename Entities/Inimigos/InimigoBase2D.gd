@@ -89,11 +89,8 @@ func set_disabled(value: bool) -> void:
 	if collision:
 		collision.set_deferred("disabled", value)
 
-func take_damage(player: Player2D = null) -> void:
+func take_damage(_player: Player2D = null) -> void:
 	set_collision_layer_value(3, false)
-	
-	if player:
-		player.state_machine.transition_to_next_state("Jump")
 	
 	velocity = Vector2.ZERO
 	is_hurtet = true
@@ -105,11 +102,11 @@ func take_damage(player: Player2D = null) -> void:
 func apply_stun(duration: float = 0.30) -> void:
 	is_stun = true
 	
-	animated.stop()
+	animated.speed_scale = 0.5
 	
 	await get_tree().create_timer(duration).timeout
 	
-	animated.play(animated.animation)
+	animated.speed_scale = 1.0
 	
 	is_stun = false
 

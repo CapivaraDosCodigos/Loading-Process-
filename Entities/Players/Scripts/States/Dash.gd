@@ -1,12 +1,25 @@
 extends PlayerState
 #class_name DashState
 
+var dash_velocity_add: Vector2
 var dash_direction: Vector2
+
 var dash_velocity_base: float = 1.0
+
 var turnaround: bool = false
 
-func enter(_previous_state_path: String, _data: Dictionary = {}) -> void:
-	player.animation.play(JUMP)
+func enter(_previous_state: String, data: Dictionary = {}) -> void:
+	player.animation.play(DASH)
+	
+	AudioManager.set_loop(AudioGame.PLAYER_SFX_2, false).set_pitch_random(true, 0.9, 1.1)
+	AudioManager.play(AudioGame.PLAYER_SFX_2, Player2D.audio_dash, 100.0)
+	
+	if data.has("velocity_add"):
+		dash_velocity_add = data["velocity_add"]
+	
+	player.buffer_dash.set_buffer_time()
+	player.use_skills()
+	
 	player.can_dash = false
 	player.dash_cooldown = false
 	turnaround = false
@@ -18,34 +31,22 @@ func enter(_previous_state_path: String, _data: Dictionary = {}) -> void:
 	else:
 		dash_direction = Vector2(player.direction, 0.0)
 	
-	AudioManager.set_loop(AudioGame.PLAYER_SFX_2, false).set_pitch_random(true, 0.9, 1.1)
-	AudioManager.play(AudioGame.PLAYER_SFX_2, Player2D.audio_dash, 100.0)
+	start_attack()
 	
-	await get_tree().create_timer(player.dash_duration, false).timeout
+	await player.get_tree().create_timer(player.dash_duration, false).timeout
 	
 	if player.buffer_jump.is_interval() and player.coyote_timer > 0:
 		finished.emit(JUMP, {"velocity_add": player.velocity})
-	
 	elif player.can_wall_slide():
 		finished.emit(WALL_SLIDE, {"velocity_add": player.velocity})
-	
 	elif not player.is_on_floor():
 		finished.emit("Fall", {"velocity_add": player.velocity})
-	
 	else:
 		finished.emit(RUN, {"velocity_add": player.velocity})
-		
-	dash_direction = Vector2.ZERO
-	
-	await get_tree().physics_frame
-	await get_tree().physics_frame
-	await get_tree().physics_frame
-	
-	player.dash_cooldown = true
 
 func physics_update(delta: float) -> void:
 	player.velocity.x = player.dash_velocity * dash_direction.x * dash_velocity_base
-	player.velocity.y = player.dash_velocity * dash_direction.y / 1.5
+	player.velocity.y = player.dash_velocity * dash_direction.y / 1.25
 	
 	if dash_direction.x != 0.0:
 		player.animation.scale.x = MathGame.desnormalized(dash_direction).x
@@ -66,6 +67,32 @@ func physics_update(delta: float) -> void:
 		turnaround = true
 		dash_velocity_base = 0.9
 		player.direction *= -1.0
+
+func get_name() -> StringName:
+	return DASH
+
+func exit() -> void:
+	dash_direction = Vector2.ZERO
+	
+	end_attack()
+	
+	await player.get_tree().physics_frame
+	await player.get_tree().physics_frame
+	await player.get_tree().physics_frame
+	
+	player.dash_cooldown = true
+
+func start_attack() -> void:
+	player.set_collision_mask_value(3, false)
+	player.set_collision_mask_value(7, false)
+	player.modulate = Color.BLACK
+	player.is_attack = true
+
+func end_attack() -> void:
+	player.set_collision_mask_value(3, true)
+	player.set_collision_mask_value(7, true)
+	player.modulate = Color.WHITE
+	player.is_attack = false
 
 func is_wall_slide() -> bool:
 	if not player.has_wall_slide or turnaround:

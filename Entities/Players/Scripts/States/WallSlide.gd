@@ -4,7 +4,8 @@ extends PlayerState
 var wall_direction: float = 0.0
 
 func enter(_previous_state_path: String, _data: Dictionary = {}) -> void:
-	player.animation.play("Climbing")
+	player.animation.flip_h = true
+	player.animation.play(WALL_SLIDE)
 
 func physics_update(delta: float) -> void:
 	player.can_dash = true
@@ -32,19 +33,19 @@ func physics_update(delta: float) -> void:
 		player.direction = wall_direction
 		player.animation.scale.x = -player.direction
 
+func get_name() -> StringName:
+	return WALL_SLIDE
+
+func exit() -> void:
+	player.animation.flip_h = false
+
 func handle_dash()-> bool:
 	if player.buffer_dash.is_interval() and player.dash_cooldown:
-		if player.has_dash:
-			player.direction = wall_direction
-			player.animation.scale.x = player.direction
-			player.animation.play(JUMP)
-			finished.emit(DASH)
-			
-			return true
-			
-		player.buffer_dash.set_buffer_time()
-		player.use_skills()
-	
+		player.direction = wall_direction
+		player.animation.scale.x = player.direction
+		player.animation.play(JUMP)
+		finished.emit(DASH)
+		return true
 	return false
 
 func handle_jump()-> bool:
