@@ -15,7 +15,7 @@ func add_objeto_in_cache_for_area(objeto: Node2D) -> void:
 	
 	for area: CameraArea2D in camera.all_areas:
 		if area.contains_point(objeto.global_position):
-			area.objetos_in_cache.append(objeto)
+			area.objects_in_cache.append(objeto)
 			break
 
 func add_objeto_in_cache(objeto: Node2D) -> void:

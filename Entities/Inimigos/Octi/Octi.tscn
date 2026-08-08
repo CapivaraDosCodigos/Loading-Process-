@@ -1,42 +1,9 @@
 [gd_scene format=3 uid="uid://8mnefmq7330n"]
 
-[ext_resource type="Script" uid="uid://bva7wnybq1kcm" path="res://Entities/Inimigos/Octi/Octi.gd" id="1_0bjt7"]
-[ext_resource type="Texture2D" uid="uid://bftc63iduavlp" path="res://Textures/Sprite Pack 2/3 - Octi/Octi Bad.png" id="2_0bjt7"]
+[ext_resource type="Script" uid="uid://bva7wnybq1kcm" path="res://Entities/Inimigos/Scripts/Octi.gd" id="1_0bjt7"]
 [ext_resource type="PackedScene" uid="uid://dfcww07k3b188" path="res://Objetos/hitbox.tscn" id="3_fbll8"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_jnx33"]
-atlas = ExtResource("2_0bjt7")
-region = Rect2(32, 0, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_fbll8"]
-atlas = ExtResource("2_0bjt7")
-region = Rect2(0, 0, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_1h7nt"]
-atlas = ExtResource("2_0bjt7")
-region = Rect2(16, 0, 16, 16)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_1kxlt"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_jnx33")
-}],
-"loop": 0,
-"name": &"Hurt",
-"speed": 2.5
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_fbll8")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_1h7nt")
-}],
-"loop": 1,
-"name": &"Walking",
-"speed": 5.0
-}]
+[sub_resource type="SpriteFrames" id="SpriteFrames_8docv"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7m6ug"]
 size = Vector2(8, 10)
@@ -59,13 +26,13 @@ rect = Rect2(-8, -8, 16, 16)
 show_rect = false
 
 [node name="Animated" type="AnimatedSprite2D" parent="." unique_id=187277772]
-sprite_frames = SubResource("SpriteFrames_1kxlt")
-animation = &"Walking"
-autoplay = "Walking"
-frame_progress = 0.8874582
+sprite_frames = SubResource("SpriteFrames_8docv")
+
+[node name="Polygon2D" type="Polygon2D" parent="Animated" unique_id=115262054]
+color = Color(1, 0.37, 0.37, 1)
+polygon = PackedVector2Array(5, 0, 5, 8, -5, 8, -5, 0)
 
 [node name="Collision" type="CollisionShape2D" parent="." unique_id=359271650]
-visible = false
 position = Vector2(-2.9802322e-08, 4)
 rotation = 1.5707964
 shape = SubResource("RectangleShape2D_7m6ug")

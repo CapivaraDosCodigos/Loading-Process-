@@ -51,7 +51,7 @@ func get_name() -> StringName:
 	return WALL_JUMP
 
 func handle_movement() -> void:
-	var direction_input: float = Game.get_input().x
+	var direction_input: float = Inputs.get_input().x
 
 	if wall_jump_lock > 0:
 		return

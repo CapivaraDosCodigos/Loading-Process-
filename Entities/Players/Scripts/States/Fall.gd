@@ -32,7 +32,7 @@ func physics_update(delta: float) -> void:
 		finished.emit(WALL_SLIDE)
 
 func handle_movement() -> void:
-	var direction_input: float = Game.get_input().x
+	var direction_input: float = Inputs.get_input().x
 	
 	var velocity_add: Vector2 = Vector2.ZERO
 	

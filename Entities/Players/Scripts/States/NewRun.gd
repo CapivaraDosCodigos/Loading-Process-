@@ -158,7 +158,7 @@ func physics_update(delta: float) -> void:
 	player.velocity.y += player.fall_gravity * delta
 	player.animation.scale.x = player.direction
 
-	direction_input = Game.get_input().x
+	direction_input = Inputs.get_input().x
 
 	# Trata virada de direção (Run‑Turn) se houver input e a direção mudar
 	if direction_input != 0 and not is_turning and player.direction * direction_input < 0:

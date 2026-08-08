@@ -12,20 +12,10 @@ var follow: Vector2
 var start_pos: Vector2
 var platform_tween: Tween
 
-func _ready() -> void:
+func _init() -> void:
 	start_pos = position
 	follow = start_pos
 	_move_platform()
-	ManagerGame.time_stop.connect(_stop)
-	ManagerGame.time_play.connect(_play)
-
-func _stop() -> void:
-	set_physics_process(false)
-	platform_tween.pause()
-
-func _play() -> void:
-	set_physics_process(true)
-	platform_tween.play()
 
 func _physics_process(_delta: float) -> void:
 	position = position.lerp(follow, 0.5)

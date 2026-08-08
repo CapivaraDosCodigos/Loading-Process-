@@ -1,60 +1,64 @@
+@tool
 extends CharacterBody2D
-class_name InimigoBase2D
+class_name Enemy2D
 
-var direction: Vector2 = Vector2.LEFT
+const HURT = "Hurt"
 
+enum TypeAnimation { Sprite, AnimatedSprite }
+
+var direction: Vector2 = Vector2.LEFT:
+	set(value):
+		direction = value.sign()
 var is_hurtet: bool = false
 var is_stun: bool = false
+var health_point: int = 1:
+	set(value):
+		health_point = max(0, value)
 
-var take_damage_force: bool = false
-
-var HP: int = 1
-
-@export var HP_base: int = 1
-@export var score: int = 10
+@export var health_point_base: int = 1
 @export var speed: float = 20.0
+@export var size: Vector2 = Vector2(16.0, 16.0)
 
 @export_group("Distortion")
 @export var distortion_position: float = 1.6
 @export var distortion: Vector2 = Vector2(1.2, 0.8)
 
+@export_group("Animation")
+@export var animation_type: TypeAnimation = TypeAnimation.AnimatedSprite:
+	set(value):
+		animation_type = value
+		notify_property_list_changed()
+@export var animated: AnimatedSprite2D
+@export var sprite: Sprite2D
+@export var animation_player: AnimationPlayer
+
 @export_group("Nodes")
 @export var collision: CollisionShape2D
 @export var hitbox: AreaHitbox2D
-@export var sprite: Sprite2D
-@export var animated: AnimatedSprite2D
-@export var animation_player: AnimationPlayer
 
 func _init() -> void:
+	if Engine.is_editor_hint():
+		return
 	add_to_group("Inimigos")
-	
-	ManagerGame.time_stop.connect(_stop)
-	ManagerGame.time_play.connect(_play)
-	
-	HP = HP_base
+	health_point = health_point_base
 
 func _ready() -> void:
+	if Engine.is_editor_hint():
+		return
+	
 	if animated:
 		animated.animation_finished.connect(_on_animated_finished)
 	
 	if animation_player:
 		animation_player.animation_finished.connect(_on_animation_player_finished)
-	
-	_internal_flip()
-	
-	_internal_ready()
-	
-	if ManagerGame.is_paused:
-		_stop()
 
-func _internal_ready() -> void:
-	pass
-
-func _stop() -> void:
-	pass
-
-func _play() -> void:
-	pass
+func _validate_property(property: Dictionary) -> void:
+	if property.name == "animated":
+		if animation_type != TypeAnimation.AnimatedSprite:
+			property.usage = PROPERTY_USAGE_NO_EDITOR
+	elif property.name in ["sprite", "animation_player"]:
+		if animation_type != TypeAnimation.Sprite:
+			property.usage = PROPERTY_USAGE_NO_EDITOR
 
 func _gravity(delta: float) -> void:
 	if not is_on_floor():
@@ -66,38 +70,78 @@ func _apply_movement() -> void:
 func _apply_flip() -> void:
 	pass
 
-func _internal_flip() -> void:
-	direction.x = scale.y * -1.0
-	scale.y = 1.0
-	rotation = 0.0
+func _apply_effects() -> void:
+	var knockback_tween: Tween = create_tween()
 	
+	var target2D: Node2D
 	if animated:
-		animated.scale.x = direction.x * -1.0
-	
+		target2D = animated
 	elif sprite:
-		sprite.scale.x = direction.x * -1.0
+		target2D = sprite
+	else:
+		return
+	
+	if target2D.material:
+		target2D.material.set("shader_parameter/blink_intensity", 1.0)
+		knockback_tween.parallel().tween_property(target2D.material, "shader_parameter/blink_intensity", 0.0, 0.25).set_ease(Tween.EASE_IN).set_trans(Tween.TransitionType.TRANS_ELASTIC)
+	
+	target2D.scale = Vector2(-direction.x * distortion.x, distortion.y)
+	var save_position: Vector2 = target2D.position
+	target2D.position.y += distortion_position
+	
+	knockback_tween.parallel().tween_property(target2D, "modulate", Color.WHITE, 0.25)
+	knockback_tween.parallel().tween_property(target2D, "scale", Vector2(direction.x * -1.0, 1.0), 0.25)
+	knockback_tween.parallel().tween_property(target2D, "position", save_position, 0.25)
+
+func _die() -> void:
+	if Engine.is_editor_hint():
+		return
+	
+	queue_free()
 
 func _on_animated_finished() -> void:
-	if animated.animation == "Hurt":
-		queue_free()
+	if animated.animation == HURT:
+		if health_point <= 0:
+			_die()
 
 func _on_animation_player_finished(animated_name: StringName) -> void:
-	if animated_name == "Hurt":
-		queue_free()
+	if animated_name == HURT:
+		if health_point <= 0:
+			_die()
 
-func set_disabled(value: bool) -> void:
+func play(name_animation: StringName = &"") -> void:
+	if animation_type == TypeAnimation.AnimatedSprite:
+		if animated and animated.sprite_frames.has_animation(name_animation):
+			animated.play(name_animation)
+	
+	elif animation_type == TypeAnimation.AnimatedSprite:
+		if animation_player and animation_player.has_animation(name_animation):
+			animation_player.play(name_animation)
+
+func pause() -> void:
+	if animation_type == TypeAnimation.AnimatedSprite and animated:
+		animated.pause()
+	
+	elif animation_type == TypeAnimation.AnimatedSprite and animation_player:
+		animation_player.pause()
+
+func set_disabled_collision(value: bool) -> void:
 	if collision:
 		collision.set_deferred("disabled", value)
 
-func take_damage(_player: Player2D = null) -> void:
+func take_damage(player: Player2D = null) -> void:
 	set_collision_layer_value(3, false)
 	
+	if player:
+		var time_size: float = (size.x + 4.0) / player.dash_velocity
+		player.dash_timer.time_left = max(time_size, player.dash_timer.time_left)
+		
 	velocity = Vector2.ZERO
 	is_hurtet = true
+	health_point -= 1
 	
 	_apply_effects()
-	
-	animated.play("Hurt")
+	play(HURT)
 
 func apply_stun(duration: float = 0.30) -> void:
 	is_stun = true
@@ -109,30 +153,3 @@ func apply_stun(duration: float = 0.30) -> void:
 	animated.speed_scale = 1.0
 	
 	is_stun = false
-
-func _apply_effects() -> void:
-	var knockback_tween: Tween = create_tween()
-	
-	if animated:
-		if animated.material:
-			animated.material.set("shader_parameter/blink_intensity", 1.0)
-			knockback_tween.parallel().tween_property(animated.material, "shader_parameter/blink_intensity", 0.0, 0.25).set_ease(Tween.EASE_IN).set_trans(Tween.TransitionType.TRANS_ELASTIC)
-		
-		animated.scale = Vector2(-direction.x * distortion.x, distortion.y)
-		var save_position: Vector2 = animated.position
-		animated.position.y += distortion_position
-		
-		knockback_tween.parallel().tween_property(animated, "modulate", Color.WHITE, 0.25)
-		knockback_tween.parallel().tween_property(animated, "scale", Vector2(direction.x * -1.0, 1.0), 0.25)
-		knockback_tween.parallel().tween_property(animated, "position", save_position, 0.25)
-	
-	elif sprite:
-		sprite.material.set("shader_parameter/blink_intensity", 1.0)
-		sprite.scale = Vector2(-direction.x * distortion.x, distortion.y)
-		var save_position: Vector2 = sprite.position
-		sprite.position.y += distortion_position
-		
-		knockback_tween.parallel().tween_property(sprite, "modulate", Color.WHITE, 0.25)
-		knockback_tween.parallel().tween_property(sprite, "scale", Vector2(direction.x * -1.0, 1.0), 0.25)
-		knockback_tween.parallel().tween_property(sprite, "position", save_position, 0.25)
-		knockback_tween.parallel().tween_property(sprite.material, "shader_parameter/blink_intensity", 0.0, 0.25).set_ease(Tween.EASE_IN).set_trans(Tween.TransitionType.TRANS_ELASTIC)

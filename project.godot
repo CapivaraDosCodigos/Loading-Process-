@@ -14,7 +14,9 @@ config/name="Loading Process"
 config/tags=PackedStringArray("game")
 run/main_scene="uid://blc6rhvbms5rr"
 config/features=PackedStringArray("4.7", "GL Compatibility")
+boot_splash/bg_color=Color(0, 0, 0, 1)
 config/icon="res://icon.svg"
+boot_splash/show_image=false
 
 [autoload]
 
@@ -51,7 +53,7 @@ folder_colors={
 "res://Common/Calculator/": "gray",
 "res://Common/CameraCustom2D/": "blue",
 "res://Common/Config/": "gray",
-"res://Common/InputBuffer/": "teal",
+"res://Common/Inputs/": "teal",
 "res://Common/Scenes Manager/": "yellow",
 "res://Common/TextureSave/": "orange",
 "res://Entities/Players/Ant/Ant Texture/": "teal",
@@ -63,14 +65,7 @@ folder_colors={
 "res://Textures/": "green",
 "res://Textures/Buttons/": "blue",
 "res://Textures/Seasonal Tilesets/1 - Grassland/": "green",
-"res://Textures/Seasonal Tilesets/2 - Autumn Forest/": "orange",
-"res://Textures/Seasonal Tilesets/3 - Tropics/": "green",
-"res://Textures/Seasonal Tilesets/4 - Winter World/": "gray",
-"res://Textures/Seasonal Tilesets/5 - Misc. universal tiles/": "teal",
-"res://Textures/Seasonal Tilesets/Cave Tileset/": "blue",
 "res://Textures/Seasonal Tilesets/Futuristic City Parallax/": "yellow",
-"res://Textures/Seasonal Tilesets/Merchant Tileset Sidescroller/": "yellow",
-"res://Textures/Seasonal Tilesets/Monochome/": "gray",
 "res://Textures/Seasonal Tilesets/Starry Night/": "purple",
 "res://Textures/Seasonal Tilesets/Tilemaps/": "teal",
 "res://Textures/Seasonal Tilesets/WCP/": "gray",

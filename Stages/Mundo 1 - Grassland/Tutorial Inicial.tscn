@@ -15,8 +15,8 @@
 [ext_resource type="Resource" uid="uid://cbcv1t852c1gv" path="res://Entities/Inimigos/RoboPumpkinLetal/robo_pumpkin_letal.tres" id="9_svacd"]
 [ext_resource type="PackedScene" uid="uid://d15ddxvbvouva" path="res://Entities/Players/Ant/Ant_Player.tscn" id="13_8wkbb"]
 [ext_resource type="Resource" uid="uid://behg5ia4mc6aw" path="res://Entities/Inimigos/Tank Boy/tank_boy.tres" id="14_ueycd"]
-[ext_resource type="Script" uid="uid://dxq3cneouibe6" path="res://Common/CameraCustom2D/camera_extended.gd" id="21_wmu4m"]
-[ext_resource type="Script" uid="uid://qqc1wp8gt1qu" path="res://Common/CameraCustom2D/camera_area_extended.gd" id="22_ffha8"]
+[ext_resource type="Script" uid="uid://dxq3cneouibe6" path="res://Common/CameraCustom2D/CameraCustom2D.gd" id="21_wmu4m"]
+[ext_resource type="Script" uid="uid://qqc1wp8gt1qu" path="res://Common/CameraCustom2D/CameraArea2D.gd" id="22_ffha8"]
 
 [sub_resource type="GDScript" id="GDScript_ku2xw"]
 resource_name = "PlataformaDoBoss"

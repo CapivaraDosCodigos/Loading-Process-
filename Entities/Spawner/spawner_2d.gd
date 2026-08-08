@@ -53,14 +53,8 @@ func spawn() -> void:
 		current_object.queue_free()
 	
 	current_object = packed_spawn.packed_scene.instantiate()
-	
-	#if not extra_nodes.is_empty():
-		#for key: StringName in extra_nodes.keys():
-			#if key in current_enemy:
-				#current_enemy.set_deferred(key, extra_nodes[key])
-	
 	current_object.global_position = global_position
-	#current_enemy.position = Vector2.ZERO
+	
 	add_sibling.call_deferred(current_object)
 
 func despawn() -> void:

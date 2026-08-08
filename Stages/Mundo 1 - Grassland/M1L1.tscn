@@ -5,8 +5,8 @@
 [ext_resource type="PackedScene" uid="uid://b6v6fr2he6lfp" path="res://Stages/BackGrounds/BG_Grassland.tscn" id="3_1h8gu"]
 [ext_resource type="TileSet" uid="uid://be6kkylvjwpqx" path="res://Stages/TileSetWorld.tres" id="4_x12t5"]
 [ext_resource type="PackedScene" uid="uid://d15ddxvbvouva" path="res://Entities/Players/Ant/Ant_Player.tscn" id="13_dfvqq"]
-[ext_resource type="Script" uid="uid://dxq3cneouibe6" path="res://Common/CameraCustom2D/camera_extended.gd" id="17_3bpa3"]
-[ext_resource type="Script" uid="uid://qqc1wp8gt1qu" path="res://Common/CameraCustom2D/camera_area_extended.gd" id="18_3mnun"]
+[ext_resource type="Script" uid="uid://dxq3cneouibe6" path="res://Common/CameraCustom2D/CameraCustom2D.gd" id="17_3bpa3"]
+[ext_resource type="Script" uid="uid://qqc1wp8gt1qu" path="res://Common/CameraCustom2D/CameraArea2D.gd" id="18_3mnun"]
 
 [node name="Tutorial" type="Node2D" unique_id=1935198871 node_paths=PackedStringArray("player")]
 script = ExtResource("1_pocaa")

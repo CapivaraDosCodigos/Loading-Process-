@@ -1,12 +1,8 @@
 extends PlayerState
-#class_name DashState
 
+var dash_ghost_timer: int = 0
 var dash_velocity_add: Vector2
 var dash_direction: Vector2
-
-var dash_velocity_base: float = 1.0
-
-var turnaround: bool = false
 
 func enter(_previous_state: String, data: Dictionary = {}) -> void:
 	player.animation.play(DASH)
@@ -22,10 +18,8 @@ func enter(_previous_state: String, data: Dictionary = {}) -> void:
 	
 	player.can_dash = false
 	player.dash_cooldown = false
-	turnaround = false
-	dash_velocity_base = 1.0
-	
-	var dir_input: Vector2 = Game.get_input().normalized()
+
+	var dir_input: Vector2 = Inputs.get_input().normalized()
 	if dir_input != Vector2.ZERO:
 		dash_direction = dir_input
 	else:
@@ -33,7 +27,8 @@ func enter(_previous_state: String, data: Dictionary = {}) -> void:
 	
 	start_attack()
 	
-	await player.get_tree().create_timer(player.dash_duration, false).timeout
+	player.dash_timer = player.get_tree().create_timer(player.dash_duration, false)
+	await player.dash_timer.timeout
 	
 	if player.buffer_jump.is_interval() and player.coyote_timer > 0:
 		finished.emit(JUMP, {"velocity_add": player.velocity})
@@ -44,29 +39,33 @@ func enter(_previous_state: String, data: Dictionary = {}) -> void:
 	else:
 		finished.emit(RUN, {"velocity_add": player.velocity})
 
-func physics_update(delta: float) -> void:
-	player.velocity.x = player.dash_velocity * dash_direction.x * dash_velocity_base
+func physics_update(_delta: float) -> void:
+	player.velocity.x = player.dash_velocity * dash_direction.x
 	player.velocity.y = player.dash_velocity * dash_direction.y / 1.25
 	
 	if dash_direction.x != 0.0:
 		player.animation.scale.x = MathGame.desnormalized(dash_direction).x
 	
-	if turnaround and dash_direction.y == 0.0:
-		player.velocity.y += player.fall_gravity * delta * 4.0
-	
-	if is_wall_slide():
-		var wall_direction: float = -1.0 if player.ray_right.is_colliding() else 1.0
-		if wall_direction == dash_direction.x * -1.0:
-			dash_direction.x *= -1.0
-			turnaround = true
-			dash_velocity_base = 0.9
-			player.direction *= -1.0
-	
-	if player.is_on_floor() and dash_direction.y == 1.0:
-		dash_direction.y = -1.0
-		turnaround = true
-		dash_velocity_base = 0.9
+	if player.ray_right.is_colliding() and dash_direction.x == 1.0:
+		dash_direction.x *= -1.0
 		player.direction *= -1.0
+		_reduce_dash_time()
+	elif player.ray_left.is_colliding() and dash_direction.x == -1.0:
+		dash_direction.x *= -1.0
+		player.direction *= -1.0
+		_reduce_dash_time()
+	elif (player.ray_up.is_colliding() or player.is_on_ceiling()) and dash_direction.y == -1.0:
+		dash_direction.y *= -1.0
+		_reduce_dash_time()
+	elif (player.ray_down.is_colliding() or player.is_on_floor()) and dash_direction.y == 1.0:
+		dash_direction.y *= -1.0
+		_reduce_dash_time()
+	
+	if dash_ghost_timer > 0:
+		dash_ghost_timer -= 1
+	else:
+		create_ghost_sprite()
+		dash_ghost_timer = 2
 
 func get_name() -> StringName:
 	return DASH
@@ -76,27 +75,33 @@ func exit() -> void:
 	
 	end_attack()
 	
-	await player.get_tree().physics_frame
-	await player.get_tree().physics_frame
-	await player.get_tree().physics_frame
+	#await player.get_tree().physics_frame
+	#await player.get_tree().physics_frame
+	#await player.get_tree().physics_frame
+	
+	await player.get_tree().create_timer(player.dash_duration, false).timeout
 	
 	player.dash_cooldown = true
 
+func _reduce_dash_time() -> void:
+	if is_zero_approx(player.dash_timer.time_left):
+		player.dash_timer.time_left /= 1.25
+
 func start_attack() -> void:
-	player.set_collision_mask_value(3, false)
-	player.set_collision_mask_value(7, false)
-	player.modulate = Color.BLACK
+	#player.modulate = Color.BLACK
 	player.is_attack = true
 
 func end_attack() -> void:
-	player.set_collision_mask_value(3, true)
-	player.set_collision_mask_value(7, true)
 	player.modulate = Color.WHITE
 	player.is_attack = false
 
-func is_wall_slide() -> bool:
-	if not player.has_wall_slide or turnaround:
-		return false
-	
-	var touching_wall: bool = player.ray_right.is_colliding() or player.ray_left.is_colliding()
-	return touching_wall
+func create_ghost_sprite() -> void:
+	var anim: AnimatedSpriteShader2D = player.animated_shader.instantiate()
+	anim.sprite_frames = player.animation.sprite_frames
+	anim.animation = player.animation.animation
+	anim.frame = player.animation.frame
+	anim.flip_h = player.animation.flip_h
+	anim.global_position = player.global_position
+	anim.scale = player.animation.scale
+	player.add_sibling(anim)
+	anim.stop()

@@ -1,15 +1,11 @@
 [gd_resource type="Resource" script_class="PackedEnemy" format=3 uid="uid://bupam1hh48ntr"]
 
 [ext_resource type="PackedScene" uid="uid://disghyo3pn4xc" path="res://Entities/Inimigos/Monochome/Inseto5.tscn" id="1_gbuls"]
-[ext_resource type="Texture2D" uid="uid://k36jmq845w0r" path="res://Textures/Seasonal Tilesets/Monochome/monochrome_tilemap_transparent_packed.png" id="2_sqngp"]
+[ext_resource type="Texture2D" uid="uid://bgc5e0nfnaldl" path="res://Textures/RedCube.tres" id="2_gbuls"]
 [ext_resource type="Script" uid="uid://dt2yq4d45uckq" path="res://Entities/Spawner/PackedInimigo.gd" id="3_ym5gi"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_r40u8"]
-atlas = ExtResource("2_sqngp")
-region = Rect2(0, 192, 16, 16)
 
 [resource]
 script = ExtResource("3_ym5gi")
 packed_scene = ExtResource("1_gbuls")
-preview_texture = SubResource("AtlasTexture_r40u8")
+preview_texture = ExtResource("2_gbuls")
 metadata/_custom_type_script = "uid://dt2yq4d45uckq"

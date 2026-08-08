@@ -27,16 +27,14 @@ func physics_update(delta: float) -> void:
 	if pos_jump:
 		return
 		
-	if player.is_on_floor():
-		player.can_dash = true
-	
+	player.can_dash = true
 	player.velocity.y += player.fall_gravity * delta
 	
 	# Só atualiza a escala (flip) se não estiver na animação de virada
 	if not is_turning:
 		player.animation.scale.x = player.direction
 	
-	direction_input = Game.get_input().x
+	direction_input = Inputs.get_input().x
 	
 	# Verifica virada: direção atual e última são válidas e de sinais opostos
 	if not is_turning and direction_input != 0.0 and last_direction_input != 0.0:
@@ -49,7 +47,7 @@ func physics_update(delta: float) -> void:
 	if handle_dash():
 		return
 	
-	elif is_equal_approx(player.velocity.x, 0.0) and !Game.is_input_horizontal():
+	elif is_equal_approx(player.velocity.x, 0.0) and !Inputs.is_input_horizontal():
 		finished.emit(IDLE)
 	
 	elif player.buffer_jump.is_interval() and player.coyote_timer > 0:
@@ -90,7 +88,7 @@ func handle_movement() -> void:
 		player.direction = direction_input
 		player.velocity.x = lerp(player.velocity.x, direction_input * max(player.speed, velocity_add.x), player.speed / 1000.0)
 		
-	elif Game.is_input_horizontal():
+	elif Inputs.is_input_horizontal():
 		player.direction = direction_input
 		player.velocity.x = player.direction * max(player.speed, velocity_add.x)
 	

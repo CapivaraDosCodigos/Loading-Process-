@@ -1,10 +1,10 @@
 [gd_scene format=3 uid="uid://cstrrhxbunosm"]
 
-[ext_resource type="Script" uid="uid://c5anj1p86dw7" path="res://Entities/Inimigos/Percy/Percy.gd" id="1_fmw27"]
-[ext_resource type="Texture2D" uid="uid://dol3eh83uid24" path="res://Textures/Sprite Pack 8/4 - Percy/Running (32 x 32).png" id="1_uxfl3"]
+[ext_resource type="Script" uid="uid://c5anj1p86dw7" path="res://Entities/Inimigos/Scripts/Percy.gd" id="1_fmw27"]
+[ext_resource type="Texture2D" path="res://Textures/Sprite Pack 8/4 - Percy/Running (32 x 32).png" id="1_uxfl3"]
 [ext_resource type="Material" uid="uid://cnrivju85edsn" path="res://Entities/Players/ShaderMaterial/Blink_Shader_Material.tres" id="2_wxi2e"]
-[ext_resource type="Texture2D" uid="uid://cg866u8sq0510" path="res://Textures/Sprite Pack 8/4 - Percy/Shooting_Fireball (32 x 32).png" id="5_jg3ds"]
-[ext_resource type="Texture2D" uid="uid://cibuirtdonbeu" path="res://Textures/Sprite Pack 8/4 - Percy/Hurt (32 x 32).png" id="5_ukkfv"]
+[ext_resource type="Texture2D" path="res://Textures/Sprite Pack 8/4 - Percy/Shooting_Fireball (32 x 32).png" id="5_jg3ds"]
+[ext_resource type="Texture2D" path="res://Textures/Sprite Pack 8/4 - Percy/Hurt (32 x 32).png" id="5_ukkfv"]
 [ext_resource type="PackedScene" uid="uid://dfcww07k3b188" path="res://Objetos/hitbox.tscn" id="6_ukkfv"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wdwp1"]

@@ -1,0 +1,68 @@
+[gd_scene format=3 uid="uid://cs2362bpf3u4"]
+
+[ext_resource type="Script" uid="uid://dny4gmb86j7mm" path="res://Common/Scenes Manager/Scripts/CanvasTransition.gd" id="1_kndxx"]
+[ext_resource type="Shader" uid="uid://bs2q7hihhpspg" path="res://Common/Scenes Manager/Transitions/Transition7.gdshader" id="2_kndxx"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_4ijqm"]
+shader = ExtResource("2_kndxx")
+shader_parameter/progress = 0.0
+shader_parameter/lines = 10.0
+shader_parameter/line_color_a = Color(1, 1, 1, 1)
+shader_parameter/line_color_b = Color(0, 0, 0, 1)
+
+[sub_resource type="Animation" id="Animation_61j7t"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Screen:material:shader_parameter/progress")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_d732q"]
+resource_name = "transition"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Screen:material:shader_parameter/progress")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 1.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_fxp8j"]
+_data = {
+&"RESET": SubResource("Animation_61j7t"),
+&"transition": SubResource("Animation_d732q")
+}
+
+[node name="CanvasTransition" type="CanvasLayer" unique_id=518493820 node_paths=PackedStringArray("animation", "screen")]
+layer = 100
+script = ExtResource("1_kndxx")
+animation = NodePath("Animation")
+screen = NodePath("Screen")
+
+[node name="Screen" type="ColorRect" parent="." unique_id=365927520]
+material = SubResource("ShaderMaterial_4ijqm")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="Animation" type="AnimationPlayer" parent="." unique_id=1649917212]
+libraries/ = SubResource("AnimationLibrary_fxp8j")
+autoplay = &"transition"

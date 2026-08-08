@@ -3,7 +3,6 @@ class_name StageMap2D
 
 static var player_scene: PackedScene = preload("uid://d15ddxvbvouva")
 
-@onready var camera: CameraCustom2D = %CameraLevel
 @export var player: Player2D
 @export var node_pai: Node2D
 var player_init_position: Vector2
@@ -18,8 +17,6 @@ func _ready() -> void:
 		ManagerGame.player = player
 		player_init_position = player.global_position
 	
-	ManagerGame.camera = camera
-	
 	if audio:
 		AudioManager.play_insurance(AudioGame.MUSIC_1, audio, 100.0)
 
@@ -31,6 +28,7 @@ func _reload_game() -> void:
 	
 	var new_player: Player2D = player_scene.instantiate()
 	new_player.global_position = player_init_position
+	ManagerGame.set_camera_position(player_init_position)
 	
 	if node_pai:
 		node_pai.add_child(new_player)
@@ -38,5 +36,3 @@ func _reload_game() -> void:
 		add_child(new_player)
 	
 	ManagerGame.player = new_player
-	
-	ManagerGame.respawn_player()

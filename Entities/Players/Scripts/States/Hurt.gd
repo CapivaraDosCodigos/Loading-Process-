@@ -35,7 +35,6 @@ func enter(_previous_state_path: String, data: Dictionary = {}) -> void:
 
 func physics_update(_delta: float) -> void:
 	player.velocity = knockback
-	player.dash_ghost_timer = 2
 
 func get_name() -> StringName:
 	return HURT

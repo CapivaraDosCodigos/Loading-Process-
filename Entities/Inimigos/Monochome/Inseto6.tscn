@@ -1,49 +1,9 @@
 [gd_scene format=3 uid="uid://d0dmr5qyqb6oe"]
 
-[ext_resource type="Script" uid="uid://r882i2t4y04l" path="res://Entities/Inimigos/Monochome/Inseto6.gd" id="1_gwxs3"]
-[ext_resource type="Texture2D" uid="uid://bb28lw40sdphy" path="res://Textures/Seasonal Tilesets/Monochome/Textura_Monochome_Sombra.png" id="2_i07ty"]
+[ext_resource type="Script" uid="uid://r882i2t4y04l" path="res://Entities/Inimigos/Scripts/Inseto6.gd" id="1_gwxs3"]
 [ext_resource type="PackedScene" uid="uid://dfcww07k3b188" path="res://Objetos/hitbox.tscn" id="3_6kqud"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_iq5n4"]
-atlas = ExtResource("2_i07ty")
-region = Rect2(96, 192, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_18aiv"]
-atlas = ExtResource("2_i07ty")
-region = Rect2(16, 192, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_8gaaa"]
-atlas = ExtResource("2_i07ty")
-region = Rect2(32, 192, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_cvys1"]
-atlas = ExtResource("2_i07ty")
-region = Rect2(48, 192, 16, 16)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_1kxlt"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_iq5n4")
-}],
-"loop": 0,
-"name": &"Hurt",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_18aiv")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_8gaaa")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_cvys1")
-}],
-"loop": 1,
-"name": &"Walking",
-"speed": 10.0
-}]
+[sub_resource type="SpriteFrames" id="SpriteFrames_edcf4"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7m6ug"]
 size = Vector2(8, 12)
@@ -64,13 +24,14 @@ rect = Rect2(-8, -8, 16, 16)
 show_rect = false
 
 [node name="Animated" type="AnimatedSprite2D" parent="." unique_id=187277772]
-sprite_frames = SubResource("SpriteFrames_1kxlt")
-animation = &"Hurt"
-autoplay = "Walking"
+sprite_frames = SubResource("SpriteFrames_edcf4")
 flip_h = true
 
+[node name="Polygon2D" type="Polygon2D" parent="Animated" unique_id=1005217815]
+color = Color(1, 0.37, 0.37, 1)
+polygon = PackedVector2Array(6, 0, 6, 8, -6, 8, -6, 0)
+
 [node name="Collision" type="CollisionShape2D" parent="." unique_id=359271650]
-visible = false
 position = Vector2(-4.371139e-08, 4)
 rotation = 1.5707964
 shape = SubResource("RectangleShape2D_7m6ug")

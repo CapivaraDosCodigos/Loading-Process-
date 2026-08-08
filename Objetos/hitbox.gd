@@ -17,10 +17,10 @@ func _on_body_entered(body: Node2D) -> void:
 		if not body.is_attack:
 			return
 		
-		elif owner is InimigoBase2D:
+		elif owner is Enemy2D:
 			owner.take_damage(body)
 	
-	elif body is InimigoBase2D:
+	elif body is Enemy2D:
 		body.take_damage(null)
 
 func set_disabled(value: bool) -> void:

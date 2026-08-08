@@ -1,51 +1,8 @@
 [gd_scene format=3 uid="uid://bbnjf8q31uebh"]
 
 [ext_resource type="Script" uid="uid://bt2veg1sbdv23" path="res://Autoloads/ManagerGame.gd" id="1_22gst"]
-[ext_resource type="Shader" uid="uid://c2jna8smf0y70" path="res://Shaders/OffInScreen.gdshader" id="1_i1u7a"]
-[ext_resource type="Material" uid="uid://b0xsqrtrfp4un" path="res://Assets/Shader Material/TimeStop_material.tres" id="2_s0s73"]
 [ext_resource type="PackedScene" uid="uid://cmrake25tlapc" path="res://Utility/Huds/hud.tscn" id="3_22gst"]
 [ext_resource type="PackedScene" uid="uid://gli5foejngdy" path="res://Utility/Huds/controls_mobile.tscn" id="4_s0s73"]
-
-[sub_resource type="Animation" id="Animation_761t5"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("../GameHUD/Invertido:material:shader_parameter/progress")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.0]
-}
-
-[sub_resource type="Animation" id="Animation_x44r4"]
-resource_name = "Time Stop"
-length = 0.8
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("../GameHUD/Invertido:material:shader_parameter/progress")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.8),
-"transitions": PackedFloat32Array(-0.5, 1),
-"update": 0,
-"values": [1.0, 0.0]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_l2lt8"]
-_data = {
-&"RESET": SubResource("Animation_761t5"),
-&"Time Stop": SubResource("Animation_x44r4")
-}
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_sa1a7"]
-shader = ExtResource("1_i1u7a")
-shader_parameter/intensity = 1.0
 
 [node name="Window" type="Window" unique_id=1981778806]
 handle_input_locally = false
@@ -66,32 +23,6 @@ script = ExtResource("1_22gst")
 [node name="GameHUD" type="CanvasLayer" parent="." unique_id=1683612246]
 layer = 10
 visible = false
-
-[node name="Animator" type="AnimationPlayer" parent="GameHUD" unique_id=1733961308]
-libraries/ = SubResource("AnimationLibrary_l2lt8")
-autoplay = &"RESET"
-
-[node name="Base" type="ColorRect" parent="GameHUD" unique_id=656689467]
-unique_name_in_owner = true
-visible = false
-material = SubResource("ShaderMaterial_sa1a7")
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 1
-
-[node name="Invertido" type="ColorRect" parent="GameHUD" unique_id=1237741161]
-unique_name_in_owner = true
-visible = false
-material = ExtResource("2_s0s73")
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 1
 
 [node name="HUD" parent="GameHUD" unique_id=1559610119 instance=ExtResource("3_22gst")]
 

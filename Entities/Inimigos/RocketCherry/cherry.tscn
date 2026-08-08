@@ -1,54 +1,9 @@
 [gd_scene format=3 uid="uid://hpm4w0aouya"]
 
 [ext_resource type="Script" uid="uid://hyh0dbmb4pg2" path="res://Entities/Inimigos/InimigoGround.gd" id="1_usqfw"]
-[ext_resource type="Texture2D" uid="uid://bny32kxltfych" path="res://Textures/Sprite Pack 2/7 - Rocket Cherry/Rocket Cherry (32 x 96).png" id="3_n5l5q"]
 [ext_resource type="PackedScene" uid="uid://dfcww07k3b188" path="res://Objetos/hitbox.tscn" id="5_jkovs"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_u61ke"]
-atlas = ExtResource("3_n5l5q")
-region = Rect2(16, 64, 16, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_mg5f3"]
-atlas = ExtResource("3_n5l5q")
-region = Rect2(16, 32, 16, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_uc2yc"]
-atlas = ExtResource("3_n5l5q")
-region = Rect2(0, 32, 16, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_dk53q"]
-atlas = ExtResource("3_n5l5q")
-region = Rect2(16, 32, 16, 32)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_1kxlt"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_u61ke")
-}],
-"loop": 0,
-"name": &"Hurt",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_mg5f3")
-}],
-"loop": 1,
-"name": &"Idle",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_uc2yc")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_dk53q")
-}],
-"loop": 1,
-"name": &"Walking",
-"speed": 5.0
-}]
+[sub_resource type="SpriteFrames" id="SpriteFrames_byt8i"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_u61ke"]
 size = Vector2(8, 12)
@@ -69,10 +24,11 @@ animated = NodePath("Animated")
 
 [node name="Animated" type="AnimatedSprite2D" parent="." unique_id=187277772]
 position = Vector2(0, -8)
-sprite_frames = SubResource("SpriteFrames_1kxlt")
-animation = &"Walking"
-autoplay = "Walking"
-frame_progress = 0.5517352
+sprite_frames = SubResource("SpriteFrames_byt8i")
+
+[node name="Polygon2D" type="Polygon2D" parent="Animated" unique_id=417878673]
+color = Color(1, 0.37, 0.37, 1)
+polygon = PackedVector2Array(6, 8, 6, 16, -6, 16, -6, 8)
 
 [node name="VisibleOnScreenEnabler2D" type="VisibleOnScreenEnabler2D" parent="." unique_id=859881714]
 rect = Rect2(-7, -7, 14, 15)

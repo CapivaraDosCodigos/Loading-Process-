@@ -53,17 +53,14 @@ anim_speed_curve = SubResource("CurveTexture_beh6i")
 size = Vector2(10, 12)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hj1c0"]
-size = Vector2(12, 10)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_xpxb3"]
-size = Vector2(12, 4)
+size = Vector2(12, 14)
 
 [node name="Player" type="CharacterBody2D" unique_id=1760291039]
-collision_mask = 71
+collision_mask = 3
 script = ExtResource("1_t38ms")
 color = 3
 speed = 165.0
-knockback_power = 256.0
+knockback_height = 256.0
 immortal = true
 metadata/_custom_type_script = "uid://cplihoc3hmqpv"
 
@@ -111,34 +108,33 @@ position = Vector2(0, 1)
 target_position = Vector2(6, 0)
 collision_mask = 258
 
+[node name="RayUp" type="RayCast2D" parent="." unique_id=763004788]
+visible = false
+position = Vector2(0, 1)
+target_position = Vector2(0, -6)
+collision_mask = 258
+
 [node name="RayLeft" type="RayCast2D" parent="." unique_id=109176381]
 visible = false
 position = Vector2(0, 1)
 target_position = Vector2(-6, 0)
 collision_mask = 258
 
-[node name="hurtbox" type="Area2D" parent="." unique_id=1264091571]
+[node name="RayDown" type="RayCast2D" parent="." unique_id=222916696]
+visible = false
+position = Vector2(0, 1)
+target_position = Vector2(0, 8)
+collision_mask = 258
+
+[node name="HutBox" type="Area2D" parent="." unique_id=1264091571]
 visible = false
 collision_layer = 0
 collision_mask = 196
-monitoring = false
-monitorable = false
 
-[node name="Collision2" type="CollisionShape2D" parent="hurtbox" unique_id=1439325108]
+[node name="Collision" type="CollisionShape2D" parent="HutBox" unique_id=1439325108]
+position = Vector2(0, 2)
 shape = SubResource("RectangleShape2D_hj1c0")
 debug_color = Color(0.93573457, 0.15802479, 0.50309455, 0.41960785)
-
-[node name="HurtBoxDown" type="Area2D" parent="." unique_id=1234404864]
-visible = false
-collision_layer = 0
-collision_mask = 196
-monitoring = false
-monitorable = false
-
-[node name="Collision2" type="CollisionShape2D" parent="HurtBoxDown" unique_id=1480025747]
-position = Vector2(0, 7)
-shape = SubResource("RectangleShape2D_xpxb3")
-debug_color = Color(0.59378225, 0.42053345, 0.89536697, 0.41960785)
 
 [node name="Label" type="Label" parent="." unique_id=1870104507]
 offset_left = -32.0
@@ -152,5 +148,4 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [connection signal="screen_exited" from="Notifier" to="." method="_on_notifier_screen_exited"]
-[connection signal="body_entered" from="hurtbox" to="." method="_on_hurtbox_body_entered"]
-[connection signal="body_entered" from="HurtBoxDown" to="." method="_on_hurt_box_down_body_entered"]
+[connection signal="body_entered" from="HutBox" to="." method="_on_hurtbox_body_entered"]

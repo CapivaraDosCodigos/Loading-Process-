@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://dnnl7wp8gxsf3"]
 
-[ext_resource type="Texture2D" uid="uid://2e0it68077dt" path="res://Textures/Sprite Pack 2/8 - Comrade Cheese Puff/Tank_Movement.png" id="1_ret62"]
-[ext_resource type="Script" uid="uid://b1hmmypw0sc70" path="res://Entities/Inimigos/Tank Boy/tank_boy.gd" id="1_sid7x"]
+[ext_resource type="Texture2D" path="res://Textures/Sprite Pack 2/8 - Comrade Cheese Puff/Tank_Movement.png" id="1_ret62"]
+[ext_resource type="Script" uid="uid://b1hmmypw0sc70" path="res://Entities/Inimigos/Scripts/tank_boy.gd" id="1_sid7x"]
 
 [sub_resource type="Animation" id="Animation_8x3nh"]
 length = 0.001

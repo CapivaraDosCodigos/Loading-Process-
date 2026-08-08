@@ -8,24 +8,6 @@ static var audio: AudioStream = preload("uid://d32eu2b040w82")
 
 @export var score_mode: bool = false
 
-func _ready() -> void:
-	ManagerGame.time_stop.connect(_stop)
-	ManagerGame.time_play.connect(_play)
-	if ManagerGame.is_paused:
-		_stop()
-
-func _stop() -> void:
-	var parent: Node = get_parent()
-	if parent is RigidBody2D:
-		parent.freeze = true
-	animated.pause()
-
-func _play() -> void:
-	var parent: Node = get_parent()
-	if parent is RigidBody2D:
-		parent.freeze = false
-	animated.play()
-
 func _on_body_entered(body: Node2D) -> void:
 	if body is Player2D:
 		add_moeda.call_deferred(body)

@@ -2,10 +2,12 @@ extends Node
 
 signal progress_scene_changed(progress_array: Array)
 signal load_scene_finished
+
 signal error_start
 
 const LOADING_SCREEN: PackedScene = preload("uid://dp3hjnmnfokbw")
-const BACKGROUND_GAME: PackedScene = preload("uid://c8cue0dknqoqf")
+
+const BACKGROUND_GAME: PackedScene = preload("uid://c48oi3btkyfc2")
 const start_scene_file: String = "uid://cxyrsj3the2k4"
 const FILE_EXTENSION: String = ".tres"
 const PATH_FORMAT: String = "_%d" + FILE_EXTENSION
@@ -22,13 +24,13 @@ func start_game(slot: int) -> void:
 	if save == null:
 		error_start.emit()
 		return
-		
+	
 	ManagerGame.inGame = true
 	ManagerGame.items = save.items
 	ManagerGame.score = save.score
 	ManagerGame.current_slot = slot
 	
-	load_scene(save.current_stage, true, "transition_4")
+	load_scene(save.current_stage, true, "uid://uxt5n5ltkiik", {"shader_parameter/uv_x": 0.0})
 
 func get_camera() -> CameraCustom2D:
 	return get_viewport().get_camera_2d() as CameraCustom2D
@@ -36,19 +38,31 @@ func get_camera() -> CameraCustom2D:
 func set_time_scale(value: float) -> void:
 	Engine.time_scale = value
 
-func load_scene(_scene_path: String, _use_sub_threads: bool = true, transition: String = "transition_1") -> void:
+func load_scene(_scene_path: String, _use_sub_threads: bool = true, transition: String = "", parameters: Dictionary[StringName, Variant] = {}) -> void:
 	if not FileAccess.file_exists(_scene_path):
 		push_warning("Nao existe arquivo na path: ", _scene_path)
 		return
 	
+	var new_load_screen: CanvasTransition
+	
 	scene_path = _scene_path
 	use_sub_threads = _use_sub_threads
 	
-	var new_load_screen: LoadScreen = LOADING_SCREEN.instantiate()
-	new_load_screen.type_transition = transition
-	ManagerGame.add_child(new_load_screen)
+	if transition == "":
+		new_load_screen = LOADING_SCREEN.instantiate()
+	
+	elif not FileAccess.file_exists(transition):
+		push_warning("Nao existe arquivo na path: ", transition)
+		return
+	else:
+		new_load_screen = load(transition).instantiate()
+	
 	progress_scene_changed.connect(new_load_screen._on_progress_changed)
 	load_scene_finished.connect(new_load_screen._on_load_finished)
+	if not parameters.is_empty():
+		new_load_screen.set_shader_parameters(parameters)
+	
+	ManagerGame.add_child(new_load_screen)
 	
 	await new_load_screen.loading_screen_ready
 	_start_load_scene()

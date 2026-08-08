@@ -20,8 +20,7 @@ func physics_update(delta: float) -> void:
 	if not player.animation.animation == IDLE:
 		player.animation.play(IDLE)
 	
-	if player.is_on_floor():
-		player.can_dash = true
+	player.can_dash = true
 	
 	player.velocity.y += player.fall_gravity * delta
 	player.animation.scale.x = player.direction
@@ -32,7 +31,7 @@ func physics_update(delta: float) -> void:
 	elif player.buffer_jump.is_interval() and player.coyote_timer > 0:
 		finished.emit(JUMP)
 	
-	elif Game.get_input().x != 0.0 or !is_equal_approx(player.velocity.x, 0.0):
+	elif Inputs.get_input().x != 0.0 or !is_equal_approx(player.velocity.x, 0.0):
 		finished.emit(RUN)
 	
 	elif player.can_wall_slide():

@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://cbl8i00ww3pyo"]
 
-[ext_resource type="Script" uid="uid://dmady44ckodec" path="res://Entities/Inimigos/RocketCherry/InimigoFlying.gd" id="1_uo31x"]
-[ext_resource type="Texture2D" uid="uid://bny32kxltfych" path="res://Textures/Sprite Pack 2/7 - Rocket Cherry/Rocket Cherry (32 x 96).png" id="3_uo31x"]
+[ext_resource type="Script" uid="uid://dmady44ckodec" path="res://Entities/Inimigos/Scripts/InimigoFlying.gd" id="1_uo31x"]
+[ext_resource type="Texture2D" uid="uid://bgc5e0nfnaldl" path="res://Textures/RedCube.tres" id="3_uo31x"]
 [ext_resource type="PackedScene" uid="uid://dfcww07k3b188" path="res://Objetos/hitbox.tscn" id="4_uo31x"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_cy4pu"]

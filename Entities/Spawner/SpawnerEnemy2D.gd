@@ -2,6 +2,8 @@
 extends Spawner2D
 class_name SpawnerEnemy2D
 
+@export var initial_direction: Vector2 = Vector2.LEFT
+
 func _init() -> void:
 	add_to_group("Spawner")
 
@@ -49,14 +51,10 @@ func spawn() -> void:
 	
 	current_object = packed_spawn.packed_scene.instantiate()
 	
-	if packed_spawn is PackedEnemy:
-		if not packed_spawn.extra_nodes.is_empty():
-			for key: StringName in packed_spawn.extra_nodes.keys():
-				if key in current_object:
-					current_object.set_deferred(key, get_node(packed_spawn.extra_nodes[key]))
+	if current_object is Enemy2D:
+		current_object.direction = initial_direction
 		
 	_set_extra_vars()
 	
 	current_object.global_position = global_position
-	#current_enemy.position = Vector2.ZERO
 	add_sibling.call_deferred(current_object)

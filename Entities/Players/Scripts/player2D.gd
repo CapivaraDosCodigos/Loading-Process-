@@ -2,12 +2,6 @@ extends CharacterBody2D
 class_name Player2D
 
 const AIR_FRICTION: float = 0.5
-const COLORS_DIR: Dictionary[COLORS, ShaderMaterial] = {
-	COLORS.YELLOW: preload("uid://bolhwx21wdob3"),
-	COLORS.RED: preload("uid://bpo8tdats55qx"),
-	COLORS.GRAY: preload("uid://dqrn6lus63i50"), 
-	COLORS.NULL: null }
-enum COLORS { YELLOW, RED, GRAY, NULL }
 
 static var audio_jump: AudioStream = preload("uid://diu3u0xv087kx")
 static var audio_dash: AudioStream = preload("uid://lscbx1hh6oq0")
@@ -18,8 +12,6 @@ static var animated_shader: PackedScene = preload("uid://dp8d0wvd7wm0j")
 
 static var buffer_jump: InputBuffer = InputBuffer.new("ui_accept", 5)
 static var buffer_dash: InputBuffer = InputBuffer.new("Dash", 5)
-
-@export var color: COLORS = COLORS.YELLOW
 
 @export_group("Jump")
 @export var coyote_frames: int = 5
@@ -45,17 +37,22 @@ static var buffer_dash: InputBuffer = InputBuffer.new("Dash", 5)
 @onready var particles: Particles2D = $Particles
 @onready var ray_right: RayCast2D = $RayRight
 @onready var ray_left: RayCast2D = $RayLeft
+@onready var ray_up: RayCast2D = $RayUp
+@onready var ray_down: RayCast2D = $RayDown
 @onready var state_machine: StateMachine = $StateMachine
+
+var dash_timer: SceneTreeTimer
 
 var is_attack: bool = false
 var can_dash: bool = true
 var dash_cooldown: bool = true
 
+var frames: int = 0
 var coyote_timer: int = 0
-var dash_ghost_timer: int = 0
 
 var direction: float = 1.0:
 	set(value):
+		value = sign(value)
 		if value == 0.0:
 			return
 		direction = value
@@ -65,38 +62,33 @@ var fall_gravity: float = 0.0
 var gravity: float = 0.0
 var jump_velocity: float = 0.0
 var dash_velocity: float = 0.0
-var has_wall_slide: bool = false
 
-func _ready() -> void:
+func _init() -> void:
 	jump_velocity = (jump_height * 2.0) / max_time_to_peak
 	gravity = (jump_height * 2.0) / pow(max_time_to_peak, 2)
 	fall_gravity = gravity * 2.0
 	dash_velocity = dash_distance / dash_duration
-	
-	has_wall_slide = Game.Item.ScalingEquipment in ManagerGame.items
-	animation.material = COLORS_DIR[color]
 
 func _process(_delta: float) -> void:
-	animation.material = COLORS_DIR[color]
-	
-	$Label.text = str(state_machine.get_state(), " ", velocity)
+	if dash_timer:
+		$Label.text = str(state_machine.get_state(), " ", velocity)
 
 func _physics_process(delta: float) -> void:
 	buffer_jump.update_process()
 	buffer_dash.update_process()
 	state_machine.physics_update(delta)
 	
+	if frames > 0:
+		frames -= 1
+	else:
+		ManagerGame.player_position = get_player_position()
+		frames = 30
+	
 	if is_on_floor():
 		coyote_timer = coyote_frames
 	else:
 		if coyote_timer > 0:
 			coyote_timer -= 1
-	
-	if dash_ghost_timer > 0:
-		dash_ghost_timer -= 1
-	else:
-		create_ghost_sprite()
-		dash_ghost_timer = 2
 	
 	move_and_slide()
 	
@@ -107,14 +99,6 @@ func _physics_process(delta: float) -> void:
 		if icollider is FallingPlatform2D:
 			icollider.has_collided_with()
 
-func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("Invocation"):
-		if ManagerGame.coins > 0:
-			ManagerGame.coins -= 1
-			var cor: Dictionary = COLORS.duplicate()
-			cor.erase(COLORS.NULL)
-			color = cor.values().pick_random()
-
 func _should_die() -> bool:
 	if ManagerGame.player_life > 0:
 		ManagerGame.player_life -= 1
@@ -122,21 +106,9 @@ func _should_die() -> bool:
 	return ManagerGame.player_life <= 0
 
 func _on_hurtbox_body_entered(body: Node2D) -> void:
-	if ManagerGame.is_paused:
+	if is_attack:
 		return
 	
-	if body.is_in_group("Projectiles"):
-		body.queue_free()
-	
-	take_damage(body)
-
-func _on_hurt_box_down_body_entered(body: Node2D) -> void:
-	if ManagerGame.is_paused:
-		return
-	
-	if not body.get("take_damage_force"):
-		return
-		
 	if body.is_in_group("Projectiles"):
 		body.queue_free()
 	
@@ -157,37 +129,19 @@ func _on_notifier_screen_exited() -> void:
 	if died:
 		die()
 
-func _exit_tree() -> void:
-	ManagerGame.area_camera_inclusive = null
+func get_player_position() -> Vector2:
+	if state_machine.is_state(PlayerState.HURT):
+		return ManagerGame.player_position
+	
+	return global_position
 
 func use_skills() -> void:
-	if Game.Item.Lampada in ManagerGame.items:
-		if not ManagerGame.is_paused and can_dash:
-			ManagerGame.time_stop_event()
+	pass
 
 func can_wall_slide() -> bool:
-	if not has_wall_slide:
-		return false
-	
 	var touching_wall: bool = ray_right.is_colliding() or ray_left.is_colliding()
 	
 	return not is_on_floor() and touching_wall and velocity.y > 0
-
-func create_ghost_sprite() -> void:
-	if velocity.abs().x <+ speed+1 and velocity.abs().y <= speed+1:
-		return
-		
-	var anim: AnimatedSpriteShader2D = animated_shader.instantiate()
-	anim.sprite_frames = animation.sprite_frames
-	anim.animation = animation.animation
-	anim.frame = animation.frame
-	anim.flip_h = animation.flip_h
-	anim.global_position = global_position
-	anim.scale = animation.scale
-	#anim.set_shader(animation.material)
-	
-	add_sibling(anim)
-	anim.stop()
 
 func die() -> void:
 	var explosion_instance: AnimatedSprite2D = explosion_scene.instantiate()
@@ -197,11 +151,10 @@ func die() -> void:
 	add_sibling(explosion_instance)
 	
 	set_physics_process(false)
-	ManagerGame.shake_camera.emit(2.0, 1.0)
 	queue_free()
 
 func take_damage(body: CollisionObject2D) -> void:
-	if body is InimigoBase2D:
+	if body is Enemy2D:
 		body.apply_stun()
 	
 	if state_machine.is_state(PlayerState.HURT):
