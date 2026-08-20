@@ -5,12 +5,10 @@ var pos_jump: bool = false
 var gear: float = 1.0
 var direction_input: float
 
-# Fases internas do estado RUN
-enum GearPhase {WALK_ACCEL, JOG_ACCEL, RUN, JOG_DECEL, WALK_DECEL}
+enum GearPhase {WALK_ACCEL, JOG_ACCEL, RUNNING, JOG_DECEL, WALK_DECEL}
 var current_phase: GearPhase
 var is_turning: bool = false
 var is_decelerating: bool = false
-
 
 func enter(previous_state: String, data: Dictionary = {}) -> void:
 	if data.has("velocity_add"):
@@ -26,7 +24,7 @@ func enter(previous_state: String, data: Dictionary = {}) -> void:
 	# Se veio de um dash, já começa em Run total
 	if previous_state == DASH:
 		gear = 2.0
-		current_phase = GearPhase.RUN
+		current_phase = GearPhase.RUNNING
 		player.animation.play(RUN)
 		return
 
@@ -59,11 +57,9 @@ func _on_accel_jog_looped() -> void:
 		return
 	_disconnect_loop_signal()
 
-	current_phase = GearPhase.RUN
+	current_phase = GearPhase.RUNNING
 	gear = 2.0
 	player.animation.play(RUN)
-	# Fim da aceleração
-
 
 func _start_deceleration() -> void:
 	if is_decelerating:
@@ -80,7 +76,7 @@ func _start_deceleration() -> void:
 			# Estava em Jog → reduz para Walk rápido e depois idle
 			_schedule_decel_step(GearPhase.WALK_DECEL, 1.0, "Walk", _on_decel_walk_looped)
 
-		GearPhase.RUN:
+		GearPhase.RUNNING:
 			# Estava em Run → reduz para Jog rápido → Walk rápido → idle
 			_schedule_decel_step(GearPhase.JOG_DECEL, 1.5, "Jog", _on_decel_jog_looped)
 
@@ -139,7 +135,7 @@ func _resume_current_phase_animation() -> void:
 		GearPhase.JOG_ACCEL:
 			player.animation.play("Jog")
 			_connect_loop_signal(_on_accel_jog_looped)
-		GearPhase.RUN:
+		GearPhase.RUNNING:
 			player.animation.play(RUN)
 		# Para fases de deceleração, não deve ocorrer (turn só com input ativo)
 		_:
@@ -176,7 +172,7 @@ func physics_update(delta: float) -> void:
 	elif player.buffer_jump.is_interval() and player.coyote_timer > 0:
 		finished.emit(JUMP)
 
-	elif player.can_wall_slide():
+	elif can_wall_slide():
 		finished.emit(WALL_SLIDE)
 
 	elif not player.is_on_floor():
@@ -193,18 +189,16 @@ func handle_movement() -> void:
 
 	if direction_input != 0.0:
 		player.direction = direction_input
-	# A chamada de fim foi substituída pelo sistema de desaceleração
-
+	
 	player.velocity.x = player.direction * max(player.speed * gear, velocity_add.x)
 
 
 func handle_dash() -> bool:
 	if player.buffer_dash.is_interval() and player.dash_cooldown:
 		if player.has_dash:
-			finished.emit(DASH, {"gear": gear})
+			finished.emit(DASH)
 			return true
 		player.buffer_dash.set_buffer_time()
-		player.use_skills()
 	return false
 
 

@@ -1,17 +1,14 @@
 extends PlayerState
 
-var dash_velocity_add: Vector2
+var direction_input: float
 
-func enter(_previous_state_path: String, data: Dictionary = {}) -> void:
+func enter(_previous_state_path: String, _data: Dictionary = {}) -> void:
 	player.animation.play(FALL)
-	
-	if data.has("velocity_add"):
-		dash_velocity_add = data["velocity_add"]
 
 func physics_update(delta: float) -> void:
-	handle_movement()
+	handle_movement(delta)
 	
-	player.velocity.y += player.fall_gravity * delta
+	player.velocity.y += player.gravity * delta
 	player.animation.scale.x = player.direction
 	
 	if player.is_on_floor():
@@ -28,27 +25,19 @@ func physics_update(delta: float) -> void:
 	elif handle_dash():
 		return
 	
-	elif player.can_wall_slide():
+	elif can_wall_slide():
 		finished.emit(WALL_SLIDE)
 
-func handle_movement() -> void:
-	var direction_input: float = Inputs.get_input().x
+func handle_movement(delta: float) -> void:
+	direction_input = Inputs.get_input().x
+	player.direction = direction_input
 	
-	var velocity_add: Vector2 = Vector2.ZERO
+	if player.velocity.abs().x > player.speed:
+		if player.velocity.sign().x != direction_input:
+			player.velocity.x = lerp(player.velocity.x, direction_input * player.speed, delta)
+		return
 	
-	if MathGame.desnormalized(dash_velocity_add).x == direction_input:
-		velocity_add.x = dash_velocity_add.abs().x
-		
-	dash_velocity_add = dash_velocity_add.lerp(Vector2.ZERO, player.AIR_FRICTION / 10.0)
-	
-	if not player.is_on_floor() and dash_velocity_add == Vector2.ZERO:
-		player.velocity.x = 0.0
-	
-	if direction_input != 0.0:
-		player.direction = direction_input
-		player.velocity.x = player.direction * max(player.speed, velocity_add.x)
-	else:
-		player.velocity.x = move_toward(player.velocity.x, 0.0, player.speed)
+	player.velocity.x = direction_input * player.speed
 
 func get_name() -> StringName:
 	return FALL

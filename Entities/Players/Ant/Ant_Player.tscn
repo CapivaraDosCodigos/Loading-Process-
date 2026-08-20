@@ -10,10 +10,16 @@
 [ext_resource type="Script" uid="uid://xk0fgpfqqkii" path="res://Entities/Players/Scripts/States/Run.gd" id="8_verfp"]
 [ext_resource type="Script" uid="uid://pir4p7ao4qan" path="res://Entities/Players/Scripts/States/WallJump.gd" id="9_7eqn4"]
 [ext_resource type="Script" uid="uid://dj1cl5xyxv3p4" path="res://Entities/Players/Scripts/States/WallSlide.gd" id="10_lvhlr"]
+[ext_resource type="Shader" uid="uid://bmero5ro3imxp" path="res://Shaders/BlinkSimples.gdshader" id="11_76ytj"]
 [ext_resource type="SpriteFrames" uid="uid://cunqhhb1sxrv5" path="res://Entities/Players/Ant/AntSpriteFrames.tres" id="12_8o8t5"]
 [ext_resource type="SpriteFrames" uid="uid://bibdcxl675mgy" path="res://Entities/Players/Ant/olho.tres" id="13_8o8t5"]
 [ext_resource type="Theme" uid="uid://rgc24ucsh4oi" path="res://Assets/Themes/theme_game1.tres" id="14_68y17"]
 [ext_resource type="Script" uid="uid://b3i4fugpre6cn" path="res://Entities/Players/Ant/particles.gd" id="16_verfp"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qc2sv"]
+shader = ExtResource("11_76ytj")
+shader_parameter/blink_color = Color(1, 1, 1, 1)
+shader_parameter/blink_intensity = 0.0
 
 [sub_resource type="Curve" id="Curve_7eqn4"]
 _limits = [0.0, 200.0, 0.0, 1.0]
@@ -58,8 +64,10 @@ size = Vector2(12, 14)
 [node name="Player" type="CharacterBody2D" unique_id=1760291039]
 collision_mask = 3
 script = ExtResource("1_t38ms")
-color = 3
+jump_velocity = 256.0
 speed = 165.0
+dash_distance = 48.0
+dash_duration = 0.15000000000000002
 knockback_height = 256.0
 immortal = true
 metadata/_custom_type_script = "uid://cplihoc3hmqpv"
@@ -71,11 +79,10 @@ states_scripts = Array[Script]([ExtResource("6_8o8t5"), ExtResource("8_verfp"), 
 metadata/_custom_type_script = "uid://bdpwbx7o4ork5"
 
 [node name="Animation" type="AnimatedSprite2D" parent="." unique_id=323388771]
+material = SubResource("ShaderMaterial_qc2sv")
 sprite_frames = ExtResource("12_8o8t5")
 animation = &"Crouch Turn"
 autoplay = "Idle"
-frame = 3
-frame_progress = 1.0
 
 [node name="Olho" type="AnimatedSprite2D" parent="Animation" unique_id=301488834]
 visible = false
@@ -92,10 +99,6 @@ explosiveness = 1.0
 process_material = SubResource("ParticleProcessMaterial_verfp")
 script = ExtResource("16_verfp")
 metadata/_custom_type_script = "uid://b3i4fugpre6cn"
-
-[node name="Notifier" type="VisibleOnScreenNotifier2D" parent="." unique_id=1780280279]
-rect = Rect2(-1, -1, 2, 2)
-show_rect = false
 
 [node name="Collision" type="CollisionShape2D" parent="." unique_id=1258751320]
 visible = false
@@ -129,7 +132,7 @@ collision_mask = 258
 [node name="HutBox" type="Area2D" parent="." unique_id=1264091571]
 visible = false
 collision_layer = 0
-collision_mask = 196
+collision_mask = 212
 
 [node name="Collision" type="CollisionShape2D" parent="HutBox" unique_id=1439325108]
 position = Vector2(0, 2)
@@ -147,5 +150,4 @@ text = "Run"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[connection signal="screen_exited" from="Notifier" to="." method="_on_notifier_screen_exited"]
 [connection signal="body_entered" from="HutBox" to="." method="_on_hurtbox_body_entered"]

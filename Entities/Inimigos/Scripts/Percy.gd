@@ -23,19 +23,18 @@ func _physics_process(delta: float) -> void:
 	
 	move_and_slide()
 
-func take_damage(player: Player2D = null) -> void:
+func take_damage(_player: Player2D = null) -> void:
 	current_state = EnemyState.HURT
 	
-	if player: player.velocity.y = -player.jump_velocity
-	
-	_apply_effects()
-	
-	animation_player.play("Hurt")
+	_apply_hurt_effects()
 	
 	if health_point > 0:
 		health_point -= 1
 	
+	play(HURT)
+	
 	await get_tree().create_timer(0.3, false).timeout
+	
 	current_state = EnemyState.PATROL
 
 func _attack_state() -> void:
@@ -86,7 +85,4 @@ func spawn_fireball() -> void:
 	new_fireball.global_position = fireball_spawn_point.global_position + Vector2(0.0 , randf_range(3.0, -3.0))
 	add_sibling(new_fireball)
 	
-	if sign(fireball_spawn_point.position.x) == 1:
-		new_fireball.set_direction(1)
-	else:
-		new_fireball.set_direction(-1)
+	new_fireball.direction = Vector2(sign(fireball_spawn_point.position.x), 0.0)

@@ -6,7 +6,7 @@ func _ready() -> void:
 	visible = false
 
 func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_pressed("ui_cancel") and not ManagerGame.is_paused_force:
+	if event.is_action_pressed("ui_cancel") and not Game.is_paused_force:
 		if not visible:
 			visible = true
 			get_tree().paused = true

@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://b0uva68sp3g41"]
 
-[ext_resource type="Material" uid="uid://bglfmn7coq3du" path="res://Assets/Shader Material/GameColors/GameGray.tres" id="1_4ss5i"]
+[ext_resource type="Material" uid="uid://bvd1gjvbhh6ar" path="res://Shaders/Outline.tres" id="1_4ss5i"]
 [ext_resource type="Texture2D" uid="uid://bgbx6y7qbhhj1" path="res://Textures/Mini FX, Items & UI/Effects/Explosion_Poof (16 x 16).png" id="1_ji358"]
 [ext_resource type="AudioStream" uid="uid://duf0kpmbvineh" path="res://Utility/SFXs/Retro/explosion_medium.wav" id="2_f1wt5"]
 [ext_resource type="Script" uid="uid://dvb3i5n2d1pv6" path="res://Common/Audio Manager/AudioPlayer2D.gd" id="3_mdynw"]

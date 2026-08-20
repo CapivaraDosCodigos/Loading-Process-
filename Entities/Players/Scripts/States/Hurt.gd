@@ -26,7 +26,7 @@ func enter(_previous_state_path: String, data: Dictionary = {}) -> void:
 	
 	if player.buffer_jump.is_interval() and player.coyote_timer > 0:
 		finished.emit(JUMP, {"velocity_add": player.velocity})
-	elif player.can_wall_slide():
+	elif can_wall_slide():
 		finished.emit(WALL_SLIDE, {"velocity_add": player.velocity})
 	elif not player.is_on_floor():
 		finished.emit("Fall", {"velocity_add": player.velocity})
@@ -38,6 +38,15 @@ func physics_update(_delta: float) -> void:
 
 func get_name() -> StringName:
 	return HURT
+
+func exit() -> void:
+	await  player.get_tree().create_timer(1.5).timeout
+	
+	if player.hurbox.get_overlapping_bodies().is_empty():
+		return
+	
+	var body: Node2D = player.hurbox.get_overlapping_bodies().get(0)
+	player.hurbox.body_entered.emit(body)
 
 func _set_shader_blink_intensity(new_value: float) -> void:
 	if player.animation.material:

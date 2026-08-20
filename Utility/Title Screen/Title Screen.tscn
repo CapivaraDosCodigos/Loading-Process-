@@ -1,0 +1,96 @@
+[gd_scene format=3 uid="uid://dfqvg33rnlbx8"]
+
+[ext_resource type="Theme" uid="uid://rgc24ucsh4oi" path="res://Assets/Themes/theme_game1.tres" id="1_eq5hd"]
+[ext_resource type="Script" uid="uid://bgowabrf4mfx4" path="res://Utility/Title Screen/title_screen.gd" id="2_l25ej"]
+[ext_resource type="Shader" uid="uid://dg20q2l1sg7le" path="res://LinesSong.gdshader" id="3_hoauy"]
+[ext_resource type="Script" uid="uid://b1dmef7yr5xbd" path="res://Utility/Title Screen/audio_texture_analyzer.gd" id="4_bss61"]
+[ext_resource type="AudioStream" uid="uid://cy88jyy2dca36" path="res://Utility/Title Screen/2018 Clement Panchout Shooting on Sight PRE FIGHT LOOP.wav" id="5_vsgl7"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_l25ej"]
+shader = ExtResource("3_hoauy")
+shader_parameter/lines = 48
+shader_parameter/amplitude = 0.9
+shader_parameter/frequency = 0.1
+shader_parameter/intensity = 0.75
+shader_parameter/line_sharpness = 1.0
+shader_parameter/line_size = 0.50000002375
+shader_parameter/fade = 0.5
+shader_parameter/rest_size = -0.2
+shader_parameter/edge = 0.0
+shader_parameter/speed = 0.05
+shader_parameter/color = Color(0.24800001, 0.8, 0.45039997, 1)
+shader_parameter/dot_matrix = false
+shader_parameter/dot_matriz_size = 80
+shader_parameter/speech_sim = false
+shader_parameter/speech_intensity = 0.8
+shader_parameter/progress = 1.0
+
+[node name="TitleScreen" type="Control" unique_id=1063913917]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_eq5hd")
+script = ExtResource("2_l25ej")
+
+[node name="Audio" type="AudioStreamPlayer" parent="." unique_id=298644277]
+stream = ExtResource("5_vsgl7")
+autoplay = true
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=485427555]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Lines" type="ColorRect" parent="." unique_id=1738651048 node_paths=PackedStringArray("audio_player")]
+material = SubResource("ShaderMaterial_l25ej")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 16.0
+offset_bottom = -400.0
+grow_horizontal = 2
+grow_vertical = 2
+offset_transform_enabled = true
+color = Color(0, 0, 0, 1)
+script = ExtResource("4_bss61")
+audio_player = NodePath("../Audio")
+
+[node name="Lines2" type="ColorRect" parent="." unique_id=1186646544 node_paths=PackedStringArray("audio_player")]
+material = SubResource("ShaderMaterial_l25ej")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 400.0
+offset_bottom = -16.0
+grow_horizontal = 2
+grow_vertical = 2
+offset_transform_enabled = true
+color = Color(0, 0, 0, 1)
+script = ExtResource("4_bss61")
+audio_player = NodePath("../Audio")
+
+[node name="Button" type="Button" parent="." unique_id=858577524]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -4.0
+offset_top = -4.0
+offset_right = 4.0
+offset_bottom = 4.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Jogar"
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

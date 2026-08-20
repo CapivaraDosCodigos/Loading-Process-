@@ -28,30 +28,24 @@ func _ready() -> void:
 	set_process(false)
 
 ## Inicia o carregamento de uma nova cena com tela de transição
-func load_scene(_scene_path: String, _use_sub_threads: bool = true, transition: String = "", parameters: Dictionary[StringName, Variant] = {}) -> void:
+func load_scene(_scene_path: String, _use_sub_threads: bool = true, transition: String = &"", parameters: Dictionary[StringName, Variant] = {}) -> void:
 	if not FileAccess.file_exists(_scene_path):
 		push_warning("Nao existe arquivo na path: ", _scene_path)
 		return
 	
 	var new_load_screen: CanvasTransition
 	
-	if transition == "":
+	if transition == &"":
 		new_load_screen = loading_screen.instantiate()
-	
-	elif not FileAccess.file_exists(transition):
-		push_warning("Nao existe arquivo na path: ", transition)
-		return
 	else:
-		new_load_screen = load(transition).instantiate()
+		new_load_screen = CanvasTransition.create_canvas_transition(transition, parameters)
 	
 	scene_path = _scene_path
 	use_sub_threads = _use_sub_threads
 	
 	progress_changed.connect(new_load_screen._on_progress_changed)
 	load_finished.connect(new_load_screen._on_load_finished)
-	if not parameters.is_empty():
-		new_load_screen.set_shader_parameters(parameters)
-	
+
 	add_child(new_load_screen)
 	await new_load_screen.loading_screen_ready
 	_start_load()

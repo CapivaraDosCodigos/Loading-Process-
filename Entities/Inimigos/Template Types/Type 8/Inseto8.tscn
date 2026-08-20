@@ -1,0 +1,52 @@
+[gd_scene format=3 uid="uid://buixlo4eqfdlo"]
+
+[ext_resource type="Script" uid="uid://b6qd2m8f8cjeh" path="res://Entities/Inimigos/Template Types/Type 7/Type 7.gd" id="1_4wigk"]
+[ext_resource type="PackedScene" uid="uid://dfcww07k3b188" path="res://Objetos/Areas/hitbox.tscn" id="3_inv8q"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_r5agy"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7m6ug"]
+size = Vector2(8, 12)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cnvmn"]
+size = Vector2(12, 2)
+
+[node name="Inseto8" type="CharacterBody2D" unique_id=2047432975 node_paths=PackedStringArray("animated") groups=["Inimigos"]]
+collision_layer = 4
+collision_mask = 263
+script = ExtResource("1_4wigk")
+animated = NodePath("Animated")
+metadata/_custom_type_script = "uid://hyh0dbmb4pg2"
+
+[node name="VisibleOnScreenEnabler2D" type="VisibleOnScreenEnabler2D" parent="." unique_id=859881714]
+rect = Rect2(-8, -8, 16, 16)
+show_rect = false
+
+[node name="Animated" type="AnimatedSprite2D" parent="." unique_id=187277772]
+sprite_frames = SubResource("SpriteFrames_r5agy")
+flip_h = true
+
+[node name="Polygon2D" type="Polygon2D" parent="Animated" unique_id=217554871]
+color = Color(1, 0.37, 0.37, 1)
+polygon = PackedVector2Array(6, 0, 6, 8, -6, 8, -6, 0)
+
+[node name="Collision" type="CollisionShape2D" parent="." unique_id=359271650]
+position = Vector2(-4.371139e-08, 4)
+rotation = 1.5707964
+shape = SubResource("RectangleShape2D_7m6ug")
+one_way_collision = true
+one_way_collision_direction = Vector2(1, 0)
+
+[node name="Hitbox" parent="." unique_id=1128202378 instance=ExtResource("3_inv8q")]
+visible = false
+
+[node name="Collision2" type="CollisionShape2D" parent="Hitbox" unique_id=1436478941]
+position = Vector2(0, -2)
+shape = SubResource("RectangleShape2D_cnvmn")
+debug_color = Color(0.9740793, 0, 0.43279848, 0.41960785)
+
+[node name="GroundDetector" type="RayCast2D" parent="." unique_id=239184590]
+modulate = Color(18.892157, 15.022721, 0, 1)
+position = Vector2(0, 1)
+target_position = Vector2(-7, 32)
+collision_mask = 2

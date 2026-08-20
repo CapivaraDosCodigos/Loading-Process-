@@ -1,15 +1,13 @@
-extends Node
+extends RefCounted
+class_name SpawnManager
 
-var objetos_in_cache: Array[Node2D] = []
+static var objetos_in_cache: Array[Node2D] = []
 
-func _ready() -> void:
-	ManagerGame.dead_player.connect(despawn_objeto_in_cache)
-
-func add_objeto_in_cache_for_area(objeto: Node2D) -> void:
+static func add_objeto_in_cache_for_area(objeto: Node2D) -> void:
 	if not objeto:
 		return
 	
-	var camera: CameraCustom2D = ManagerGame.camera
+	var camera: CameraCustom2D = Game.camera
 	if not camera:
 		return
 	
@@ -18,14 +16,14 @@ func add_objeto_in_cache_for_area(objeto: Node2D) -> void:
 			area.objects_in_cache.append(objeto)
 			break
 
-func add_objeto_in_cache(objeto: Node2D) -> void:
+static func add_objeto_in_cache(objeto: Node2D) -> void:
 	if not objeto:
 		return
 	
 	objetos_in_cache.append(objeto)
 
-func despawn_objeto_in_cache() -> void:
+static func despawn_objeto_in_cache() -> void:
 	for objeto in objetos_in_cache:
 		if objeto:
-			queue_free()
+			objeto.queue_free()
 	objetos_in_cache.clear()

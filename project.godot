@@ -12,7 +12,7 @@ config_version=5
 
 config/name="Loading Process"
 config/tags=PackedStringArray("game")
-run/main_scene="uid://blc6rhvbms5rr"
+run/main_scene="uid://bbnjf8q31uebh"
 config/features=PackedStringArray("4.7", "GL Compatibility")
 boot_splash/bg_color=Color(0, 0, 0, 1)
 config/icon="res://icon.svg"
@@ -21,32 +21,28 @@ boot_splash/show_image=false
 [autoload]
 
 Global="*uid://dwc670uxsidax"
-ManagerGame="*uid://bbnjf8q31uebh"
-SpawnManager="*uid://ydp0bqxkx17r"
 AudioManager="*uid://cochi04cli4u1"
-DialogueManager="*uid://ilwe2k2eypqf"
 
 [debug]
 
+gdscript/warnings/unused_signal=0
 gdscript/warnings/untyped_declaration=1
 
 [display]
 
-window/size/viewport_width=320
-window/size/viewport_height=180
-window/size/mode=3
+window/size/viewport_width=768
+window/size/viewport_height=432
+window/size/mode=2
 window/stretch/mode="canvas_items"
-window/stretch/aspect="keep_height"
 
 [editor_plugins]
 
-enabled=PackedStringArray()
+enabled=PackedStringArray("res://addons/scene_runner/plugin.cfg")
 
 [file_customization]
 
 folder_colors={
 "res://Assets/Credits/": "gray",
-"res://Assets/Shader Material/": "pink",
 "res://Autoloads/": "yellow",
 "res://Common/": "green",
 "res://Common/Audio Manager/": "blue",
@@ -63,14 +59,13 @@ folder_colors={
 "res://Objetos/": "gray",
 "res://Shaders/": "pink",
 "res://Textures/": "green",
-"res://Textures/Buttons/": "blue",
 "res://Textures/Seasonal Tilesets/1 - Grassland/": "green",
 "res://Textures/Seasonal Tilesets/Futuristic City Parallax/": "yellow",
 "res://Textures/Seasonal Tilesets/Starry Night/": "purple",
-"res://Textures/Seasonal Tilesets/Tilemaps/": "teal",
-"res://Textures/Seasonal Tilesets/WCP/": "gray",
 "res://Textures/Seasonal Tilesets/Wasteland/": "red",
-"res://addons/": "pink"
+"res://Textures/Template/Buttons/": "blue",
+"res://Textures/Template/Player Template/": "orange",
+"res://Textures/Template/Tilemaps/": "teal"
 }
 
 [global_group]
@@ -79,6 +74,7 @@ Inimigos=""
 Projectiles=""
 Spawner=""
 camera_area=""
+Main=""
 
 [input]
 
@@ -179,6 +175,12 @@ textures/canvas_textures/default_texture_filter=0
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
 textures/vram_compression/import_s3tc_bptc=true
+environment/defaults/default_clear_color=Color(0.17660046, 0.32253337, 0.38307977, 1)
+
+[scene_runner]
+
+harness_scene_path="uid://bbnjf8q31uebh"
+slot_group_name="Main"
 
 [shader_globals]
 

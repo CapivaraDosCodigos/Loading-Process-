@@ -1,18 +1,16 @@
 [gd_scene format=3 uid="uid://gli5foejngdy"]
 
 [ext_resource type="Script" uid="uid://cqapnpi4gjl5b" path="res://Utility/Huds/controls_mobile.gd" id="1_1g7qf"]
-[ext_resource type="Texture2D" uid="uid://ce6aj0ljrj0nc" path="res://Textures/Buttons/ui_buttons_arrow_left_NORMAL.png" id="1_3c10e"]
-[ext_resource type="Texture2D" uid="uid://bssfvakp1h27t" path="res://Textures/Buttons/ui_buttons_arrow_left_PRESSED.png" id="2_r7hee"]
-[ext_resource type="Texture2D" uid="uid://cw0sgayfqjdn4" path="res://Textures/Buttons/ui_buttons_arrow_right_NORMAL.png" id="3_wi0ar"]
-[ext_resource type="Texture2D" uid="uid://u6e3306lbewi" path="res://Textures/Buttons/ui_buttons_arrow_right_PRESSED.png" id="4_e0y5j"]
-[ext_resource type="Texture2D" uid="uid://de3kmhe0d24vj" path="res://Textures/Buttons/ui_buttons_arrow_up_NORMAL.png" id="5_mi2rd"]
-[ext_resource type="Texture2D" uid="uid://dywviw38oek6n" path="res://Textures/Buttons/ui_buttons_arrow_up_PRESSED.png" id="6_bdase"]
-[ext_resource type="Texture2D" uid="uid://c0eutws8aeqa0" path="res://Textures/Buttons/dash_normal.png" id="7_e0y5j"]
-[ext_resource type="Texture2D" uid="uid://bwe6e6lhuplbw" path="res://Textures/Buttons/dash_pressed .png" id="8_mi2rd"]
-[ext_resource type="Texture2D" uid="uid://7ae8tjv8ywpj" path="res://Textures/Buttons/pause_button (24x24).png" id="10_gmpxm"]
-[ext_resource type="Texture2D" uid="uid://3wpsndfxwnlb" path="res://Textures/Buttons/pause_pressed_button (24x24).png" id="11_l32vt"]
-[ext_resource type="Texture2D" uid="uid://cstjl7hxrkwi5" path="res://Textures/Buttons/button_interact (24x24).png" id="12_gmpxm"]
-[ext_resource type="Texture2D" uid="uid://dq24bqennwbuu" path="res://Textures/Buttons/button_interact_pressed (24x24).png" id="13_l32vt"]
+[ext_resource type="Texture2D" uid="uid://ce6aj0ljrj0nc" path="res://Textures/Template/Buttons/ui_buttons_arrow_left_NORMAL.png" id="1_3c10e"]
+[ext_resource type="Texture2D" uid="uid://bssfvakp1h27t" path="res://Textures/Template/Buttons/ui_buttons_arrow_left_PRESSED.png" id="2_r7hee"]
+[ext_resource type="Texture2D" uid="uid://cw0sgayfqjdn4" path="res://Textures/Template/Buttons/ui_buttons_arrow_right_NORMAL.png" id="3_wi0ar"]
+[ext_resource type="Texture2D" uid="uid://u6e3306lbewi" path="res://Textures/Template/Buttons/ui_buttons_arrow_right_PRESSED.png" id="4_e0y5j"]
+[ext_resource type="Texture2D" uid="uid://de3kmhe0d24vj" path="res://Textures/Template/Buttons/ui_buttons_arrow_up_NORMAL.png" id="5_mi2rd"]
+[ext_resource type="Texture2D" uid="uid://dywviw38oek6n" path="res://Textures/Template/Buttons/ui_buttons_arrow_up_PRESSED.png" id="6_bdase"]
+[ext_resource type="Texture2D" uid="uid://c0eutws8aeqa0" path="res://Textures/Template/Buttons/dash_normal.png" id="7_e0y5j"]
+[ext_resource type="Texture2D" uid="uid://bwe6e6lhuplbw" path="res://Textures/Template/Buttons/dash_pressed .png" id="8_mi2rd"]
+[ext_resource type="Texture2D" uid="uid://7ae8tjv8ywpj" path="res://Textures/Template/Buttons/pause_button (24x24).png" id="10_gmpxm"]
+[ext_resource type="Texture2D" uid="uid://3wpsndfxwnlb" path="res://Textures/Template/Buttons/pause_pressed_button (24x24).png" id="11_l32vt"]
 [ext_resource type="Theme" uid="uid://rgc24ucsh4oi" path="res://Assets/Themes/theme_game1.tres" id="14_l32vt"]
 
 [node name="Controls" type="CanvasLayer" unique_id=372594056]
@@ -21,7 +19,8 @@ layer = 50
 script = ExtResource("1_1g7qf")
 
 [node name="base2D" type="Node2D" parent="." unique_id=410990943]
-scale = Vector2(0.5, 0.5)
+modulate = Color(1, 1, 1, 0.5)
+scale = Vector2(1.2, 1.2)
 
 [node name="ButtonLeft" type="TouchScreenButton" parent="base2D" unique_id=1313928293]
 unique_name_in_owner = true
@@ -90,15 +89,6 @@ scale = Vector2(2, 2)
 texture_normal = ExtResource("10_gmpxm")
 texture_pressed = ExtResource("11_l32vt")
 action = "ui_cancel"
-visibility_mode = 1
-
-[node name="ButtonInterect" type="TouchScreenButton" parent="base2D" unique_id=1507980654]
-unique_name_in_owner = true
-position = Vector2(574, 136)
-scale = Vector2(2, 2)
-texture_normal = ExtResource("12_gmpxm")
-texture_pressed = ExtResource("13_l32vt")
-action = "Invocation"
 visibility_mode = 1
 
 [node name="VirtualJoystick" type="VirtualJoystick" parent="base2D" unique_id=1635577825]

@@ -1,7 +1,7 @@
 extends Resource
-class_name Game
+class_name GameResource
 
-enum Item { Lampada, ScalingEquipment, Dash }
+enum Item {}
 
 const FILE_EXTENSION: String = ".tres"
 const SAVE_PATH: String = "res://save_slot_%d" + FILE_EXTENSION

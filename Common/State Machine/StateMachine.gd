@@ -2,10 +2,6 @@ class_name StateMachine extends Node
 
 @export var initial_state: StringName
 @export var states_scripts: Array[Script] = []
-
-var states: Dictionary[StringName, State] = {}
-var state: State
-
 @export var process: bool = false:
 	set(value):
 		process = value
@@ -14,6 +10,9 @@ var state: State
 	set(value):
 		physics = value
 		set_physics_process(physics)
+
+var states: Dictionary[StringName, State] = {}
+var state: State
 
 func _ready() -> void:
 	set_process(process)
@@ -48,7 +47,7 @@ func transition_to_next_state(target_state: StringName, data: Dictionary = {}) -
 	if not states.has(target_state):
 		printerr(owner.name + ": Trying to transition to state " + target_state + " but it does not exist.")
 		return
-
+	
 	state.exit()
 	
 	states[target_state].enter(state.name, data)

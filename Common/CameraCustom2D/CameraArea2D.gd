@@ -25,7 +25,8 @@ enum AreaType { STANDARD, FOCUS }
 @export var enter_ease: Tween.EaseType = Tween.EASE_OUT
 
 var cached_world_aabb: Rect2
-var world_points: PackedVector2Array
+
+var world_points: PackedVector2Array = []
 var world_points_center_boundary: PackedVector2Array:
 	get():
 		if !world_points_center_boundary.is_empty():
@@ -34,11 +35,8 @@ var world_points_center_boundary: PackedVector2Array:
 		elif center_boundary:
 			world_points_center_boundary = _get_world_polygon(center_boundary)
 		return world_points_center_boundary
-
 var objects: Array[Spawner2D] = []
 var objects_in_cache: Array[Node2D] = []
-
-#endregion
 
 func _init() -> void:
 	add_to_group("camera_area")
@@ -121,3 +119,73 @@ func despawn() -> void:
 			object.queue_free()
 	
 	objects_in_cache.clear()
+
+#region export tool
+
+@export_group("Auto Boundary")
+@export var boundary_scale: float = 0.8
+
+@export_tool_button("Gerar Center Boundary")
+var generate_boundary_action: Callable = _generate_center_boundary
+
+const CENTER_BOUNDARY_NAME: String = "CenterBoundary"
+
+func _generate_center_boundary() -> void:
+	if polygon.size() < 3:
+		push_warning("CameraArea2D: polígono precisa ter ao menos 3 pontos.")
+		return
+
+	var centroid: Vector2 = _polygon_centroid(polygon)
+
+	var centered_points: PackedVector2Array = PackedVector2Array()
+	centered_points.resize(polygon.size())
+	for i in polygon.size():
+		centered_points[i] = polygon[i] - centroid
+
+	var boundary_node: Polygon2D = _get_or_create_boundary_child()
+	boundary_node.position = centroid
+	boundary_node.scale = Vector2.ONE * boundary_scale
+	boundary_node.polygon = centered_points
+
+	center_boundary = boundary_node
+	notify_property_list_changed()
+
+func _polygon_centroid(pts: PackedVector2Array) -> Vector2:
+	var area_sum: float = 0.0
+	var cx: float = 0.0
+	var cy: float = 0.0
+	var n: int = pts.size()
+
+	for i in n:
+		var a: Vector2 = pts[i]
+		var b: Vector2 = pts[(i + 1) % n]
+		var cross: float = a.x * b.y - b.x * a.y
+		area_sum += cross
+		cx += (a.x + b.x) * cross
+		cy += (a.y + b.y) * cross
+
+	# Fallback pra polígono degenerado (pontos colineares, área ~0)
+	if abs(area_sum) < 0.0001:
+		var avg: Vector2 = Vector2.ZERO
+		for p in pts:
+			avg += p
+		return avg / n
+
+	var area: float = area_sum * 0.5
+	cx /= (6.0 * area)
+	cy /= (6.0 * area)
+	return Vector2(cx, cy)
+
+func _get_or_create_boundary_child() -> Polygon2D:
+	var existing: Node = get_node_or_null(CENTER_BOUNDARY_NAME)
+	if existing is Polygon2D:
+		return existing
+
+	var new_boundary: Polygon2D = Polygon2D.new()
+	new_boundary.name = CENTER_BOUNDARY_NAME
+	new_boundary.color = Color(0.0, 1.0, 0.0, 0.25)
+	add_child(new_boundary)
+	if Engine.is_editor_hint():
+		new_boundary.owner = get_tree().edited_scene_root
+	return new_boundary
+#endregion

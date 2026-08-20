@@ -1,0 +1,40 @@
+[gd_scene format=3 uid="uid://chjwb8eq875x1"]
+
+[ext_resource type="Script" uid="uid://bjde5fuwuqf55" path="res://Entities/Inimigos/Template Types/Type 3/Type 3.gd" id="1_c2fvm"]
+[ext_resource type="SpriteFrames" uid="uid://5ooebrw5acfn" path="res://Textures/Template/Tilemaps/sprite_template.tres" id="2_div4m"]
+[ext_resource type="PackedScene" uid="uid://dfcww07k3b188" path="res://Objetos/Areas/hitbox.tscn" id="2_skwri"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7m6ug"]
+size = Vector2(11, 12)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cnvmn"]
+size = Vector2(12, 11)
+
+[node name="Inseto3" type="CharacterBody2D" unique_id=1332807745 node_paths=PackedStringArray("animated") groups=["Inimigos"]]
+collision_layer = 4
+collision_mask = 263
+script = ExtResource("1_c2fvm")
+animated = NodePath("Animated")
+metadata/_custom_type_script = "uid://hyh0dbmb4pg2"
+
+[node name="VisibleOnScreenEnabler2D" type="VisibleOnScreenEnabler2D" parent="." unique_id=859881714]
+rect = Rect2(-8, -8, 16, 16)
+show_rect = false
+
+[node name="Animated" type="AnimatedSprite2D" parent="." unique_id=187277772]
+sprite_frames = ExtResource("2_div4m")
+animation = &"Walking"
+autoplay = "Walking"
+flip_h = true
+
+[node name="Collision" type="CollisionShape2D" parent="." unique_id=359271650]
+position = Vector2(2.1855694e-08, 2.5)
+rotation = 1.5707964
+shape = SubResource("RectangleShape2D_7m6ug")
+
+[node name="Hitbox" parent="." unique_id=1128202378 instance=ExtResource("2_skwri")]
+
+[node name="Collision2" type="CollisionShape2D" parent="Hitbox" unique_id=1436478941]
+position = Vector2(0, 2.5)
+shape = SubResource("RectangleShape2D_cnvmn")
+debug_color = Color(0.9740793, 0, 0.43279848, 0.41960785)

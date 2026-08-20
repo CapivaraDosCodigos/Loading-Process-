@@ -141,7 +141,7 @@ func _launch_missil() -> void:
 
 	add_sibling(missil)
 	missil.global_position = missil_point.global_position + Vector2(0, randf_range(-4.0, 4.0))
-	missil.set_direction(int(direction.x))
+	missil.direction = Vector2(direction.x, 0.0)
 
 	missil_cooldown.start()
 	missil_count += 1
@@ -191,8 +191,8 @@ func lose() -> void:
 	
 	explosion.emitting = true
 	
-	ManagerGame.dead_boss.emit()
-	ManagerGame.area_camera_inclusive = null
+	Game.dead_boss.emit()
+	Game.area_camera_inclusive = null
 	area.success = true
 	
 	sprite.reparent(get_parent())

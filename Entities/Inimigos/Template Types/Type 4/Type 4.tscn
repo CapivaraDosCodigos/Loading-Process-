@@ -1,0 +1,63 @@
+[gd_scene format=3 uid="uid://w8f00sbomfmc"]
+
+[ext_resource type="Script" uid="uid://dmady44ckodec" path="res://Entities/Inimigos/Template Types/Type 4/Type 4.gd" id="1_ok7wj"]
+[ext_resource type="PackedScene" uid="uid://dfcww07k3b188" path="res://Objetos/Areas/hitbox.tscn" id="2_g8icl"]
+[ext_resource type="Texture2D" uid="uid://k36jmq845w0r" path="res://Textures/Template/Tilemaps/monochrome_tilemap_transparent_packed.png" id="2_snsjh"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nvmnw"]
+atlas = ExtResource("2_snsjh")
+region = Rect2(0, 304, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5ilg5"]
+atlas = ExtResource("2_snsjh")
+region = Rect2(16, 304, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_8mva7"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nvmnw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5ilg5")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ki5ow"]
+size = Vector2(10, 11)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_uo31x"]
+size = Vector2(10, 11)
+
+[node name="Type 4" type="CharacterBody2D" unique_id=2003651222 node_paths=PackedStringArray("animated", "collision", "hitbox")]
+collision_layer = 4
+collision_mask = 0
+motion_mode = 1
+script = ExtResource("1_ok7wj")
+speed = 2.5
+distortion = Vector2(1.1, 0.9)
+animated = NodePath("Animated")
+collision = NodePath("Collision")
+hitbox = NodePath("Hitbox")
+metadata/_custom_type_script = "uid://bfvb23jsccsa1"
+
+[node name="Animated" type="AnimatedSprite2D" parent="." unique_id=184162401]
+position = Vector2(0, -1)
+sprite_frames = SubResource("SpriteFrames_8mva7")
+autoplay = "default"
+frame_progress = 0.7999342
+
+[node name="Collision" type="CollisionShape2D" parent="." unique_id=1526186445]
+position = Vector2(0, 0.5)
+shape = SubResource("RectangleShape2D_ki5ow")
+
+[node name="Hitbox" parent="." unique_id=1128202378 instance=ExtResource("2_g8icl")]
+position = Vector2(0, -6)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox" unique_id=1917815569]
+position = Vector2(0, 6.5)
+shape = SubResource("RectangleShape2D_uo31x")
+debug_color = Color(0.9740793, 0, 0.43279848, 0.41960785)

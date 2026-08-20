@@ -6,7 +6,7 @@
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_4ijqm"]
 shader = ExtResource("2_y8obs")
 shader_parameter/progress = 0.0
-shader_parameter/pixel_size = 15.0
+shader_parameter/pixel_size = 48.0
 shader_parameter/xFraction_division = true
 shader_parameter/yFraction_division = true
 shader_parameter/inverted = false

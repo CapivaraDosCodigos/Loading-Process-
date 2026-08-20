@@ -1,0 +1,38 @@
+[gd_scene format=3 uid="uid://c4dtmwohc1vp6"]
+
+[ext_resource type="Script" uid="uid://bt2veg1sbdv23" path="res://Autoloads/ManagerGame.gd" id="1_0b3v6"]
+[ext_resource type="Script" uid="uid://bjfvqrr05nua2" path="res://Stages/StageMap2D.gd" id="1_oimli"]
+[ext_resource type="PackedScene" uid="uid://cmrake25tlapc" path="res://Utility/Huds/hud.tscn" id="2_4m0ny"]
+[ext_resource type="PackedScene" uid="uid://gli5foejngdy" path="res://Utility/Huds/controls_mobile.tscn" id="3_h06ed"]
+[ext_resource type="Script" uid="uid://cqapnpi4gjl5b" path="res://Utility/Huds/controls_mobile.gd" id="4_yxdtr"]
+[ext_resource type="PackedScene" uid="uid://blc6rhvbms5rr" path="res://Stages/Monochome/Part1.tscn" id="5_h06ed"]
+
+[node name="Game" type="Node" unique_id=976846905]
+script = ExtResource("1_0b3v6")
+
+[node name="GameHUD" type="CanvasLayer" parent="." unique_id=1683612246]
+layer = 10
+visible = false
+
+[node name="HUD" type="Control" parent="GameHUD" unique_id=1559610119 instance=ExtResource("2_4m0ny")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+metadata/_edit_lock_ = true
+
+[node name="Controls" type="CanvasLayer" parent="." unique_id=372594056 instance=ExtResource("3_h06ed")]
+process_mode = 3
+layer = 50
+visible = false
+script = ExtResource("4_yxdtr")
+
+[node name="Parte1" type="Node2D" parent="." unique_id=1935198871 node_paths=PackedStringArray("player", "player_father") groups=["Main"] instance=ExtResource("5_h06ed")]
+script = ExtResource("1_oimli")
+player = NodePath("TileMapLayer1/Player")
+player_father = NodePath("TileMapLayer1")
+metadata/_custom_type_script = "uid://bjfvqrr05nua2"
+metadata/_edit_lock_ = true

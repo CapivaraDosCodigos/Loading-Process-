@@ -1,20 +1,15 @@
 extends PlayerState
 
 var dash_ghost_timer: int = 0
-var dash_velocity_add: Vector2
 var dash_direction: Vector2
 
-func enter(_previous_state: String, data: Dictionary = {}) -> void:
+func enter(_previous_state: String, _data: Dictionary = {}) -> void:
 	player.animation.play(DASH)
 	
 	AudioManager.set_loop(AudioGame.PLAYER_SFX_2, false).set_pitch_random(true, 0.9, 1.1)
 	AudioManager.play(AudioGame.PLAYER_SFX_2, Player2D.audio_dash, 100.0)
 	
-	if data.has("velocity_add"):
-		dash_velocity_add = data["velocity_add"]
-	
 	player.buffer_dash.set_buffer_time()
-	player.use_skills()
 	
 	player.can_dash = false
 	player.dash_cooldown = false
@@ -31,13 +26,13 @@ func enter(_previous_state: String, data: Dictionary = {}) -> void:
 	await player.dash_timer.timeout
 	
 	if player.buffer_jump.is_interval() and player.coyote_timer > 0:
-		finished.emit(JUMP, {"velocity_add": player.velocity})
-	elif player.can_wall_slide():
-		finished.emit(WALL_SLIDE, {"velocity_add": player.velocity})
+		finished.emit(JUMP)
+	elif can_wall_slide():
+		finished.emit(WALL_SLIDE)
 	elif not player.is_on_floor():
-		finished.emit("Fall", {"velocity_add": player.velocity})
+		finished.emit(FALL)
 	else:
-		finished.emit(RUN, {"velocity_add": player.velocity})
+		finished.emit(RUN)
 
 func physics_update(_delta: float) -> void:
 	player.velocity.x = player.dash_velocity * dash_direction.x
@@ -65,7 +60,7 @@ func physics_update(_delta: float) -> void:
 		dash_ghost_timer -= 1
 	else:
 		create_ghost_sprite()
-		dash_ghost_timer = 2
+		dash_ghost_timer = 1
 
 func get_name() -> StringName:
 	return DASH

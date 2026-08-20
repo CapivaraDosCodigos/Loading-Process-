@@ -10,7 +10,7 @@ func _init(input_name: StringName = "", interval: int = 0) -> void:
 	input = input_name
 
 func update_process() -> void:
-	if buffer_time > 0:
+	if buffer_time > -1:
 		buffer_time -= 1
 	
 	if input.is_empty():
@@ -22,5 +22,5 @@ func update_process() -> void:
 func is_interval() -> bool:
 	return buffer_time > 0
 
-func set_buffer_time(value: int = 0) -> void:
+func set_buffer_time(value: int = -1) -> void:
 	buffer_time = value

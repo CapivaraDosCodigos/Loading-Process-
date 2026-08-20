@@ -18,9 +18,9 @@ func add_moeda(_body: Player2D) -> void:
 	collision.queue_free.call_deferred()
 	
 	if score_mode:
-		ManagerGame.score += 1
+		Game.score += 1
 	else:
-		ManagerGame.coins += 1
+		Game.coins += 1
 		AudioManager.set_loop(AudioGame.SFX_ITEMS, false).set_pitch_random(true, 0.95, 1.05)
 		AudioManager.play(AudioGame.SFX_ITEMS, audio, 60.0)
 	

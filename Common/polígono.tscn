@@ -1,0 +1,49 @@
+[gd_scene format=3 uid="uid://dkb83mwfhyak3"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_g7b7a"]
+viewport_path = NodePath("SubViewport")
+
+[node name="Node2D" type="Node2D" unique_id=1076990097]
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1636716659]
+position = Vector2(0, -4)
+texture = SubResource("ViewportTexture_g7b7a")
+
+[node name="SubViewport" type="SubViewport" parent="." unique_id=1177468258]
+gui_snap_controls_to_pixels = false
+size = Vector2i(32, 32)
+
+[node name="Polygon2D2" type="Polygon2D" parent="SubViewport" unique_id=444527660]
+position = Vector2(16, 16)
+scale = Vector2(0.5, 0.5)
+color = Color(0.30692267, 0.3069227, 0.30692264, 1)
+polygon = PackedVector2Array(-16.952911, 30.507732, -6.4520736, -0.7609825, 5.5104866, 0.18619156, 14.94725, 33.03353, 14.94725, 33.03353)
+
+[node name="Polygon2D4" type="Polygon2D" parent="SubViewport/Polygon2D2" unique_id=242515452]
+position = Vector2(-13.000001, -22)
+scale = Vector2(0.288, 0.288)
+color = Color(0.18880466, 0.18880457, 0.18880448, 1)
+polygon = PackedVector2Array(-8, 16, -16, 8, -16, 8, 8, -16, 8, -16, 32, 8, 24, 16, 8, 0)
+
+[node name="Polygon2D3" type="Polygon2D" parent="SubViewport/Polygon2D2" unique_id=1126820138]
+position = Vector2(8.41, -22)
+scale = Vector2(0.288, 0.288)
+color = Color(0.18880466, 0.18880457, 0.18880448, 1)
+polygon = PackedVector2Array(-8, 16, -16, 8, -16, 8, 8, -16, 8, -16, 32, 8, 24, 16, 8, 0)
+
+[node name="Polygon2D" type="Polygon2D" parent="SubViewport/Polygon2D2" unique_id=913790487]
+color = Color(0.47988766, 0.47988772, 0.47988766, 1)
+polygon = PackedVector2Array(0, -32, 0, -32, -16, 0, -16, 0, 16, 0)
+
+[node name="Polygon2D2" type="Polygon2D" parent="SubViewport/Polygon2D2/Polygon2D" unique_id=1912165359]
+position = Vector2(-2, -3)
+scale = Vector2(0.6, 0.6)
+color = Color(0.6935226, 0.69352263, 0.6935225, 1)
+polygon = PackedVector2Array(0, -32, 0, -32, -16, 0, -16, 0, 16, 0)
+
+[node name="Polygon2D3" type="Polygon2D" parent="SubViewport/Polygon2D2/Polygon2D/Polygon2D2" unique_id=1259713318]
+visible = false
+position = Vector2(-2.178, -4)
+scale = Vector2(0.33333334, 0.33333334)
+color = Color(0, 0, 0, 1)
+polygon = PackedVector2Array(0, -32, 0, -32, -16, 0, -16, 0, 16, 0)

@@ -6,4 +6,3 @@ class_name ControlsCanvasLayer
 @onready var button_jump: TouchScreenButton = %ButtonJump
 @onready var button_dash: TouchScreenButton = %ButtonDash
 @onready var button_pause: TouchScreenButton = %ButtonPause
-@onready var button_interect: TouchScreenButton = %ButtonInterect

@@ -1,8 +1,0 @@
-[gd_resource type="Resource" script_class="Game" format=3 uid="uid://knxsrbr8ysiu"]
-
-[ext_resource type="Script" uid="uid://bax3bcv8l2n14" path="res://Game/Game.gd" id="1_pveyf"]
-
-[resource]
-script = ExtResource("1_pveyf")
-levels = Array[String](["res://Stages/Mundo 1 - Grassland/Tutorial Inicial.tscn"])
-metadata/_custom_type_script = "uid://bax3bcv8l2n14"

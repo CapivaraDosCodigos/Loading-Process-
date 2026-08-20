@@ -1,0 +1,56 @@
+[gd_resource type="SpriteFrames" format=3 uid="uid://5ooebrw5acfn"]
+
+[ext_resource type="Texture2D" uid="uid://k36jmq845w0r" path="res://Textures/Template/Tilemaps/monochrome_tilemap_transparent_packed.png" id="1_ccad6"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ccad6"]
+atlas = ExtResource("1_ccad6")
+region = Rect2(96, 192, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ix2o8"]
+atlas = ExtResource("1_ccad6")
+region = Rect2(0, 192, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c7rex"]
+atlas = ExtResource("1_ccad6")
+region = Rect2(16, 192, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lct1p"]
+atlas = ExtResource("1_ccad6")
+region = Rect2(48, 192, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ua8rc"]
+atlas = ExtResource("1_ccad6")
+region = Rect2(64, 192, 16, 16)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ccad6")
+}],
+"loop": 0,
+"name": &"Hurt",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ix2o8")
+}],
+"loop": 1,
+"name": &"Idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c7rex")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lct1p")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ua8rc")
+}],
+"loop": 1,
+"name": &"Walking",
+"speed": 5.0
+}]

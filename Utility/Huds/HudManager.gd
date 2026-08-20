@@ -6,13 +6,12 @@ extends MarginContainer
 @onready var fps_label: Label = %FPSLabel
 
 func _ready() -> void:
-	coin_label.text = str("%04d" % ManagerGame.coins)
-	score_bar.value = ManagerGame.score
-	counter_life_bar.value = ManagerGame.player_life
+	coin_label.text = str("%04d" % Game.coins)
+	score_bar.value = Game.score
+	counter_life_bar.value = Game.player_life
 
 func _process(_delta: float) -> void:
 	fps_label.text = "FPS: %d" % Engine.get_frames_per_second()
-	coin_label.text = str("%04d" % ManagerGame.coins)
-	counter_life_bar.value = ManagerGame.player_life
-	score_bar.value = ManagerGame.score
-	#counter_life_bar.use_parent_material = 0.75 < (counter_life_bar.value / counter_life_bar.max_value)
+	coin_label.text = str("%04d" % Game.coins)
+	counter_life_bar.value = Game.player_life
+	score_bar.value = Game.score

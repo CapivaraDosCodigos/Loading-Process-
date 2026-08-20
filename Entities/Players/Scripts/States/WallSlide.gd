@@ -15,13 +15,13 @@ func physics_update(delta: float) -> void:
 	wall_direction = -1.0 if player.ray_right.is_colliding() else 1.0
 	
 	if handle_jump():
-		finished.emit("WallJump", {"wall_direction": wall_direction})
+		finished.emit(WALL_JUMP, {"wall_direction": wall_direction})
 		return
 	
 	elif handle_dash():
 		return
 	
-	elif not player.can_wall_slide():
+	elif not can_wall_slide():
 		if player.is_on_floor():
 			if is_equal_approx(player.velocity.x, 0.0):
 				finished.emit(IDLE)

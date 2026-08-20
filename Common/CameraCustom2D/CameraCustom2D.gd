@@ -1,11 +1,6 @@
 class_name CameraCustom2D extends Camera2D
 
-@export var lookahead_strength: float = 100.0
-@export var lookahead_speed: float = 2.0
-@export var lookahead_min_speed: float = 10.0
-
 @export var smoothing_speed: float = 5.0
-@export var smoothing_snap_threshold: float = 2.0
 
 @export var zoom_speed: float = 3.0
 @export var offset_above_player: Vector2 = Vector2(0.0, -100)
@@ -20,9 +15,6 @@ var previous_area: CameraArea2D
 var transitioning: bool = false
 var transition_tween: Tween
 
-var velocity_smooth: Vector2 = Vector2.ZERO
-var lookahead_target: Vector2 = Vector2.ZERO
-var lookahead_current: Vector2 = Vector2.ZERO
 var peek_tween: Tween = null
 
 var base_offset: Vector2 = Vector2.ZERO
@@ -32,19 +24,18 @@ var shake_offset: Vector2 = Vector2.ZERO
 func _ready() -> void:
 	all_areas.assign(get_tree().get_nodes_in_group("camera_area"))
 	base_offset = offset
-	ManagerGame.camera = self
-	ManagerGame.shake_camera.connect(shake)
-	ManagerGame.dead_player.connect(reset_current_area)
+	
+	Game.camera = self
 	
 	load_objetos()
 
 func _physics_process(delta: float) -> void:
 	offset = base_offset + peek_offset + shake_offset
 	
-	if not ManagerGame.player or all_areas.is_empty():
+	if not Game.player or all_areas.is_empty():
 		return
 	
-	player = ManagerGame.player
+	player = Game.player
 	
 	_find_current_area()
 	
@@ -54,38 +45,30 @@ func _physics_process(delta: float) -> void:
 	_update_camera_position(bound_position, delta)
 	_update_zoom(delta)
 
-func _get_lookahead(delta: float) -> Vector2:
-	var w: float = clamp(lookahead_speed * delta, 0.0, 1.0)
-	velocity_smooth = velocity_smooth.lerp(player.velocity, w)
+func _get_zoom_area() -> Vector2:
+	if not current_area:
+		return zoom
+	
+	return current_area.zoom_level * Vector2.ONE
 
-	if velocity_smooth.length() > lookahead_min_speed:
-		lookahead_target = velocity_smooth.normalized() * lookahead_strength
-	lookahead_current = lookahead_current.lerp(lookahead_target, w)
-
-	return lookahead_current
-
-func _get_desired_position(delta: float) -> Vector2:
-	return player.global_position + offset_above_player + _get_lookahead(delta)
+func _get_desired_position(_delta: float) -> Vector2:
+	return player.global_position + offset_above_player
 
 func _update_camera_position(target_position: Vector2, delta: float) -> void:
 	if transitioning:
 		return
-
-	if global_position.distance_to(target_position) < smoothing_snap_threshold:
-		global_position = target_position
-	else:
-		global_position = global_position.lerp(target_position, clamp(smoothing_speed * delta, 0.0, 1.0))
+	
+	global_position = global_position.lerp(target_position, clamp(smoothing_speed * delta, 0.0, 1.0))
 
 func _update_zoom(delta: float) -> void:
 	if not current_area or transitioning:
 		return
 	
-	var target_zoom: float = current_area.zoom_level
-	zoom = zoom.lerp(Vector2.ONE * target_zoom, zoom_speed * delta) # Aqui pode ter problema 
+	zoom = zoom.lerp(_get_zoom_area(), zoom_speed * delta) # Aqui pode ter problema 
 
 func _find_current_area() -> void:
-	if ManagerGame.area_camera_inclusive:
-		current_area = ManagerGame.area_camera_inclusive
+	if Game.area_camera_inclusive:
+		current_area = Game.area_camera_inclusive
 		return
 	
 	var player_pos: Vector2 = player.global_position
@@ -97,7 +80,9 @@ func _find_current_area() -> void:
 		if area.contains_point(player_pos):
 			if area != current_area:
 				_enter_area(area)
-			break
+			return
+	
+	Game.current.player_out_screen.emit()
 
 func _enter_area(next: CameraArea2D) -> void:
 	if transitioning and previous_area:
@@ -110,9 +95,8 @@ func _enter_area(next: CameraArea2D) -> void:
 	if not previous_area:
 		return
 
-	var desired: Vector2 = player.global_position + offset_above_player + lookahead_current
+	var desired: Vector2 = player.global_position + offset_above_player
 	var new_bound_pos: Vector2 = current_area.get_bound_position(desired)
-	var zoom_target: Vector2 = Vector2.ONE * current_area.zoom_level
 
 	if transition_tween:
 		transition_tween.kill()
@@ -122,27 +106,24 @@ func _enter_area(next: CameraArea2D) -> void:
 	transition_tween = create_tween()
 	transition_tween.set_trans(current_area.enter_trans).set_ease(current_area.enter_ease)
 	transition_tween.tween_property(self, "global_position", new_bound_pos, current_area.enter_duration)
-	transition_tween.parallel().tween_property(self, "zoom", zoom_target, current_area.enter_duration)
+	transition_tween.parallel().tween_property(self, "zoom", _get_zoom_area(), current_area.enter_duration)
 	transition_tween.finished.connect(_on_transition_finished.bind(previous_area))
 
 func _on_transition_finished(area_left: CameraArea2D) -> void:
 	transitioning = false
 	player.process_mode = Node.PROCESS_MODE_INHERIT
 	_try_despawn_area(area_left)
-	print("&-")
 
 func _try_despawn_area(area: CameraArea2D) -> void:
 	if area and not area.auto_restart and not area.has_spawned:
 		area.despawn()
 
 func instant_snap() -> void:
-	if not player:
+	if not Game.player:
 		return
+		
+	player = Game.player
 	
-	velocity_smooth = Vector2.ZERO
-	lookahead_target = Vector2.ZERO
-	lookahead_current = Vector2.ZERO
-
 	for area in all_areas:
 		if area.contains_point(player.global_position):
 			current_area = area

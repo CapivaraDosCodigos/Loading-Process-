@@ -1,0 +1,14 @@
+[gd_resource type="ShaderMaterial" format=3 uid="uid://hae2npfc4q87"]
+
+[ext_resource type="Shader" uid="uid://b5sd7mdjusmhu" path="res://Shaders/Deltarune.gdshader" id="1_jh3h5"]
+
+[resource]
+shader = ExtResource("1_jh3h5")
+shader_parameter/horizontal_oscillation = 0.01
+shader_parameter/vertical_oscillation = 0.01
+shader_parameter/scanline_wave_frequency = 40.0
+shader_parameter/scanline_wave_speed = 2.0
+shader_parameter/alternate_direction = true
+shader_parameter/viewport_size = Vector2(0, 0)
+shader_parameter/hue_shift_speed = 0.5
+shader_parameter/hue_strength = 1.0

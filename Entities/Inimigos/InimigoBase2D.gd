@@ -4,7 +4,7 @@ class_name Enemy2D
 
 const HURT = "Hurt"
 
-enum TypeAnimation { Sprite, AnimatedSprite }
+enum TypeAnimation { Sprite, AnimatedSprite, None }
 
 var direction: Vector2 = Vector2.LEFT:
 	set(value):
@@ -16,21 +16,51 @@ var health_point: int = 1:
 		health_point = max(0, value)
 
 @export var health_point_base: int = 1
-@export var speed: float = 20.0
-@export var size: Vector2 = Vector2(16.0, 16.0)
+@export_custom(PROPERTY_HINT_NONE, "suffix:px/s") var speed: float = 20.0
+@export_custom(PROPERTY_HINT_NONE, "suffix:px") var size: Vector2 = Vector2(16.0, 16.0)
 
 @export_group("Distortion")
-@export var distortion_position: float = 1.6
-@export var distortion: Vector2 = Vector2(1.2, 0.8)
+@export_custom(PROPERTY_HINT_NONE, "suffix:px") var distortion_position: float = 1.6
+@export_custom(PROPERTY_HINT_NONE, "suffix:px") var distortion: Vector2 = Vector2(1.2, 0.8)
 
 @export_group("Animation")
 @export var animation_type: TypeAnimation = TypeAnimation.AnimatedSprite:
 	set(value):
 		animation_type = value
 		notify_property_list_changed()
-@export var animated: AnimatedSprite2D
-@export var sprite: Sprite2D
-@export var animation_player: AnimationPlayer
+@export var animated: AnimatedSprite2D:
+	get():
+		if animation_type != TypeAnimation.AnimatedSprite or animated:
+			return animated
+		
+		for node in get_children():
+			if node is AnimatedSprite2D:
+				animated = node
+				break
+		
+		return animated
+@export var sprite: Sprite2D:
+	get():
+		if animation_type != TypeAnimation.Sprite or sprite:
+			return sprite
+		
+		for node in get_children():
+			if node is Sprite2D:
+				sprite = node
+				break
+		
+		return sprite
+@export var animation_player: AnimationPlayer:
+	get():
+		if animation_type != TypeAnimation.Sprite or animation_player:
+			return animation_player
+		
+		for node in get_children():
+			if node is AnimationPlayer:
+				animation_player = node
+				break
+		
+		return animation_player
 
 @export_group("Nodes")
 @export var collision: CollisionShape2D
@@ -60,6 +90,20 @@ func _validate_property(property: Dictionary) -> void:
 		if animation_type != TypeAnimation.Sprite:
 			property.usage = PROPERTY_USAGE_NO_EDITOR
 
+func _get_configuration_warnings() -> PackedStringArray:
+	var warnings: PackedStringArray = []
+	
+	if !animated and animation_type == TypeAnimation.AnimatedSprite:
+		warnings.append("Considere adicionar um AnimatedSprite2D ao nó")
+	
+	if !animation_player and animation_type == TypeAnimation.Sprite:
+		warnings.append("Considere adicionar um AnimationPlayer ao nó")
+	
+	if !sprite and animation_type == TypeAnimation.Sprite:
+		warnings.append("Considere adicionar um Sprite ao nó")
+	
+	return warnings
+
 func _gravity(delta: float) -> void:
 	if not is_on_floor():
 		velocity += get_gravity() * delta
@@ -67,13 +111,16 @@ func _gravity(delta: float) -> void:
 func _apply_movement() -> void:
 	pass
 
-func _apply_flip() -> void:
+func _apply_flips() -> void:
 	pass
 
-func _apply_effects() -> void:
+func _apply_hurt_effects() -> void:
 	var knockback_tween: Tween = create_tween()
 	
+	play(HURT)
+	
 	var target2D: Node2D
+	
 	if animated:
 		target2D = animated
 	elif sprite:
@@ -135,13 +182,12 @@ func take_damage(player: Player2D = null) -> void:
 	if player:
 		var time_size: float = (size.x + 4.0) / player.dash_velocity
 		player.dash_timer.time_left = max(time_size, player.dash_timer.time_left)
-		
+	
 	velocity = Vector2.ZERO
 	is_hurtet = true
 	health_point -= 1
 	
-	_apply_effects()
-	play(HURT)
+	_apply_hurt_effects()
 
 func apply_stun(duration: float = 0.30) -> void:
 	is_stun = true

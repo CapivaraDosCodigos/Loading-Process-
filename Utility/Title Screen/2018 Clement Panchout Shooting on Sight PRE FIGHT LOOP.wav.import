@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://cy88jyy2dca36"
+path="res://.godot/imported/2018 Clement Panchout Shooting on Sight PRE FIGHT LOOP.wav-39f500926b17ff4bc39e0321ede18bc6.sample"
+
+[deps]
+
+source_file="res://Utility/Title Screen/2018 Clement Panchout Shooting on Sight PRE FIGHT LOOP.wav"
+dest_files=["res://.godot/imported/2018 Clement Panchout Shooting on Sight PRE FIGHT LOOP.wav-39f500926b17ff4bc39e0321ede18bc6.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

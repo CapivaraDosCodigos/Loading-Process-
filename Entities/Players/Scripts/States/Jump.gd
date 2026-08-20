@@ -1,13 +1,10 @@
 extends PlayerState
 
-var dash_velocity_add: Vector2
-var pre_jump: bool = false
+var is_pre_jump: bool = false
+var direction_input: float
 
-func enter(_previous_state: String, data: Dictionary = {}) -> void:
-	if data.has("velocity_add"):
-		dash_velocity_add = data["velocity_add"]
-	
-	pre_jump = true
+func enter(_previous_state: String, _data: Dictionary = {}) -> void:
+	is_pre_jump = true
 	player.animation.play(PRE_JUMP)
 	
 	await player.animation.animation_finished
@@ -18,18 +15,19 @@ func enter(_previous_state: String, data: Dictionary = {}) -> void:
 	AudioManager.play(AudioGame.PLAYER_SFX_1, Player2D.audio_jump, 40.0)
 	
 	player.velocity.y = -player.jump_velocity
+	
 	player.coyote_timer = 0
 	player.buffer_jump.set_buffer_time()
 	
 	await player.animation.animation_finished
 	
-	pre_jump = false
+	is_pre_jump = false
 
 func physics_update(delta: float) -> void:
-	if pre_jump:
+	if is_pre_jump:
 		return
 	
-	handle_movement()
+	handle_movement(delta)
 	
 	apply_gravity(delta)
 	
@@ -50,27 +48,19 @@ func physics_update(delta: float) -> void:
 	elif handle_dash():
 		return
 	
-	elif player.can_wall_slide():
+	elif can_wall_slide():
 		finished.emit(WALL_SLIDE)
 
-func handle_movement() -> void:
-	var direction_input: float = Inputs.get_input().x
+func handle_movement(delta: float) -> void:
+	direction_input = Inputs.get_input().x
+	player.direction = direction_input
 	
-	var velocity_add: Vector2 = Vector2.ZERO
+	if player.velocity.abs().x > player.speed:
+		if player.velocity.sign().x != direction_input:
+			player.velocity.x = lerp(player.velocity.x, direction_input * player.speed, delta)
+		return
 	
-	if MathGame.desnormalized(dash_velocity_add).x == direction_input:
-		velocity_add.x = dash_velocity_add.abs().x
-		
-	dash_velocity_add = dash_velocity_add.lerp(Vector2.ZERO, player.AIR_FRICTION / 10.0)
-	
-	if not player.is_on_floor() and dash_velocity_add == Vector2.ZERO:
-		player.velocity.x = 0.0
-	
-	if direction_input != 0.0:
-		player.direction = direction_input
-		player.velocity.x = player.direction * max(player.speed, velocity_add.x)
-	else:
-		player.velocity.x = move_toward(player.velocity.x, 0.0, player.speed)
+	player.velocity.x = direction_input * player.speed
 
 func get_name() -> StringName:
 	return JUMP
@@ -82,7 +72,10 @@ func handle_dash()-> bool:
 	return false
 
 func apply_gravity(delta: float) -> void:
-	if player.velocity.y > 0 or !Input.is_action_pressed("ui_accept"):
-		player.velocity.y += player.fall_gravity * delta
-	else:
-		player.velocity.y += player.gravity * delta
+	player.velocity.y += player.gravity * delta
+	
+	var not_pressed: = not Input.is_action_pressed("ui_accept")
+	var just_released: = Input.is_action_just_released("ui_accept")
+	
+	if (not_pressed or just_released) and player.velocity.y < -player.jump_velocity / 2.0:
+		player.velocity.y = -player.jump_velocity / 2.0

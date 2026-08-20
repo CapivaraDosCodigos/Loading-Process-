@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="PackedEnemy" format=3 uid="uid://csagvtnqi0fr5"]
+
+[ext_resource type="PackedScene" uid="uid://d0dmr5qyqb6oe" path="res://Entities/Inimigos/Template Types/Type 6/Inseto6.tscn" id="1_fdrpw"]
+[ext_resource type="Texture2D" uid="uid://cqx2iuyfluj" path="res://Textures/Template/Tilemaps/sprite_icon.tres" id="2_fdrpw"]
+[ext_resource type="Script" uid="uid://dt2yq4d45uckq" path="res://Entities/Spawner/PackedInimigo.gd" id="3_ym5gi"]
+
+[resource]
+script = ExtResource("3_ym5gi")
+packed_scene = ExtResource("1_fdrpw")
+preview_texture = ExtResource("2_fdrpw")
+metadata/_custom_type_script = "uid://dt2yq4d45uckq"
